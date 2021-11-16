@@ -1,7 +1,12 @@
-# Awesome Project Build with TypeORM
+# Reddit Clone
 
-Steps to run this project:
+## Description
+A GraphQL based web application meant to be an immitation of Reddit.
 
-1. Run `npm i` command
-2. Setup database settings inside `ormconfig.json` file
-3. Run `npm start` command
+## Getting Started
+
+## Authors
+- Matt Maloney : matttm
+- 
+## Contribute
+If you want to contribute, just send me a message.
