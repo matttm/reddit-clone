@@ -1,5 +1,7 @@
 # Reddit Clone
 
+Development Status: 🟢 Active
+
 ## Description
 A GraphQL based web application meant to be an immitation of Reddit.
 
@@ -7,6 +9,6 @@ A GraphQL based web application meant to be an immitation of Reddit.
 
 ## Authors
 - Matt Maloney : matttm
-- 
+
 ## Contribute
 If you want to contribute, just send me a message.
