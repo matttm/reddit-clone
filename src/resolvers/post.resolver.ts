@@ -1,6 +1,7 @@
 import { Arg, Ctx, Int, Mutation, Query, Resolver } from 'type-graphql';
 import { Post } from '../entities/post';
 import { Context } from '../types';
+import { DeleteResult } from 'typeorm';
 
 @Resolver()
 export class PostResolver {
@@ -27,5 +28,31 @@ export class PostResolver {
                 title: title
             })
         );
+    }
+    @Mutation(() => Post)
+    async updatePost(
+        @Arg('id') id: number,
+        @Arg('title') title: string,
+        @Ctx() { postRepository }: Context
+    ): Promise<Post> {
+        const ret = await postRepository.update(
+            {
+                id: id
+            },
+            {
+                title: title
+            }
+        );
+        return ret.raw;
+    }
+    @Mutation(() => Int)
+    async deletePost(
+        @Arg('id') id: number,
+        @Ctx() { postRepository }: Context
+    ): Promise<number | null | undefined> {
+        const ret = await postRepository.delete({
+            id: id
+        });
+        return ret.affected;
     }
 }
