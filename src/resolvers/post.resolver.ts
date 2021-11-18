@@ -1,4 +1,4 @@
-import { Arg, Ctx, Int, Query, Resolver } from 'type-graphql';
+import { Arg, Ctx, Int, Mutation, Query, Resolver } from 'type-graphql';
 import { Post } from '../entities/post';
 import { Context } from '../types';
 
@@ -16,5 +16,16 @@ export class PostResolver {
         return postRepository.findOne({
             where: { id }
         });
+    }
+    @Mutation(() => Post)
+    createPost(
+        @Arg('title') title: string,
+        @Ctx() { postRepository }: Context
+    ): Promise<Post> {
+        return postRepository.save(
+            postRepository.create({
+                title: title
+            })
+        );
     }
 }
