@@ -1,7 +1,6 @@
 import { Arg, Ctx, Int, Mutation, Query, Resolver } from 'type-graphql';
 import { Post } from '../entities/post';
 import { Context } from '../types';
-import { DeleteResult } from 'typeorm';
 
 @Resolver()
 export class PostResolver {
