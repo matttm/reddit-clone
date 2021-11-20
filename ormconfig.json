@@ -1,24 +1,13 @@
 {
-   "type": "mysql",
-   "host": "localhost",
-   "port": 3306,
-   "username": "root",
-   "password": "root",
-   "database": "mysql",
-   "synchronize": true,
-   "logging": false,
-   "entities": [
-      "dist/entities/**/*.js"
-   ],
-   "migrations": [
-      "dist/migrations/**/*.js"
-   ],
-   "subscribers": [
-      "dist/subscribers/**/*.js"
-   ],
-   "cli": {
-      "entitiesDir": "dist/entities",
-      "migrationsDir": "dist/migrations",
-      "subscribersDir": "dist/subscribers"
-   }
+    "type": "mysql",
+    "host": "localhost",
+    "port": 3306,
+    "username": "root",
+    "password": "root",
+    "database": "mysql",
+    "synchronize": false,
+    "logging": false,
+    "entities": ["dist/entities/**/*.js"],
+    "migrations": ["dist/migrations/**/*.js"],
+    "subscribers": ["dist/subscribers/**/*.js"]
 }
