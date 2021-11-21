@@ -8,12 +8,13 @@ import { PostResolver } from './resolvers/post.resolver';
 import { v4 as uuid } from 'uuid';
 import { Post } from './entities/post';
 import { User } from './entities/user';
+import { UserResolver } from './resolvers/user.resolver';
 
 createConnection()
     .then(async connection => {
         const server = new ApolloServer({
             schema: await buildSchema({
-                resolvers: [HelloResolver, PostResolver],
+                resolvers: [HelloResolver, PostResolver, UserResolver],
                 validate: false
             }),
             context: () => ({

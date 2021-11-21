@@ -33,6 +33,7 @@
     },
     "dependencies": {
         "apollo-server-express": "^2.16.1",
+        "argon2": "^0.28.2",
         "express": "^4.17.1",
         "graphql": "^15.6.1",
         "mysql2": "^2.3.2",
