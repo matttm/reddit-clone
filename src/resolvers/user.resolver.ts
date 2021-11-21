@@ -45,7 +45,7 @@ export class UserResolver {
     @Mutation(() => User, { nullable: true })
     async login(
         @Arg('credentials') credentials: Credentials,
-        @Ctx() { userRepository }: Context
+        @Ctx() { userRepository, req }: Context
     ): Promise<User | null> {
         const { username, password } = credentials;
         const user = await userRepository.findOne({
@@ -62,6 +62,8 @@ export class UserResolver {
             );
             return null;
         }
+        // @ts-ignore
+        req.session.userId = user.id;
         console.log(
             `User ${username} provided the correct password: ${matches}`
         );
