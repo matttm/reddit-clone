@@ -1,12 +1,15 @@
-version: '3.7'
-services: 
-  database:
-    container_name: reddit-clone
-    image: mysql
-    volumes:
-      - "./data:/var/lib/mysql"
+redis:
+    container_name: redis
     restart: always
+    image: redis:6
     ports:
-      - 3306:3306
+        - 6179:6179
     environment:
-      MYSQL_ROOT_PASSWORD: root
+        - .
+db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    ports: 3306:3306
+    restart: always
+    environment:
+        MYSQL_ROOT_PASSWORD: root
