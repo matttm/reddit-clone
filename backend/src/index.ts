@@ -16,9 +16,7 @@ import redis from 'redis';
 import ConnectRedis from 'connect-redis';
 
 const RedisStore = ConnectRedis(session);
-const redisClient = redis.createClient({
-    url: 'redis://redis:6379'
-});
+const redisClient = redis.createClient();
 
 createConnection()
     .then(async connection => {

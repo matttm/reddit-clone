@@ -1,10 +1,14 @@
-import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn} from "typeorm";
-import {ObjectType, Field} from "type-graphql";
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    PrimaryGeneratedColumn
+} from 'typeorm';
+import { ObjectType, Field } from 'type-graphql';
 
 @ObjectType()
 @Entity()
 export class Post {
-
     @Field()
     @PrimaryGeneratedColumn()
     id: number;
