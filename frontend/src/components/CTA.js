@@ -1,4 +1,4 @@
-import { Link as ChakraLink, Button } from '@chakra-ui/react';
+import { Link as ChakraLink, Button } from '@chakra-ui/core';
 
 import { Container } from './Container';
 

@@ -1,4 +1,4 @@
-import { Flex, Heading } from '@chakra-ui/react';
+import { Flex, Heading } from '@chakra-ui/core';
 
 export const Hero = ({ title }) => (
     <Flex justifyContent="center" alignItems="center" height="100vh">

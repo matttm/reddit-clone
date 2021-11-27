@@ -1,4 +1,4 @@
-import { useColorMode, Switch } from '@chakra-ui/react';
+import { useColorMode, Switch } from '@chakra-ui/core';
 
 export const DarkModeSwitch = () => {
     const { colorMode, toggleColorMode } = useColorMode();

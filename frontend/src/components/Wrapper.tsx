@@ -11,7 +11,7 @@ export const Wrapper: React.FC<wrapperProps> = ({
     variant = VariantsEnum.regular.description
 }) => {
     return (
-        <Box mt={8} mx="auto" maxW={VariantsEnum[variant].size} w="100%">
+        <Box mt={5} mx="auto" maxW={VariantsEnum[variant].size} w="100%">
             {children}
         </Box>
     );
