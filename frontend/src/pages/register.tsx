@@ -5,26 +5,27 @@ import { VariantsEnum } from '../types';
 import { InputField } from '../components/InpurField';
 import { Button } from '@chakra-ui/core';
 import { useMutation } from 'urql';
+import { useRegisterMutation } from '../generated/graphql';
+import { setErrors } from '@graphql-tools/utils';
+import { GraphQLError } from 'graphql';
 
 interface registerProps {}
 
-const REGISTER_MUTATION = `
-mutation Register($username: String!, $password: String!) {
-  register(credentials: { username: $username, password: $password }) {
-    id
-    username
-    createdAt
-  }
-}`;
-
 export const Register: React.FC<registerProps> = ({}) => {
-    const [, register] = useMutation(REGISTER_MUTATION);
+    const [register] = useRegisterMutation();
     return (
         <Wrapper variant={VariantsEnum.regular.description}>
             <Formik
                 initialValues={{ username: '', password: '' }}
-                onSubmit={(values, actions) => {
-                    return register(values);
+                onSubmit={async (values, actions) => {
+                    // @ts-ignore
+                    const res = await register(values);
+                    // @ts-ignore
+                    if (res?.errors?.length > 0) {
+                        setErrors('', [
+                            new GraphQLError('Unusable name or password')
+                        ]);
+                    }
                 }}>
                 {({ isSubmitting }) => (
                     <Form>
@@ -39,6 +40,7 @@ export const Register: React.FC<registerProps> = ({}) => {
                             label="Password"
                         />
                         <Button
+                            marginTop={8}
                             type="submit"
                             isLoading={isSubmitting}
                             variantColor="green">
