@@ -8,7 +8,7 @@ interface wrapperProps {
 
 export const Wrapper: React.FC<wrapperProps> = ({
     children,
-    variant = VariantsEnum.regular.description
+    variant = VariantsEnum.small.description
 }) => {
     return (
         <Box mt={5} mx="auto" maxW={VariantsEnum[variant].size} w="100%">
