@@ -9,11 +9,13 @@ import { v4 as uuid } from 'uuid';
 import { Post } from './entities/post';
 import { User } from './entities/user';
 import { UserResolver } from './resolvers/user.resolver';
+import cors from 'cors';
 
 import session from 'express-session';
 import redis from 'redis';
 
 import ConnectRedis from 'connect-redis';
+import * as process from 'process';
 
 const RedisStore = ConnectRedis(session);
 const redisClient = redis.createClient();
@@ -21,10 +23,17 @@ const redisClient = redis.createClient();
 createConnection()
     .then(async connection => {
         const isProduction = process.env.NODE_ENV === 'PRODUCTION';
+        const port = process.env.PORT || 3001;
         const cookieAge: number =
             (process.env.COOKIE_MAX_AGE as unknown as number) ||
             1000 * 60 * 60 * 24;
         const app = express();
+        app.use(
+            cors({
+                origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+                credentials: true
+            })
+        );
         app.use(
             session({
                 store: new RedisStore({
@@ -57,8 +66,11 @@ createConnection()
                 userRepository: connection.getRepository(User)
             })
         });
-        server.applyMiddleware({ app });
+        server.applyMiddleware({
+            app,
+            cors: false
+        });
 
-        app.listen(3000, () => console.log('Listening at 3000'));
+        app.listen(port, () => console.log(`Listening on port ${port}`));
     })
     .catch(error => console.log(error));
