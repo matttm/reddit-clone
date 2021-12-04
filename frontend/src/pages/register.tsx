@@ -5,6 +5,7 @@ import { VariantsEnum } from '../types';
 import { InputField } from '../components/InpurField';
 import { Button } from '@chakra-ui/core';
 import { useRegisterMutation } from '../generated/graphql';
+import * as Yup from 'yup';
 
 interface registerProps {}
 
@@ -15,16 +16,25 @@ export const Register: React.FC<registerProps> = ({}) => {
         <Wrapper variant={VariantsEnum.regular.description}>
             <Formik
                 initialValues={{ username: '', password: '' }}
+                validationSchema={Yup.object().shape({
+                    username: Yup.string()
+                        .min(3, 'Must be more than 2 characters')
+                        .required('Required'),
+                    password: Yup.string()
+                        .min(8, 'Must be more than 8 characters')
+                        .required('Required')
+                })}
                 onSubmit={async (values, { setErrors }) => {
-                    // @ts-ignore
                     const res = await register(values);
-                    // @ts-ignore
-                    // if (res?.errors?.length > 0 || res?.status >= 400) {
-                    //     const m: FormikErrors<string> = {};
-                    //     m['username'] = 'Unusable name or password';
-                    //     m['password'] = 'Unusable name or password';
-                    //     setErrors(m);
-                    // }
+                    if (!res?.data?.register) {
+                        const m = {};
+                        // @ts-ignore
+                        m['username'] = 'Username is taken';
+                        // @ts-ignore
+                        // m['password'] = 'Unusable name or password';
+                        setErrors(m);
+                    }
+                    return res;
                 }}>
                 {({ isSubmitting }) => (
                     <Form>
