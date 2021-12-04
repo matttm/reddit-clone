@@ -1,31 +1,30 @@
 import React from 'react';
-import { Formik, Form } from 'formik';
+import { Formik, Form, FormikErrors } from 'formik';
 import Wrapper from '../components/Wrapper';
 import { VariantsEnum } from '../types';
 import { InputField } from '../components/InpurField';
 import { Button } from '@chakra-ui/core';
-import { useMutation } from 'urql';
 import { useRegisterMutation } from '../generated/graphql';
-import { setErrors } from '@graphql-tools/utils';
-import { GraphQLError } from 'graphql';
 
 interface registerProps {}
 
 export const Register: React.FC<registerProps> = ({}) => {
-    const [register] = useRegisterMutation();
+    const [, register] = useRegisterMutation();
+    console.log(useRegisterMutation());
     return (
         <Wrapper variant={VariantsEnum.regular.description}>
             <Formik
                 initialValues={{ username: '', password: '' }}
-                onSubmit={async (values, actions) => {
+                onSubmit={async (values, { setErrors }) => {
                     // @ts-ignore
                     const res = await register(values);
                     // @ts-ignore
-                    if (res?.errors?.length > 0) {
-                        setErrors('', [
-                            new GraphQLError('Unusable name or password')
-                        ]);
-                    }
+                    // if (res?.errors?.length > 0 || res?.status >= 400) {
+                    //     const m: FormikErrors<string> = {};
+                    //     m['username'] = 'Unusable name or password';
+                    //     m['password'] = 'Unusable name or password';
+                    //     setErrors(m);
+                    // }
                 }}>
                 {({ isSubmitting }) => (
                     <Form>

@@ -1,10 +1,10 @@
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import gql from 'graphql-tag';
+import * as Urql from 'urql';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = {
     [K in keyof T]: T[K];
 };
-const defaultOptions = {};
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
     ID: string;
@@ -99,44 +99,9 @@ export const RegisterDocument = gql`
         }
     }
 `;
-export type RegisterMutationFn = Apollo.MutationFunction<
-    RegisterMutation,
-    RegisterMutationVariables
->;
 
-/**
- * __useRegisterMutation__
- *
- * To run a mutation, you first call `useRegisterMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useRegisterMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [registerMutation, { data, loading, error }] = useRegisterMutation({
- *   variables: {
- *      username: // value for 'username'
- *      password: // value for 'password'
- *   },
- * });
- */
-export function useRegisterMutation(
-    baseOptions?: Apollo.MutationHookOptions<
-        RegisterMutation,
-        RegisterMutationVariables
-    >
-) {
-    const options = { ...defaultOptions, ...baseOptions };
-    return Apollo.useMutation<RegisterMutation, RegisterMutationVariables>(
-        RegisterDocument,
-        options
+export function useRegisterMutation() {
+    return Urql.useMutation<RegisterMutation, RegisterMutationVariables>(
+        RegisterDocument
     );
 }
-export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
-export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
-export type RegisterMutationOptions = Apollo.BaseMutationOptions<
-    RegisterMutation,
-    RegisterMutationVariables
->;
