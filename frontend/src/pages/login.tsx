@@ -4,18 +4,17 @@ import Wrapper from '../components/Wrapper';
 import { VariantsEnum } from '../types';
 import { InputField } from '../components/InpurField';
 import { Button } from '@chakra-ui/core';
-import { useRegisterMutation } from '../generated/graphql';
+import { useLoginMutation } from '../generated/graphql';
 import * as Yup from 'yup';
 import {
     passwordValidation,
     usernameValidation
 } from '../validation/credentials.validation';
 
-interface registerProps {}
+interface loginProps {}
 
-export const Register: React.FC<registerProps> = ({}) => {
-    const [, register] = useRegisterMutation();
-    console.log(useRegisterMutation());
+export const Login: React.FC<loginProps> = ({}) => {
+    const [, login] = useLoginMutation();
     return (
         <Wrapper variant={VariantsEnum.regular.description}>
             <Formik
@@ -25,11 +24,13 @@ export const Register: React.FC<registerProps> = ({}) => {
                     ...passwordValidation
                 })}
                 onSubmit={async (values, { setErrors }) => {
-                    const res = await register(values);
-                    if (!res?.data?.register) {
+                    const res = await login(values);
+                    if (!res?.data?.login) {
                         const m = {};
                         // @ts-ignore
-                        m['username'] = 'Username is taken';
+                        m['username'] = 'Invalid username or password';
+                        // @ts-ignore
+                        m['password'] = 'Invalid username or password';
                         setErrors(m);
                     }
                     return res;
@@ -60,4 +61,4 @@ export const Register: React.FC<registerProps> = ({}) => {
     );
 };
 
-export default Register;
+export default Login;
