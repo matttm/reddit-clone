@@ -52,7 +52,7 @@ export const Login: React.FC<loginProps> = ({}) => {
                             type="submit"
                             isLoading={isSubmitting}
                             variantColor="green">
-                            Register
+                            Login
                         </Button>
                     </Form>
                 )}

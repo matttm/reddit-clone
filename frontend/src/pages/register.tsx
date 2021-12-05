@@ -10,10 +10,12 @@ import {
     passwordValidation,
     usernameValidation
 } from '../validation/credentials.validation';
+import { Router, useRouter } from 'next/router';
 
 interface registerProps {}
 
 export const Register: React.FC<registerProps> = ({}) => {
+    const router = useRouter();
     const [, register] = useRegisterMutation();
     console.log(useRegisterMutation());
     return (
@@ -32,6 +34,7 @@ export const Register: React.FC<registerProps> = ({}) => {
                         m['username'] = 'Username is taken';
                         setErrors(m);
                     }
+                    router.push('/');
                     return res;
                 }}>
                 {({ isSubmitting }) => (
