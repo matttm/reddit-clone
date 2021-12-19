@@ -3,12 +3,37 @@
 Development Status: 🟢 Active
 
 ## Description
+
 A GraphQL based web application meant to be an immitation of Reddit.
 
 ## Getting Started
 
+When running for the server for the first time, run the following commands
+
+```bash
+docker compose up
+npm run dev:init
+```
+
+This will start the docker containers that hold the databases--one for redis and one for mysql, start the server, and run the migrations.
+
+Once the server has been initialized, all subsequent uses can be done with
+
+```bash
+docker compose up
+npm run dev
+```
+
+When done the containers can be killed with
+
+```bash
+docker compose down
+```
+
 ## Authors
-- Matt Maloney : matttm
+
+-   Matt Maloney : matttm
 
 ## Contribute
+
 If you want to contribute, just send me a message.

@@ -10,7 +10,7 @@ import {
 import { hash, verify } from 'argon2';
 
 import { Context } from '../types';
-import { User } from '../entities/user';
+import { Person } from '../entities/person';
 
 @InputType()
 export class Credentials {
@@ -22,11 +22,11 @@ export class Credentials {
 
 @Resolver()
 export class UserResolver {
-    @Mutation(() => User, { nullable: true })
+    @Mutation(() => Person, { nullable: true })
     async register(
         @Arg('credentials') credentials: Credentials,
         @Ctx() { userRepository }: Context
-    ): Promise<User | null> {
+    ): Promise<Person | null> {
         const { username, password } = credentials;
         const taken = await userRepository.findOne({
             username
@@ -42,11 +42,11 @@ export class UserResolver {
         );
     }
 
-    @Mutation(() => User, { nullable: true })
+    @Mutation(() => Person, { nullable: true })
     async login(
         @Arg('credentials') credentials: Credentials,
         @Ctx() { userRepository, req }: Context
-    ): Promise<User | null> {
+    ): Promise<Person | null> {
         const { username, password } = credentials;
         const user = await userRepository.findOne({
             username
@@ -70,8 +70,8 @@ export class UserResolver {
         return user;
     }
 
-    @Query(() => [User])
-    users(@Ctx() { userRepository }: Context): Promise<User[]> {
+    @Query(() => [Person])
+    users(@Ctx() { userRepository }: Context): Promise<Person[]> {
         return userRepository.find();
     }
 }
