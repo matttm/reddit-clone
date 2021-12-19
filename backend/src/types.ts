@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
 import { Post } from './entities/post';
-import { User } from './entities/user';
+import { Person } from './entities/person';
 
 export type Context = {
     id: string;
@@ -8,5 +8,5 @@ export type Context = {
     req: Request;
     res: Response;
     postRepository: Repository<Post>;
-    userRepository: Repository<User>;
+    personRepository: Repository<Person>;
 };

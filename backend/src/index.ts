@@ -7,8 +7,8 @@ import { HelloResolver } from './resolvers/hello.resolver';
 import { PostResolver } from './resolvers/post.resolver';
 import { v4 as uuid } from 'uuid';
 import { Post } from './entities/post';
-import { User } from './entities/user';
-import { UserResolver } from './resolvers/user.resolver';
+import { Person } from './entities/person';
+import { PersonResolver } from './resolvers/personResolver';
 import cors from 'cors';
 
 import session from 'express-session';
@@ -54,7 +54,7 @@ createConnection()
         );
         const server = new ApolloServer({
             schema: await buildSchema({
-                resolvers: [HelloResolver, PostResolver, UserResolver],
+                resolvers: [HelloResolver, PostResolver, PersonResolver],
                 validate: false
             }),
             context: ({ req, res }) => ({
@@ -63,7 +63,7 @@ createConnection()
                 req,
                 res,
                 postRepository: connection.getRepository(Post),
-                userRepository: connection.getRepository(User)
+                personRepository: connection.getRepository(Person)
             })
         });
         server.applyMiddleware({
