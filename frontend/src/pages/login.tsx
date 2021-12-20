@@ -10,10 +10,12 @@ import {
     passwordValidation,
     usernameValidation
 } from '../validation/credentials.validation';
+import { useRouter } from 'next/router';
 
 interface loginProps {}
 
 export const Login: React.FC<loginProps> = ({}) => {
+    const router = useRouter();
     const [, login] = useLoginMutation();
     return (
         <Wrapper variant={VariantsEnum.regular.description}>
@@ -33,6 +35,7 @@ export const Login: React.FC<loginProps> = ({}) => {
                         m['password'] = 'Invalid username or password';
                         setErrors(m);
                     }
+                    router.push('/');
                     return res;
                 }}>
                 {({ isSubmitting }) => (

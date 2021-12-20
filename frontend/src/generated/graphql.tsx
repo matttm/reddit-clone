@@ -26,8 +26,8 @@ export type Mutation = {
     createPost: Post;
     updatePost: Post;
     deletePost: Scalars['Int'];
-    register?: Maybe<User>;
-    login?: Maybe<User>;
+    register?: Maybe<Person>;
+    login?: Maybe<Person>;
 };
 
 export type MutationCreatePostArgs = {
@@ -51,6 +51,14 @@ export type MutationLoginArgs = {
     credentials: Credentials;
 };
 
+export type Person = {
+    __typename?: 'Person';
+    id: Scalars['Float'];
+    username: Scalars['String'];
+    createdAt: Scalars['DateTime'];
+    updatedAt: Scalars['DateTime'];
+};
+
 export type Post = {
     __typename?: 'Post';
     id: Scalars['Float'];
@@ -64,19 +72,11 @@ export type Query = {
     hello: Scalars['String'];
     posts: Array<Post>;
     post: Post;
-    users: Array<User>;
+    users: Array<Person>;
 };
 
 export type QueryPostArgs = {
     id: Scalars['Int'];
-};
-
-export type User = {
-    __typename?: 'User';
-    id: Scalars['Float'];
-    username: Scalars['String'];
-    createdAt: Scalars['DateTime'];
-    updatedAt: Scalars['DateTime'];
 };
 
 export type LoginMutationVariables = Exact<{
@@ -86,7 +86,10 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = { __typename?: 'Mutation' } & {
     login?: Maybe<
-        { __typename?: 'User' } & Pick<User, 'id' | 'username' | 'createdAt'>
+        { __typename?: 'Person' } & Pick<
+            Person,
+            'id' | 'username' | 'createdAt'
+        >
     >;
 };
 
@@ -97,7 +100,10 @@ export type RegisterMutationVariables = Exact<{
 
 export type RegisterMutation = { __typename?: 'Mutation' } & {
     register?: Maybe<
-        { __typename?: 'User' } & Pick<User, 'id' | 'username' | 'createdAt'>
+        { __typename?: 'Person' } & Pick<
+            Person,
+            'id' | 'username' | 'createdAt'
+        >
     >;
 };
 
