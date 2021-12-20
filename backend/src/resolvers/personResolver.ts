@@ -71,7 +71,7 @@ export class PersonResolver {
     }
 
     @Query(() => [Person])
-    users(@Ctx() { personRepository }: Context): Promise<Person[]> {
+    persons(@Ctx() { personRepository }: Context): Promise<Person[]> {
         return personRepository.find();
     }
 }
