@@ -8,48 +8,20 @@ import { PostResolver } from './resolvers/post.resolver';
 import { v4 as uuid } from 'uuid';
 import { Post } from './entities/post';
 import { Person } from './entities/person';
-import { PersonResolver } from './resolvers/personResolver';
+import { PersonResolver } from './resolvers/person.resolver';
 import cors from 'cors';
-
-import session from 'express-session';
-import redis from 'redis';
-
-import ConnectRedis from 'connect-redis';
 import * as process from 'process';
-
-const RedisStore = ConnectRedis(session);
-const redisClient = redis.createClient();
+import { validateTokensMiddleware } from './middleware/auth.middleware';
 
 createConnection()
     .then(async connection => {
         const isProduction = process.env.NODE_ENV === 'PRODUCTION';
         const port = process.env.PORT || 3001;
-        const cookieAge: number =
-            (process.env.COOKIE_MAX_AGE as unknown as number) ||
-            1000 * 60 * 60 * 24;
         const app = express();
         app.use(
             cors({
                 origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
                 credentials: true
-            })
-        );
-        app.use(
-            session({
-                store: new RedisStore({
-                    client: redisClient,
-                    disableTouch: true
-                }),
-                name: uuid(),
-                cookie: {
-                    maxAge: cookieAge,
-                    httpOnly: true,
-                    sameSite: 'lax',
-                    secure: isProduction
-                },
-                saveUninitialized: false,
-                secret: process.env.COOKIE_SECRET || 'keyboard cat',
-                resave: false
             })
         );
         const server = new ApolloServer({
@@ -66,6 +38,7 @@ createConnection()
                 personRepository: connection.getRepository(Person)
             })
         });
+        app.use(validateTokensMiddleware);
         server.applyMiddleware({
             app,
             cors: false

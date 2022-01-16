@@ -4,13 +4,16 @@ import {
     Field,
     InputType,
     Mutation,
+    ObjectType,
     Query,
     Resolver
 } from 'type-graphql';
+
 import { hash, verify } from 'argon2';
 
 import { Context } from '../types';
 import { Person } from '../entities/person';
+import { getTokens } from '../utilities/auth.utilities';
 
 @InputType()
 export class Credentials {
@@ -20,39 +23,68 @@ export class Credentials {
     password: string;
 }
 
+@ObjectType()
+export class Tokens {
+    accessToken: string;
+    refreshToken: string;
+}
+
+@ObjectType()
+export class PersonValidationErrors {
+    errors: string[];
+}
+
+@ObjectType()
+export class PersonValidationObject {
+    person?: Person;
+    tokens?: Tokens;
+    validationErrors?: PersonValidationErrors;
+}
+
 @Resolver()
 export class PersonResolver {
-    @Mutation(() => Person, { nullable: true })
+    @Mutation(() => PersonValidationObject, { nullable: false })
     async register(
         @Arg('credentials') credentials: Credentials,
         @Ctx() { personRepository }: Context
-    ): Promise<Person | null> {
+    ): Promise<PersonValidationObject> {
         const { username, password } = credentials;
         const taken = await personRepository.findOne({
             username
         });
         if (taken) {
-            return null;
+            return {
+                validationErrors: {
+                    errors: ['Username is taken']
+                }
+            };
         }
-        return personRepository.save(
-            personRepository.create({
-                username,
-                password: await hash(password)
-            })
-        );
+        return {
+            person: await personRepository.save(
+                personRepository.create({
+                    username,
+                    password: await hash(password)
+                })
+            )
+        };
     }
 
-    @Mutation(() => Person, { nullable: true })
+    @Mutation(() => PersonValidationObject, { nullable: false })
     async login(
         @Arg('credentials') credentials: Credentials,
-        @Ctx() { personRepository, req }: Context
-    ): Promise<Person | null> {
+        @Ctx() { personRepository }: Context
+    ): Promise<PersonValidationObject> {
+        const errorObj = {
+            validationErrors: {
+                errors: ['Username or password is invalid']
+            }
+        };
         const { username, password } = credentials;
         const user = await personRepository.findOne({
             username
         });
         if (!user) {
-            return null;
+            return errorObj;
         }
         console.log(`User ${username} exists`);
         const matches = await verify(user.password, password);
@@ -60,14 +92,15 @@ export class PersonResolver {
             console.log(
                 `User ${username} provided an incorrect password: ${matches}`
             );
-            return null;
+            return errorObj;
         }
-        // @ts-ignore
-        req.session.userId = user.id;
         console.log(
             `User ${username} provided the correct password: ${matches}`
         );
-        return user;
+        return {
+            person: user,
+            tokens: getTokens(user)
+        };
     }
 
     @Query(() => [Person])
