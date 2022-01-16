@@ -21,6 +21,10 @@ export class Person {
     password: string;
 
     @Field()
+    @Column()
+    count: number;
+
+    @Field()
     @CreateDateColumn()
     createdAt: Date;
 

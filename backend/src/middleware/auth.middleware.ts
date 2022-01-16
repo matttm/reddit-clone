@@ -48,7 +48,7 @@ export async function validateTokensMiddleware(req, res, next) {
             }
         });
         // valid user and user token not invalidated
-        if (!user || user.tokenCount !== decodedRefreshToken.user.count)
+        if (!user || user.count !== decodedRefreshToken.user.count)
             return next();
         req.user = decodedRefreshToken.user;
         // refresh the tokens

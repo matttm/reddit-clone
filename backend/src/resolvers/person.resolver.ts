@@ -25,19 +25,25 @@ export class Credentials {
 
 @ObjectType()
 export class Tokens {
+    @Field()
     accessToken: string;
+    @Field()
     refreshToken: string;
 }
 
 @ObjectType()
 export class PersonValidationErrors {
+    @Field(() => [String])
     errors: string[];
 }
 
 @ObjectType()
 export class PersonValidationObject {
+    @Field()
     person?: Person;
+    @Field()
     tokens?: Tokens;
+    @Field(() => PersonValidationErrors)
     validationErrors?: PersonValidationErrors;
 }
 
