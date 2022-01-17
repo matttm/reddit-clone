@@ -20,8 +20,8 @@ export class Person {
     @Column({ unique: false })
     password: string;
 
-    @Field()
-    @Column()
+    @Field({ defaultValue: 0 })
+    @Column('int', { default: 0 })
     count: number;
 
     @Field()
