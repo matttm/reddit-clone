@@ -11,7 +11,7 @@ import { Person } from './entities/person';
 import { PersonResolver } from './resolvers/person.resolver';
 import cors from 'cors';
 import * as process from 'process';
-import { validateTokensMiddleware } from './middleware/auth.middleware';
+import cookieParser from 'cookie-parser';
 
 createConnection()
     .then(async connection => {
@@ -28,6 +28,7 @@ createConnection()
             schema: await buildSchema({
                 resolvers: [HelloResolver, PostResolver, PersonResolver],
                 validate: false
+                // globalMiddlewares: [refreshTokenMiddleware]
             }),
             context: ({ req, res }) => ({
                 id: uuid(),
@@ -38,7 +39,8 @@ createConnection()
                 personRepository: connection.getRepository(Person)
             })
         });
-        app.use(validateTokensMiddleware);
+        app.use(cookieParser());
+        // app.use(validateTokensMiddleware);
         server.applyMiddleware({
             app,
             cors: false

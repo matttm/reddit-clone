@@ -6,7 +6,8 @@ import {
     Mutation,
     ObjectType,
     Query,
-    Resolver
+    Resolver,
+    UseMiddleware
 } from 'type-graphql';
 
 import { hash, verify } from 'argon2';
@@ -14,6 +15,7 @@ import { hash, verify } from 'argon2';
 import { Context } from '../types';
 import { Person } from '../entities/person';
 import { getTokens } from '../utilities/auth.utilities';
+import { authenticationMiddleware } from '../middleware/auth.middleware';
 
 @InputType()
 export class Credentials {
@@ -39,11 +41,9 @@ export class PersonValidationErrors {
 
 @ObjectType()
 export class PersonValidationObject {
-    @Field()
+    @Field({ nullable: true })
     person?: Person;
-    @Field()
-    tokens?: Tokens;
-    @Field(() => PersonValidationErrors)
+    @Field(() => PersonValidationErrors, { nullable: true })
     validationErrors?: PersonValidationErrors;
 }
 
@@ -78,7 +78,7 @@ export class PersonResolver {
     @Mutation(() => PersonValidationObject, { nullable: false })
     async login(
         @Arg('credentials') credentials: Credentials,
-        @Ctx() { personRepository }: Context
+        @Ctx() { res, personRepository }: Context
     ): Promise<PersonValidationObject> {
         const errorObj = {
             validationErrors: {
@@ -103,13 +103,17 @@ export class PersonResolver {
         console.log(
             `User ${username} provided the correct password: ${matches}`
         );
+
+        const { accessToken, refreshToken } = getTokens(user);
+        res['cookie']('refresh-token', refreshToken);
+        res['cookie']('access-token', accessToken);
         return {
-            person: user,
-            tokens: getTokens(user)
+            person: user
         };
     }
 
     @Query(() => [Person])
+    @UseMiddleware(authenticationMiddleware)
     persons(@Ctx() { personRepository }: Context): Promise<Person[]> {
         return personRepository.find();
     }
