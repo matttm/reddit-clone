@@ -105,8 +105,8 @@ export class PersonResolver {
         );
 
         const { accessToken, refreshToken } = getTokens(user);
-        res['cookie']('refresh-token', refreshToken);
-        res['cookie']('access-token', accessToken);
+        res['cookie']('x-refresh-token', refreshToken);
+        res['cookie']('x-access-token', accessToken);
         return {
             person: user
         };

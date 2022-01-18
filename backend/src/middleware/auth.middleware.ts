@@ -69,8 +69,8 @@ export const authenticationMiddleware: MiddlewareFn<any> = async (
     next
 ) => {
     const { req } = context;
-    const refreshToken = req.headers['x-refresh-token'];
-    const accessToken = req.headers['x-access-token'];
+    const refreshToken = req.cookies['x-refresh-token'];
+    const accessToken = req.cookies['x-access-token'];
     if (!accessToken || !refreshToken) {
         return new Error('User must be authenticated');
     }
