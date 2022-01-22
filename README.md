@@ -11,7 +11,7 @@ A GraphQL based web application meant to be an immitation of Reddit.
 When running for the server for the first time, run the following commands
 
 ```bash
-docker compose up
+docker compose up &
 npm run dev:init
 ```
 
