@@ -1,14 +1,25 @@
-import { Arg, Ctx, Int, Mutation, Query, Resolver } from 'type-graphql';
+import {
+    Arg,
+    Ctx,
+    Int,
+    Mutation,
+    Query,
+    Resolver,
+    UseMiddleware
+} from 'type-graphql';
 import { Post } from '../entities/post';
 import { Context } from '../types';
+import { authorizationMiddleware } from '../middleware/auth.middleware';
 
 @Resolver()
 export class PostResolver {
     @Query(() => [Post])
+    @UseMiddleware(authorizationMiddleware)
     posts(@Ctx() { postRepository }: Context): Promise<Post[]> {
         return postRepository.find();
     }
     @Query(() => Post)
+    @UseMiddleware(authorizationMiddleware)
     post(
         @Arg('id', () => Int) id: number,
         @Ctx() { postRepository }: Context
@@ -18,6 +29,7 @@ export class PostResolver {
         });
     }
     @Mutation(() => Post)
+    @UseMiddleware(authorizationMiddleware)
     createPost(
         @Arg('title') title: string,
         @Ctx() { postRepository }: Context
@@ -29,6 +41,7 @@ export class PostResolver {
         );
     }
     @Mutation(() => Post)
+    @UseMiddleware(authorizationMiddleware)
     async updatePost(
         @Arg('id') id: number,
         @Arg('title') title: string,
@@ -45,6 +58,7 @@ export class PostResolver {
         return ret.raw;
     }
     @Mutation(() => Int)
+    @UseMiddleware(authorizationMiddleware)
     async deletePost(
         @Arg('id') id: number,
         @Ctx() { postRepository }: Context
