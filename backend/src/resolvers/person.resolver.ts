@@ -15,7 +15,7 @@ import { hash, verify } from 'argon2';
 import { Context } from '../types';
 import { Person } from '../entities/person';
 import { getTokens } from '../utilities/auth.utilities';
-import { authenticationMiddleware } from '../middleware/auth.middleware';
+import { authorizationMiddleware } from '../middleware/auth.middleware';
 
 @InputType()
 export class Credentials {
@@ -113,7 +113,7 @@ export class PersonResolver {
     }
 
     @Query(() => [Person])
-    @UseMiddleware(authenticationMiddleware)
+    @UseMiddleware(authorizationMiddleware)
     persons(@Ctx() { personRepository }: Context): Promise<Person[]> {
         return personRepository.find();
     }

@@ -65,20 +65,15 @@ export const refreshTokenMiddleware: MiddlewareFn<any> = async (
     return next();
 };
 
-export const authenticationMiddleware: MiddlewareFn<any> = async (
+export const authorizationMiddleware: MiddlewareFn<any> = async (
     { context },
     next
 ) => {
     const { req } = context;
-    const refreshToken = req.cookies['x-refresh-token'];
     const accessToken = req.cookies['x-access-token'];
-    if (!accessToken || !refreshToken) {
-        return new Error('User must be authenticated');
-    }
-
     const decodedAccessToken = validateAccessToken(accessToken);
     if (decodedAccessToken && decodedAccessToken.user) {
-        req.user = decodedAccessToken.user;
+        return next();
     }
-    return await next();
+    return new Error('User must be signed in');
 };
