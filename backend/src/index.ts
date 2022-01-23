@@ -12,6 +12,7 @@ import { PersonResolver } from './resolvers/person.resolver';
 import cors from 'cors';
 import * as process from 'process';
 import cookieParser from 'cookie-parser';
+import { refreshTokenMiddleware } from './middleware/auth.middleware';
 
 createConnection()
     .then(async connection => {
@@ -27,8 +28,8 @@ createConnection()
         const server = new ApolloServer({
             schema: await buildSchema({
                 resolvers: [HelloResolver, PostResolver, PersonResolver],
-                validate: false
-                // globalMiddlewares: [refreshTokenMiddleware]
+                validate: false,
+                globalMiddlewares: [refreshTokenMiddleware]
             }),
             context: ({ req, res }) => ({
                 id: uuid(),
@@ -40,7 +41,6 @@ createConnection()
             })
         });
         app.use(cookieParser());
-        // app.use(validateTokensMiddleware);
         server.applyMiddleware({
             app,
             cors: false
