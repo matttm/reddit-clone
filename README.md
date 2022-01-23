@@ -11,16 +11,15 @@ A GraphQL based web application meant to be an immitation of Reddit.
 When running for the server for the first time, run the following commands
 
 ```bash
-docker compose up
+docker compose up &
 npm run dev:init
 ```
 
 This will start the docker containers that hold the databases--one for redis and one for mysql, start the server, and run the migrations.
 
-Once the server has been initialized, all subsequent uses can be done with
+Once the server has been initialized, all subsequent uses can be done with (given that the same docker container is running):
 
 ```bash
-docker compose up
 npm run dev
 ```
 
