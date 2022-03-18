@@ -1,6 +1,8 @@
 # Reddit Clone
 
-Development Status: 🟢 Active
+Development Status: 🔴 Inactive
+
+Development has temporarily been suspended as of 03-17-2022
 
 ## Description
 
