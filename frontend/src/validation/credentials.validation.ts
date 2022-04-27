@@ -8,6 +8,6 @@ export const usernameValidation = {
 
 export const passwordValidation = {
     password: Yup.string()
-        .min(8, 'Must be more than 8 characters')
+        .min(4, 'Must be more than 4 characters')
         .required('Required')
 };
