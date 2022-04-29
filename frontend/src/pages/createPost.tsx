@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
 import Wrapper from '../components/Wrapper';
-import { VariantsEnum } from '../types';
+import { InputTypeEnum, VariantsEnum } from '../types';
 import { InputField } from '../components/InpurField';
 import { Button } from '@chakra-ui/core';
 import { useLoginMutation } from '../generated/graphql';
@@ -28,11 +28,13 @@ export const CreatePost: React.FC<any> = ({}) => {
                             name="title"
                             placeholder="title"
                             label="title"
+                            inputTypeString={InputTypeEnum.TEXTAREA}
                         />
                         <InputField
                             name="body"
                             placeholder="body"
                             label="body"
+                            inputTypeString={InputTypeEnum.TEXTAREA}
                         />
                         <Button
                             marginTop={8}
