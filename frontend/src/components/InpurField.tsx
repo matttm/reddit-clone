@@ -22,7 +22,7 @@ export const InputField: React.FC<InputFieldProps> = ({
     size: _,
     ...props
 }) => {
-    let InputType: React.FC<InputProps<HTMLInputElement>>;
+    let InputType: React.FC<InputProps>;
     switch (inputTypeString) {
         case InputTypeEnum.INPUT:
             InputType = Input;
@@ -31,7 +31,7 @@ export const InputField: React.FC<InputFieldProps> = ({
             InputType = Textarea;
             break;
         default:
-            console.error('Defaulting to input field');
+            console.log('Defaulting to input field');
             InputType = Input;
     }
     const [field, { error }] = useField(props);
@@ -39,7 +39,7 @@ export const InputField: React.FC<InputFieldProps> = ({
         <FormControl isInvalid={!!error}>
             <FormLabel htmlFor={field.name}>{label}</FormLabel>
             <InputType {...field} {...props} id={field.name} />
-            {error ? <FormErrorMessage>{error}</FormErrorMessage> : null}
+            {error && <FormErrorMessage>{error}</FormErrorMessage>}
         </FormControl>
     );
 };
