@@ -31,6 +31,18 @@ When done the containers can be killed with
 docker compose down
 ```
 
+## Enhancements
+
+### Migrations
+
+If you need to add a migration, the `migrations` folder must be specified
+
+From the backend folder:
+
+```bash
+npx typeorm migration:generate -n migratin-name -d src/migration
+```
+
 ## Authors
 
 -   Matt Maloney : matttm

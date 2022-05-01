@@ -18,6 +18,10 @@ export class Post {
     title: string;
 
     @Field()
+    @Column()
+    body: string;
+
+    @Field()
     @CreateDateColumn()
     createdAt: Date;
 
