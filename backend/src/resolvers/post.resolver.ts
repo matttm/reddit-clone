@@ -45,6 +45,7 @@ export class PostResolver {
     async updatePost(
         @Arg('id') id: number,
         @Arg('title') title: string,
+        @Arg('body') body: string,
         @Ctx() { postRepository }: Context
     ): Promise<Post> {
         const ret = await postRepository.update(
@@ -52,7 +53,8 @@ export class PostResolver {
                 id: id
             },
             {
-                title: title
+                title: title,
+                body: body
             }
         );
         return ret.raw;
