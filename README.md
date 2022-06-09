@@ -4,6 +4,10 @@ Development Status: 🟢 Active
 
 Development has temporarily been suspended as of 03-17-2022
 
+# Note
+
+The backend in this repository is no longer in development. It is being rewritten in Go and is in `matttm/reddit-clone-backend`.
+
 ## Description
 
 A GraphQL based web application meant to be an immitation of Reddit.
