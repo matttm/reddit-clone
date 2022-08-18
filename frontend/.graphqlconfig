@@ -4,11 +4,11 @@
   "extensions": {
     "endpoints": {
       "Default GraphQL Endpoint": {
-        "url": "http://localhost:3001/graphql",
+        "url": "http://localhost:8080/query",
         "headers": {
           "user-agent": "JS GraphQL"
         },
-        "introspect": false
+        "introspect": true
       }
     }
   }

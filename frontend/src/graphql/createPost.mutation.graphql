@@ -1,7 +1,8 @@
-mutation createPost($title: String!) {
-    createPost(title: $title) {
+mutation createPost($title: String!, $body: String!) {
+    createPost(title: $title, body: $body) {
         id
         title
+        body
         createdAt
     }
 }

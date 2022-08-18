@@ -1,4 +1,8 @@
 version: '3'
+#
+# when running `docker-compose up`
+# use `-p` flag so these ports are published
+#
 
 services:
     redis:

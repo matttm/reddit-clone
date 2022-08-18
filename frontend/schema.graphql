@@ -6,38 +6,66 @@ schema {
 }
 
 type Mutation {
-    createPost(title: String!): Post!
+    createPost(post: PostInput!): PostValidationObject!
     deletePost(id: Float!): Int!
-    login(credentials: Credentials!): User
-    register(credentials: Credentials!): User
-    updatePost(id: Float!, title: String!): Post!
+    login(credentials: Credentials!): PersonValidationObject!
+    refreshToken(input: RefreshTokenInput!): String!
+    register(credentials: Credentials!): PersonValidationObject!
+    updatePost(body: String!, id: Float!, title: String!): Post!
+}
+
+type Person {
+    createdAt: DateTime!
+    id: ID!
+    updatedAt: DateTime!
+    username: String!
+}
+
+type PersonValidationObject {
+    person: Person
+    token: String
+    validationErrors: ValidationErrors
 }
 
 type Post {
+    body: String!
     createdAt: DateTime!
-    id: Float!
+    id: ID!
+    person: Person!
     title: String!
     updatedAt: DateTime!
+    views: Int!
+}
+
+type PostValidationObject {
+    errors: ValidationErrors
+    post: Post!
 }
 
 type Query {
     hello: String!
+    persons: [Person!]!
     post(id: Int!): Post!
     posts: [Post!]!
-    users: [User!]!
 }
 
-type User {
-    createdAt: DateTime!
-    id: Float!
-    updatedAt: DateTime!
-    username: String!
+type ValidationErrors {
+    errors: [String!]!
 }
+
+"The javascript `Date` as string. Type represents date and time as the ISO Date string."
+scalar DateTime
 
 input Credentials {
     password: String!
     username: String!
 }
 
-"The javascript `Date` as string. Type represents date and time as the ISO Date string."
-scalar DateTime
+input PostInput {
+    body: String!
+    title: String!
+}
+
+input RefreshTokenInput {
+    token: String!
+}
