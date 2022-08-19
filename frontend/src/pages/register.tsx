@@ -10,6 +10,7 @@ import {
     usernameValidation
 } from '../validation/credentials.validation';
 import { Router, useRouter } from 'next/router';
+import { useRegisterMutation } from '../generated/graphql';
 
 interface registerProps {}
 

@@ -11,6 +11,9 @@ export const Navbar: React.FC<any> = ({}) => {
                 <Link href={'/register'} padding={2} color={'white'}>
                     Register
                 </Link>
+                <Link href={'/postList'} padding={2} color={'white'}>
+                    Posts
+                </Link>
             </Flex>
         </Box>
     );
