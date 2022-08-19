@@ -33,7 +33,7 @@ import React from 'react';
 // });
 
 const client = new Client({
-    url: 'http://localhost:3001/graphql'
+    url: 'http://localhost:8080/query'
 });
 function MyApp({ Component, pageProps }: any) {
     return (
