@@ -1,0 +1,7 @@
+query getPersons {
+    persons {
+        id
+        username
+        createdAt
+    }
+}

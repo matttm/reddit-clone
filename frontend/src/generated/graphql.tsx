@@ -115,23 +115,42 @@ export type ValidationErrors = {
     errors: Array<Scalars['String']>;
 };
 
-export type CreatePostMutationMutationVariables = Exact<{
+export type CreatePostMutationVariables = Exact<{
     title: Scalars['String'];
     body: Scalars['String'];
 }>;
 
-export type CreatePostMutationMutation = { __typename?: 'Mutation' } & {
+export type CreatePostMutation = { __typename?: 'Mutation' } & {
     createPost: { __typename?: 'PostValidationObject' } & {
         post: { __typename?: 'Post' } & Pick<Post, 'id' | 'title' | 'body'>;
     };
 };
 
-export type LoginMutationMutationVariables = Exact<{
+export type GetPersonsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetPersonsQuery = { __typename?: 'Query' } & {
+    persons: Array<
+        { __typename?: 'Person' } & Pick<
+            Person,
+            'id' | 'username' | 'createdAt'
+        >
+    >;
+};
+
+export type GetPostsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetPostsQuery = { __typename?: 'Query' } & {
+    posts: Array<
+        { __typename?: 'Post' } & Pick<Post, 'title' | 'body' | 'views' | 'id'>
+    >;
+};
+
+export type LoginMutationVariables = Exact<{
     username: Scalars['String'];
     password: Scalars['String'];
 }>;
 
-export type LoginMutationMutation = { __typename?: 'Mutation' } & {
+export type LoginMutation = { __typename?: 'Mutation' } & {
     register: { __typename?: 'PersonValidationObject' } & {
         person?: Maybe<
             { __typename?: 'Person' } & Pick<
@@ -142,12 +161,12 @@ export type LoginMutationMutation = { __typename?: 'Mutation' } & {
     };
 };
 
-export type RegisterMutationMutationVariables = Exact<{
+export type RegisterMutationVariables = Exact<{
     username: Scalars['String'];
     password: Scalars['String'];
 }>;
 
-export type RegisterMutationMutation = { __typename?: 'Mutation' } & {
+export type RegisterMutation = { __typename?: 'Mutation' } & {
     register: { __typename?: 'PersonValidationObject' } & {
         person?: Maybe<
             { __typename?: 'Person' } & Pick<
@@ -158,8 +177,8 @@ export type RegisterMutationMutation = { __typename?: 'Mutation' } & {
     };
 };
 
-export const CreatePostMutationDocument = gql`
-    mutation createPostMutation($title: String!, $body: String!) {
+export const CreatePostDocument = gql`
+    mutation createPost($title: String!, $body: String!) {
         createPost(post: { title: $title, body: $body }) {
             post {
                 id
@@ -170,14 +189,50 @@ export const CreatePostMutationDocument = gql`
     }
 `;
 
-export function useCreatePostMutationMutation() {
-    return Urql.useMutation<
-        CreatePostMutationMutation,
-        CreatePostMutationMutationVariables
-    >(CreatePostMutationDocument);
+export function useCreatePostMutation() {
+    return Urql.useMutation<CreatePostMutation, CreatePostMutationVariables>(
+        CreatePostDocument
+    );
 }
-export const LoginMutationDocument = gql`
-    mutation loginMutation($username: String!, $password: String!) {
+export const GetPersonsDocument = gql`
+    query getPersons {
+        persons {
+            id
+            username
+            createdAt
+        }
+    }
+`;
+
+export function useGetPersonsQuery(
+    options: Omit<Urql.UseQueryArgs<GetPersonsQueryVariables>, 'query'> = {}
+) {
+    return Urql.useQuery<GetPersonsQuery>({
+        query: GetPersonsDocument,
+        ...options
+    });
+}
+export const GetPostsDocument = gql`
+    query getPosts {
+        posts {
+            title
+            body
+            views
+            id
+        }
+    }
+`;
+
+export function useGetPostsQuery(
+    options: Omit<Urql.UseQueryArgs<GetPostsQueryVariables>, 'query'> = {}
+) {
+    return Urql.useQuery<GetPostsQuery>({
+        query: GetPostsDocument,
+        ...options
+    });
+}
+export const LoginDocument = gql`
+    mutation login($username: String!, $password: String!) {
         register(credentials: { username: $username, password: $password }) {
             person {
                 id
@@ -188,14 +243,13 @@ export const LoginMutationDocument = gql`
     }
 `;
 
-export function useLoginMutationMutation() {
-    return Urql.useMutation<
-        LoginMutationMutation,
-        LoginMutationMutationVariables
-    >(LoginMutationDocument);
+export function useLoginMutation() {
+    return Urql.useMutation<LoginMutation, LoginMutationVariables>(
+        LoginDocument
+    );
 }
-export const RegisterMutationDocument = gql`
-    mutation registerMutation($username: String!, $password: String!) {
+export const RegisterDocument = gql`
+    mutation register($username: String!, $password: String!) {
         register(credentials: { username: $username, password: $password }) {
             person {
                 id
@@ -206,9 +260,8 @@ export const RegisterMutationDocument = gql`
     }
 `;
 
-export function useRegisterMutationMutation() {
-    return Urql.useMutation<
-        RegisterMutationMutation,
-        RegisterMutationMutationVariables
-    >(RegisterMutationDocument);
+export function useRegisterMutation() {
+    return Urql.useMutation<RegisterMutation, RegisterMutationVariables>(
+        RegisterDocument
+    );
 }

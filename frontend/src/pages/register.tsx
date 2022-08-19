@@ -4,7 +4,6 @@ import Wrapper from '../components/Wrapper';
 import { VariantsEnum } from '../types';
 import { InputField } from '../components/InpurField';
 import { Button } from '@chakra-ui/core';
-import { useRegisterMutation } from '../generated/graphql';
 import * as Yup from 'yup';
 import {
     passwordValidation,
