@@ -1,15 +1,6 @@
 import { ColorModeProvider, CSSReset, ThemeProvider } from '@chakra-ui/core';
 import theme from '../theme';
-import {
-    ApolloClient,
-    ApolloLink,
-    ApolloProvider,
-    HttpLink,
-    InMemoryCache
-} from '@apollo/client';
-import { Client, createClient, Provider } from 'urql';
-import { onError } from '@apollo/client/link/error';
-import { withUrqlClient } from 'next-urql';
+import { Client, Provider } from 'urql';
 import React from 'react';
 
 // const errorLink = onError(({ graphQLErrors, networkError }) => {

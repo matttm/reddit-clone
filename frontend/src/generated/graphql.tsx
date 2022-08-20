@@ -151,7 +151,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 export type LoginMutation = { __typename?: 'Mutation' } & {
-    register: { __typename?: 'PersonValidationObject' } & {
+    login: { __typename?: 'PersonValidationObject' } & {
         person?: Maybe<
             { __typename?: 'Person' } & Pick<
                 Person,
@@ -233,7 +233,7 @@ export function useGetPostsQuery(
 }
 export const LoginDocument = gql`
     mutation login($username: String!, $password: String!) {
-        register(credentials: { username: $username, password: $password }) {
+        login(credentials: { username: $username, password: $password }) {
             person {
                 id
                 username
