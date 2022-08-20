@@ -151,14 +151,17 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 export type LoginMutation = { __typename?: 'Mutation' } & {
-    login: { __typename?: 'PersonValidationObject' } & {
-        person?: Maybe<
-            { __typename?: 'Person' } & Pick<
-                Person,
-                'id' | 'username' | 'createdAt'
-            >
-        >;
-    };
+    login: { __typename?: 'PersonValidationObject' } & Pick<
+        PersonValidationObject,
+        'token'
+    > & {
+            person?: Maybe<
+                { __typename?: 'Person' } & Pick<
+                    Person,
+                    'id' | 'username' | 'createdAt'
+                >
+            >;
+        };
 };
 
 export type RegisterMutationVariables = Exact<{
@@ -239,6 +242,7 @@ export const LoginDocument = gql`
                 username
                 createdAt
             }
+            token
         }
     }
 `;
