@@ -2,11 +2,9 @@
 
 Development Status: 🟢 Active
 
-Development has temporarily been suspended as of 03-17-2022
-
 # Note
 
-The backend in this repository is no longer in development. It is being rewritten in Go and is in `matttm/reddit-clone-backend`.
+The backend in this repository is no longer in development. It is being rewritten in Go and is located in the repository `matttm/reddit-clone-backend`.
 
 ## Description
 
