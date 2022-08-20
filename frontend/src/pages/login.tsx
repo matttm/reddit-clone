@@ -27,7 +27,7 @@ export const Login: React.FC<loginProps> = ({}) => {
                 })}
                 onSubmit={async (values, { setErrors }) => {
                     const res = await login(values);
-                    if (!res?.data.) {
+                    if (!res?.data) {
                         const m = {};
                         // @ts-ignore
                         m['username'] = 'Invalid username or password';
