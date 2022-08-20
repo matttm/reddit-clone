@@ -2,6 +2,7 @@ import { ColorModeProvider, CSSReset, ThemeProvider } from '@chakra-ui/core';
 import theme from '../theme';
 import { Client, Provider } from 'urql';
 import React from 'react';
+import { getToken } from '../services/authentication.service';
 
 // const errorLink = onError(({ graphQLErrors, networkError }) => {
 //     if (graphQLErrors) {
@@ -24,7 +25,11 @@ import React from 'react';
 // });
 
 const client = new Client({
-    url: 'http://localhost:8080/query'
+    url: 'http://localhost:8080/query',
+    fetchOptions: () => {
+        const token = getToken();
+        return token ? { headers: { Authorization: `Bearer ${token}` } } : {};
+    }
 });
 function MyApp({ Component, pageProps }: any) {
     return (
