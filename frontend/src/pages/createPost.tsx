@@ -4,7 +4,7 @@ import Wrapper from '../components/Wrapper';
 import { InputTypeEnum, VariantsEnum } from '../types';
 import { InputField } from '../components/InpurField';
 import { Button } from '@chakra-ui/core';
-import { useLoginMutation } from '../generated/graphql';
+import { useCreatePostMutation, useLoginMutation } from '../generated/graphql';
 import * as Yup from 'yup';
 import {
     passwordValidation,
@@ -14,13 +14,21 @@ import { useRouter } from 'next/router';
 
 export const CreatePost: React.FC<any> = ({}) => {
     const router = useRouter();
+    const [, post] = useCreatePostMutation();
     return (
         <Wrapper variant={VariantsEnum.regular.description}>
             <Formik
                 initialValues={{ title: '', body: '' }}
                 validationSchema={Yup.object().shape({})}
                 onSubmit={async (values, { setErrors }) => {
-                    return;
+                    const res = await post(values);
+                    if (res.error) {
+                        console.error(`Error: ${res.error}`);
+                        const m = {};
+                        setErrors(m);
+                    }
+                    router.push('/');
+                    return res;
                 }}>
                 {({ isSubmitting }) => (
                     <Form>
@@ -41,7 +49,7 @@ export const CreatePost: React.FC<any> = ({}) => {
                             type="submit"
                             isLoading={isSubmitting}
                             variantColor="green">
-                            Login
+                            Create
                         </Button>
                     </Form>
                 )}
