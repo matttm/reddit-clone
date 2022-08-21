@@ -1,12 +1,12 @@
 import exp from 'constants';
 
-export function setToken(token: string): void {
-    if (!token) {
-        console.error(`Error: token is invalid`);
-        return;
+export function setToken(token: any): void {
+    if (typeof token === 'string') {
+        localStorage.setItem('TOKEN_KEY', token);
+        console.info(`Token ${token} has been saved to localStorage`);
+    } else {
+        console.error('token cannot be set as it is not a string');
     }
-    localStorage.setItem('TOKEN_KEY', token);
-    console.info(`Token ${token} has been saved to localStorage`);
 }
 
 export function getToken(): string | null {
@@ -17,7 +17,11 @@ export function isAuthenticated() {
     return localStorage.getItem('TOKEN_KEY');
 }
 
-export function setAuthInfo(id: string, username: string): void {
-    localStorage.setItem('PERSON_ID', id);
-    localStorage.setItem('USERNAME', username);
+export function setAuthInfo(id: any, username: any): void {
+    if (typeof id === 'string') {
+        localStorage.setItem('PERSON_ID', id);
+    }
+    if (typeof username === 'string') {
+        localStorage.setItem('USERNAME', username);
+    }
 }

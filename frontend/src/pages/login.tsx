@@ -11,7 +11,7 @@ import {
     usernameValidation
 } from '../validation/credentials.validation';
 import { useRouter } from 'next/router';
-import { setToken } from '../services/authentication.service';
+import { setAuthInfo, setToken } from '../services/authentication.service';
 
 interface loginProps {}
 
@@ -36,14 +36,11 @@ export const Login: React.FC<loginProps> = ({}) => {
                         m['password'] = 'Invalid username or password';
                         setErrors(m);
                     }
-                    const token = res.data?.login?.token;
-                    if (typeof token === 'string') {
-                        setToken(token);
-                    } else {
-                        console.error(
-                            'token cannot be set as it is not a string'
-                        );
-                    }
+                    const data = res.data?.login;
+                    const token = data?.token;
+                    const person = data?.person;
+                    setToken(token);
+                    setAuthInfo(person?.id, person?.username);
                     router.push('/');
                     return res;
                 }}>
