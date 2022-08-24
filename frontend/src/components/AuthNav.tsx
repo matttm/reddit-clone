@@ -9,11 +9,15 @@ import { useRouter } from 'next/router';
 export const AuthNav: React.FC<any> = () => {
     const logout = () => {
         destroyAuthInfo();
-        useRouter().push('/');
+        // useRouter().push('/');
     };
     return isAuthenticated() ? (
         <Flex direction={'column'} color={'black'}>
-            <Link onClick={() => logout()} padding={2} color={'white'}>
+            <Link
+                href={'/'}
+                onClick={() => logout()}
+                padding={2}
+                color={'white'}>
                 Logout
             </Link>
         </Flex>
