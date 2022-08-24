@@ -1,6 +1,7 @@
-import exp from 'constants';
+const isServer = typeof window === 'undefined';
 
 export function setToken(token: any): void {
+    if (isServer) return;
     if (typeof token === 'string') {
         localStorage.setItem('TOKEN_KEY', token);
         console.info(`Token ${token} has been saved to localStorage`);
@@ -10,18 +11,28 @@ export function setToken(token: any): void {
 }
 
 export function getToken(): string | null {
-    return localStorage.getItem('TOKEN_KEEY');
+    if (isServer) return '';
+    return localStorage.getItem('TOKEN_KEY');
 }
 
 export function isAuthenticated() {
+    if (isServer) return;
     return localStorage.getItem('TOKEN_KEY');
 }
 
 export function setAuthInfo(id: any, username: any): void {
+    if (isServer) return;
     if (typeof id === 'string') {
         localStorage.setItem('PERSON_ID', id);
     }
     if (typeof username === 'string') {
         localStorage.setItem('USERNAME', username);
     }
+}
+
+export function destroyAuthInfo() {
+    if (isServer) return;
+    localStorage.removeItem('PERSON_ID');
+    localStorage.removeItem('USERNAME');
+    localStorage.removeItem('TOKEN_KEY');
 }
