@@ -1,4 +1,4 @@
-import { Link } from '@chakra-ui/core';
+import { Box, Flex, Link } from '@chakra-ui/core';
 import React from 'react';
 import {
     destroyAuthInfo,
@@ -12,19 +12,19 @@ export const AuthNav: React.FC<any> = () => {
         useRouter().push('/');
     };
     return isAuthenticated() ? (
-        <>
-            <Link href={'/logout'} onClick={logout} padding={2} color={'white'}>
+        <Flex direction={'column'} color={'black'}>
+            <Link onClick={() => logout()} padding={2} color={'white'}>
                 Logout
             </Link>
-        </>
+        </Flex>
     ) : (
-        <>
+        <Flex direction={'column'} color={'black'}>
             <Link href={'/login'} padding={2} color={'white'}>
                 Login
             </Link>
             <Link href={'/register'} padding={2} color={'white'}>
                 Register
             </Link>
-        </>
+        </Flex>
     );
 };
