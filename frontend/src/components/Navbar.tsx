@@ -8,11 +8,11 @@ export const Navbar: React.FC<any> = ({}) => {
         <Container w="15%">
             <Flex direction={'column'} color={'black'}>
                 <AuthNav />
-                <div className="nav-bar-link-container">
+                <Box border={'1px'} borderBottomColor={'white'}>
                     <Link href={'/createPost'} padding={2} color={'white'}>
                         Create Post
                     </Link>
-                </div>
+                </Box>
                 <Link href={'/postList'} padding={2} color={'white'}>
                     Posts
                 </Link>
