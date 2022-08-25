@@ -12,6 +12,7 @@ import {
 import React from 'react';
 import { getToken } from '../services/authentication.service';
 import { authExchange } from '@urql/exchange-auth';
+import '../styles/stylings.css';
 
 // const errorLink = onError(({ graphQLErrors, networkError }) => {
 //     if (graphQLErrors) {
