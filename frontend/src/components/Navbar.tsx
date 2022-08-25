@@ -2,20 +2,17 @@ import React from 'react';
 import { Box, Flex, Link } from '@chakra-ui/core';
 import { AuthNav } from './AuthNav';
 import { Container } from './Container';
+import NavItem from './NavItem';
+import Logo from './Logo';
 
-export const Navbar: React.FC<any> = ({}) => {
+export const Navbar: React.FC<any> = props => {
     return (
         <Container w="15%">
+            <Logo />
             <Flex direction={'column'} color={'black'}>
                 <AuthNav />
-                <Box border={'1px'} borderBottomColor={'white'}>
-                    <Link href={'/createPost'} padding={2} color={'white'}>
-                        Create Post
-                    </Link>
-                </Box>
-                <Link href={'/postList'} padding={2} color={'white'}>
-                    Posts
-                </Link>
+                <NavItem navTo={'/createPost'}>Create Post</NavItem>
+                <NavItem navTo={'/postList'}>Posts</NavItem>
             </Flex>
         </Container>
     );

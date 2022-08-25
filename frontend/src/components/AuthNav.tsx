@@ -5,6 +5,7 @@ import {
     isAuthenticated
 } from '../services/authentication.service';
 import { useRouter } from 'next/router';
+import NavItem from './NavItem';
 
 export const AuthNav: React.FC<any> = () => {
     const logout = () => {
@@ -12,22 +13,14 @@ export const AuthNav: React.FC<any> = () => {
     };
     return isAuthenticated() ? (
         <>
-            <Link
-                href={'/'}
-                onClick={() => logout()}
-                padding={2}
-                color={'white'}>
+            <NavItem navTo={'/'} onClick={() => logout()}>
                 Logout
-            </Link>
+            </NavItem>
         </>
     ) : (
         <>
-            <Link href={'/login'} padding={2} color={'white'}>
-                Login
-            </Link>
-            <Link href={'/register'} padding={2} color={'white'}>
-                Register
-            </Link>
+            <NavItem navTo={'/login'}>Login</NavItem>
+            <NavItem navTo={'/register'}>Register</NavItem>
         </>
     );
 };
