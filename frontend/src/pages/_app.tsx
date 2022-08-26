@@ -1,4 +1,9 @@
-import { ColorModeProvider, CSSReset, ThemeProvider } from '@chakra-ui/core';
+import {
+    ColorModeProvider,
+    CSSReset,
+    Flex,
+    ThemeProvider
+} from '@chakra-ui/core';
 import theme from '../theme';
 import {
     cacheExchange,
@@ -13,6 +18,8 @@ import React from 'react';
 import { getToken } from '../services/authentication.service';
 import { authExchange } from '@urql/exchange-auth';
 import '../styles/stylings.css';
+import { Navbar } from '../components/Navbar';
+import { Container } from '../components/Container';
 
 // const errorLink = onError(({ graphQLErrors, networkError }) => {
 //     if (graphQLErrors) {
@@ -138,7 +145,15 @@ function MyApp({ Component, pageProps }: any) {
             <ThemeProvider theme={theme}>
                 <ColorModeProvider value="dark">
                     <CSSReset />
-                    <Component {...pageProps} />
+                    <Flex direction={'row'}>
+                        <Navbar />
+                        <Component {...pageProps} />
+                    </Flex>
+                    <Container height="100vh">
+                        <a href={'https://github.com/matttm'}>
+                            Matt Maloney : @github/matttm
+                        </a>
+                    </Container>
                 </ColorModeProvider>
             </ThemeProvider>
         </Provider>
