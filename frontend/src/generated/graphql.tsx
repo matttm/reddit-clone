@@ -137,6 +137,17 @@ export type GetPersonsQuery = { __typename?: 'Query' } & {
     >;
 };
 
+export type PostQueryVariables = Exact<{
+    id: Scalars['Int'];
+}>;
+
+export type PostQuery = { __typename?: 'Query' } & {
+    post: { __typename?: 'Post' } & Pick<
+        Post,
+        'id' | 'title' | 'body' | 'views' | 'createdAt'
+    >;
+};
+
 export type GetPostsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetPostsQuery = { __typename?: 'Query' } & {
@@ -217,6 +228,23 @@ export function useGetPersonsQuery(
         query: GetPersonsDocument,
         ...options
     });
+}
+export const PostDocument = gql`
+    query Post($id: Int!) {
+        post(id: $id) {
+            id
+            title
+            body
+            views
+            createdAt
+        }
+    }
+`;
+
+export function usePostQuery(
+    options: Omit<Urql.UseQueryArgs<PostQueryVariables>, 'query'> = {}
+) {
+    return Urql.useQuery<PostQuery>({ query: PostDocument, ...options });
 }
 export const GetPostsDocument = gql`
     query getPosts {
