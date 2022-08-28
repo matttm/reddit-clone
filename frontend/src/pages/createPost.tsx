@@ -1,8 +1,8 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
-import Wrapper from '../components/Wrapper';
+import Wrapper from '../components/utilities/Wrapper';
 import { InputTypeEnum, VariantsEnum } from '../types';
-import { InputField } from '../components/InpurField';
+import { InputField } from '../components/utilities/InpurField';
 import { Button } from '@chakra-ui/core';
 import { useCreatePostMutation, useLoginMutation } from '../generated/graphql';
 import * as Yup from 'yup';

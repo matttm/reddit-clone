@@ -1,6 +1,6 @@
 import React from 'react';
 import { useGetPostsQuery } from '../generated/graphql';
-import Post from '../components/Post';
+import Post from '../components/posts/Post';
 import { List, ListItem } from '@chakra-ui/core';
 
 export const PostList: React.FC<any> = () => {

@@ -8,7 +8,7 @@ import {
     Textarea,
     InputProps
 } from '@chakra-ui/core';
-import { InputTypeEnum } from '../types';
+import { InputTypeEnum } from '../../types';
 
 type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
     label: string;

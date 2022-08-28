@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Flex, Link } from '@chakra-ui/core';
 import { AuthNav } from './AuthNav';
-import { Container } from './Container';
+import { Container } from '../utilities/Container';
 import NavItem from './NavItem';
 import Logo from './Logo';
 

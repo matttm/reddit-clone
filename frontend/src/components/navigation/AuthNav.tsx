@@ -2,7 +2,7 @@ import React from 'react';
 import {
     destroyAuthInfo,
     isAuthenticated
-} from '../services/authentication.service';
+} from '../../services/authentication.service';
 import NavItem from './NavItem';
 
 export const AuthNav: React.FC<any> = () => {

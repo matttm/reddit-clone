@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from '@chakra-ui/core';
-import { VariantsEnum } from '../types';
+import { VariantsEnum } from '../../types';
 
 interface wrapperProps {
     variant?: 'small' | 'regular';

@@ -18,8 +18,8 @@ import React from 'react';
 import { getToken } from '../services/authentication.service';
 import { authExchange } from '@urql/exchange-auth';
 import '../styles/stylings.css';
-import { Navbar } from '../components/Navbar';
-import { Container } from '../components/Container';
+import { Navbar } from '../components/navigation/Navbar';
+import { Container } from '../components/utilities/Container';
 
 // const errorLink = onError(({ graphQLErrors, networkError }) => {
 //     if (graphQLErrors) {

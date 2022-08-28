@@ -1,6 +1,6 @@
 import React from 'react';
 import { Flex, Text } from '@chakra-ui/core';
-import theme from '../theme';
+import theme from '../../theme';
 
 const Post: React.FC<any> = ({ title, createdAt, person }) => {
     return (
