@@ -12,7 +12,7 @@ export const Navbar: React.FC<any> = props => {
             <Flex direction={'column'} color={'black'}>
                 <AuthNav />
                 <NavItem navTo={'/createPost'}>Create Post</NavItem>
-                <NavItem navTo={'/postList'}>Posts</NavItem>
+                <NavItem navTo={'/posts'}>Posts</NavItem>
             </Flex>
         </Container>
     );

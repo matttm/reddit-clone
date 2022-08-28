@@ -1,9 +1,9 @@
 import React from 'react';
-import { useGetPostsQuery } from '../generated/graphql';
-import Post from '../components/posts/Post';
+import { useGetPostsQuery } from '../../generated/graphql';
+import Post from '../../components/posts/Post';
 import { List, ListItem } from '@chakra-ui/core';
 
-export const PostList: React.FC<any> = () => {
+export const Index: React.FC<any> = () => {
     const [result, reexecuteQuery] = useGetPostsQuery();
     const { data, fetching, error } = result;
 
@@ -25,4 +25,4 @@ export const PostList: React.FC<any> = () => {
     );
 };
 
-export default PostList;
+export default Index;
