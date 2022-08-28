@@ -1,5 +1,6 @@
 import React from 'react';
 import { useGetPostsQuery } from '../generated/graphql';
+import Post from '../components/Post';
 
 export const PostList: React.FC<any> = () => {
     const [result, reexecuteQuery] = useGetPostsQuery();
@@ -13,7 +14,11 @@ export const PostList: React.FC<any> = () => {
     return (
         <ul>
             {data.posts.map(post => {
-                return <li key={post.id}>{post.title}</li>;
+                return (
+                    <li key={post.id}>
+                        <Post {...post}></Post>
+                    </li>
+                );
             })}
         </ul>
     );

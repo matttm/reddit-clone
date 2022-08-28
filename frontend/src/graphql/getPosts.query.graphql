@@ -4,5 +4,8 @@ query getPosts {
         body
         views
         id
+        person {
+            username
+        }
     }
 }
