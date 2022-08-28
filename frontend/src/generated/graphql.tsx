@@ -143,7 +143,7 @@ export type GetPostsQuery = { __typename?: 'Query' } & {
     posts: Array<
         { __typename?: 'Post' } & Pick<
             Post,
-            'title' | 'body' | 'views' | 'id'
+            'id' | 'title' | 'body' | 'views' | 'createdAt'
         > & { person: { __typename?: 'Person' } & Pick<Person, 'username'> }
     >;
 };
@@ -221,10 +221,11 @@ export function useGetPersonsQuery(
 export const GetPostsDocument = gql`
     query getPosts {
         posts {
+            id
             title
             body
             views
-            id
+            createdAt
             person {
                 username
             }

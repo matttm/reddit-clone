@@ -1,6 +1,7 @@
 import React from 'react';
 import { useGetPostsQuery } from '../generated/graphql';
 import Post from '../components/Post';
+import { List, ListItem } from '@chakra-ui/core';
 
 export const PostList: React.FC<any> = () => {
     const [result, reexecuteQuery] = useGetPostsQuery();
@@ -12,15 +13,15 @@ export const PostList: React.FC<any> = () => {
     if (!data) return <p>Data is corrupt</p>;
     if (data.posts.length <= 0) return <p>There are no posts to display</p>;
     return (
-        <ul>
+        <List>
             {data.posts.map(post => {
                 return (
-                    <li key={post.id}>
+                    <ListItem key={post.id}>
                         <Post {...post}></Post>
-                    </li>
+                    </ListItem>
                 );
             })}
-        </ul>
+        </List>
     );
 };
 

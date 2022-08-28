@@ -1,9 +1,10 @@
 query getPosts {
     posts {
+        id
         title
         body
         views
-        id
+        createdAt
         person {
             username
         }
