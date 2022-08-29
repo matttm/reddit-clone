@@ -4,12 +4,8 @@ import Wrapper from '../components/utilities/Wrapper';
 import { InputTypeEnum, VariantsEnum } from '../types';
 import { InputField } from '../components/utilities/InpurField';
 import { Button } from '@chakra-ui/core';
-import { useCreatePostMutation, useLoginMutation } from '../generated/graphql';
+import { useCreatePostMutation } from '../generated/graphql';
 import * as Yup from 'yup';
-import {
-    passwordValidation,
-    usernameValidation
-} from '../validation/credentials.validation';
 import { useRouter } from 'next/router';
 
 export const CreatePost: React.FC<any> = ({}) => {
