@@ -24,7 +24,7 @@ const CommentBox: React.FC<any> = () => {
         );
     }
     return (
-        <Flex direction={'column'} padding={'10px'}>
+        <Flex direction={'column'} padding={'40px'}>
             <Formik initialValues={{ comment: '' }} onSubmit={() => {}}>
                 <form>
                     <InputField
