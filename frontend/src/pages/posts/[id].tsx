@@ -4,6 +4,7 @@ import { Flex, FormHelperText, Text } from '@chakra-ui/core';
 import { useRouter } from 'next/router';
 import { CommentNode } from 'node-html-parser';
 import CommentBox from '../../components/posts/CommentBox';
+import ActionBar from '../../components/actions/ActionBar';
 
 export const Id: React.FC<any> = () => {
     const router = useRouter();
@@ -19,14 +20,19 @@ export const Id: React.FC<any> = () => {
     const { post } = data;
     const { person } = post;
     return (
-        <Flex direction={'column'}>
-            <Text fontSize={'18px'} fontWeight={'bold'}>
-                {post.title}
-            </Text>
-            <Text fontSize={'14px'} fontWeight={'light'}>
-                Created by {person.username} at {post.createdAt}
-            </Text>
-            <Text fontSize={'16px'}>{post.body}</Text>
+        <Flex direction={'column'} padding={'20px'}>
+            <ActionBar></ActionBar>
+            <Flex direction={'column'} padding={'10px'}>
+                <Text fontSize={'18px'} fontWeight={'bold'}>
+                    {post.title}
+                </Text>
+                <Text fontSize={'14px'} fontWeight={'light'}>
+                    Created by {person.username} at {post.createdAt}
+                </Text>
+            </Flex>
+            <Flex direction={'column'} padding={'15px'}>
+                <Text fontSize={'16px'}>{post.body}</Text>
+            </Flex>
             <CommentBox></CommentBox>
         </Flex>
     );
