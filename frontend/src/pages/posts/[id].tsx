@@ -16,15 +16,17 @@ export const Id: React.FC<any> = () => {
     if (fetching) return <p>Loading...</p>;
     if (error) return <p>Oh no... {error.message}</p>;
     if (!data) return <p>Data is corrupt</p>;
+    const { post } = data;
+    const { person } = post;
     return (
         <Flex direction={'column'}>
             <Text fontSize={'18px'} fontWeight={'bold'}>
-                {data.post.title}
+                {post.title}
             </Text>
             <Text fontSize={'14px'} fontWeight={'light'}>
-                Created at {data.post.createdAt}
+                Created by {person.username} at {post.createdAt}
             </Text>
-            <Text fontSize={'16px'}>{data.post.body}</Text>
+            <Text fontSize={'16px'}>{post.body}</Text>
             <CommentBox></CommentBox>
         </Flex>
     );

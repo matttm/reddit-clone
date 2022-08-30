@@ -4,6 +4,9 @@ query Post($id: Int!) {
         title
         body
         views
+        person {
+            username
+        }
         createdAt
     }
 }

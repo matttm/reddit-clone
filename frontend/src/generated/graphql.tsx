@@ -145,7 +145,7 @@ export type PostQuery = { __typename?: 'Query' } & {
     post: { __typename?: 'Post' } & Pick<
         Post,
         'id' | 'title' | 'body' | 'views' | 'createdAt'
-    >;
+    > & { person: { __typename?: 'Person' } & Pick<Person, 'username'> };
 };
 
 export type GetPostsQueryVariables = Exact<{ [key: string]: never }>;
@@ -236,6 +236,9 @@ export const PostDocument = gql`
             title
             body
             views
+            person {
+                username
+            }
             createdAt
         }
     }
