@@ -6,7 +6,7 @@ import React from 'react';
 import Action from './Action';
 
 const AuthAction: React.FC<any> = ({ children }) => {
-    const content = isAuthenticated() ? (
+    const content = !isAuthenticated() ? (
         <>
             <FontAwesomeIcon icon={faLock} />
         </>
