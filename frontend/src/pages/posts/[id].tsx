@@ -30,7 +30,12 @@ export const Id: React.FC<any> = () => {
                     Created by {person.username} at {post.createdAt}
                 </Text>
             </Flex>
-            <Flex direction={'column'} padding={'15px'}>
+            <Flex
+                direction={'column'}
+                padding={'15px'}
+                border={'1px'}
+                borderColor={'#343444'}
+                borderRadius={'2px'}>
                 <Text fontSize={'16px'}>{post.body}</Text>
             </Flex>
             <CommentBox></CommentBox>
