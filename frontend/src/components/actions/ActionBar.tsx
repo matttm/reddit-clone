@@ -7,7 +7,7 @@ import { faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 const ActionBar = () => {
     return (
-        <Flex direction={'row'}>
+        <Flex direction={'row'} justifyContent={'flex-end'}>
             <AuthAction>
                 <FontAwesomeIcon icon={faPencil}></FontAwesomeIcon>
             </AuthAction>
