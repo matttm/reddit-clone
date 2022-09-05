@@ -20,6 +20,7 @@ import { authExchange } from '@urql/exchange-auth';
 import '../styles/stylings.css';
 import { Navbar } from '../components/navigation/Navbar';
 import { Container } from '../components/utilities/Container';
+import {GlobalContextProvide} from "../context/GlobalContextProvider";
 
 // const errorLink = onError(({ graphQLErrors, networkError }) => {
 //     if (graphQLErrors) {
@@ -145,15 +146,17 @@ function MyApp({ Component, pageProps }: any) {
             <ThemeProvider theme={theme}>
                 <ColorModeProvider value="dark">
                     <CSSReset />
-                    <Flex direction={'row'}>
-                        <Navbar />
-                        <Component {...pageProps} />
-                    </Flex>
-                    <Container height="100vh">
-                        <a href={'https://github.com/matttm'}>
-                            Matt Maloney : @github/matttm
-                        </a>
-                    </Container>
+                    <GlobalContextProvide>
+                        <Flex direction={'row'}>
+                            <Navbar />
+                            <Component {...pageProps} />
+                        </Flex>
+                        <Container height="100vh">
+                            <a href={'https://github.com/matttm'}>
+                                Matt Maloney : @github/matttm
+                            </a>
+                        </Container>
+                    </GlobalContextProvide>
                 </ColorModeProvider>
             </ThemeProvider>
         </Provider>
