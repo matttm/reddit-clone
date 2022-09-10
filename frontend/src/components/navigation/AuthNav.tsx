@@ -1,15 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
-    destroyAuthInfo,
-    isAuthenticated
+    destroyAuthInfo
 } from '../../services/authentication.service';
 import NavItem from './NavItem';
+import {GlobalContext} from "../../context/GlobalContext";
 
 export const AuthNav: React.FC<any> = () => {
+    const { person, isAuthenticated } = useContext(GlobalContext);
     const logout = () => {
         destroyAuthInfo();
     };
-    return isAuthenticated() ? (
+    return isAuthenticated ? (
         <>
             <NavItem navTo={'/'} onClick={() => logout()}>
                 Logout

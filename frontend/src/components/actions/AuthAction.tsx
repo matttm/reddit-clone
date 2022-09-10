@@ -1,12 +1,13 @@
-import { isAuthenticated } from '../../services/authentication.service';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 
-import React from 'react';
+import React, {useContext} from 'react';
 import Action from './Action';
+import {GlobalContext} from "../../context/GlobalContext";
 
 const AuthAction: React.FC<any> = ({ children }) => {
-    const content = !isAuthenticated() ? (
+    const { isAuthenticated } = useContext(GlobalContext);
+    const content = !isAuthenticated ? (
         <>
             <FontAwesomeIcon icon={faLock} />
         </>
