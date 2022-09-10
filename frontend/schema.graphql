@@ -44,6 +44,7 @@ type PostValidationObject {
 
 type Query {
     hello: String!
+    isAuthenticated: PersonValidationObject!
     persons: [Person!]!
     post(id: Int!): Post!
     posts: [Post!]!

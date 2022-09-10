@@ -1,0 +1,8 @@
+query isAuthenticated {
+    isAuthenticated {
+        person {
+            id
+            username
+        }
+    }
+}
