@@ -192,6 +192,9 @@ export type IsAuthenticatedQuery = (
     & { person?: Maybe<(
       { __typename?: 'Person' }
       & Pick<Person, 'id' | 'username'>
+    )>, validationErrors?: Maybe<(
+      { __typename?: 'ValidationErrors' }
+      & Pick<ValidationErrors, 'errors'>
     )> }
   ) }
 );
@@ -302,6 +305,9 @@ export const IsAuthenticatedDocument = gql`
     person {
       id
       username
+    }
+    validationErrors {
+      errors
     }
   }
 }

@@ -4,5 +4,8 @@ query isAuthenticated {
             id
             username
         }
+        validationErrors {
+            errors
+        }
     }
 }
