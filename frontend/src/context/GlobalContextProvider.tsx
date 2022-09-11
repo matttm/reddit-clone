@@ -2,32 +2,34 @@ import React, {useContext, useEffect, useState,} from "react";
 import { GlobalContext } from "./GlobalContext";
 import {Person, useIsAuthenticatedQuery} from "../generated/graphql";
 
-export const GlobalContextProvide: React.FC<any> = ({ children }) => {
+export const GlobalContextProvide: React.FC<any> = ({
+                                                        auth: {
+                                                            isAuthenticated,
+                                                            personInfo
+                                                        },
+                                                        children
+                                                    }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [person, setPerson] = useState(null as unknown as Person);
-    const [isAuthenticated, setAuthenticated] = useState(true);
-
-    const getAuthentication = () => {
-        const [result, reexecuteQuery] = useIsAuthenticatedQuery();
-        const data = result.data?.isAuthenticated;
-        const isAuthenticated = data?.validationErrors?.errors?.length === 0;
-        const personInfo = data?.person;
-        return ({
-            isAuthenticated,
-            personInfo
-        })
-    };
-    useEffect(() => {
-        setIsLoading(true);
-        const payload = getAuthentication();
-        setPerson(payload.personInfo as Person);
-        setAuthenticated(payload.isAuthenticated);
-        setIsLoading(false);
-    }, []);
+    // useEffect(() => {
+    //     console.log('Loading...');
+    //     setIsLoading(true);
+    //     const [result, reexecuteQuery] = useIsAuthenticatedQuery();
+    //     const data = result.data?.isAuthenticated;
+    //     const isAuthenticated = data?.validationErrors?.errors?.length === 0;
+    //     const personInfo = data?.person;
+    //     // const payload = getAuthentication();
+    //     setPerson(personInfo as Person);
+    //     setAuthenticated(isAuthenticated);
+    //     // setPerson(payload.personInfo as Person);
+    //     // setAuthenticated(payload.isAuthenticated);
+    //     setIsLoading(false);
+    //     console.log('Loading done');
+    // }, []);
     return (
         <GlobalContext.Provider
             value={{
-                person,
+                person: person as Person,
                 isAuthenticated: isAuthenticated,
                 loading: isLoading,
                 setLoading: setIsLoading,
@@ -38,16 +40,14 @@ export const GlobalContextProvide: React.FC<any> = ({ children }) => {
     );
 };
 
-export async function getServerSideProps() {
+export async function getIsAuthenticated() {
     const [result, reexecuteQuery] = useIsAuthenticatedQuery();
     const data = result.data?.isAuthenticated;
     const isAuthenticated = data?.validationErrors?.errors?.length === 0;
     const personInfo = data?.person;
     console.log(`User is ${isAuthenticated ? '' : 'not '}authenticated`);
     return {
-        props: {
-            isAuthenticated,
-            personInfo
-        }
+        isAuthenticated,
+        personInfo
     };
 }

@@ -20,7 +20,7 @@ import { authExchange } from '@urql/exchange-auth';
 import '../styles/stylings.css';
 import { Navbar } from '../components/navigation/Navbar';
 import { Container } from '../components/utilities/Container';
-import {GlobalContextProvide} from "../context/GlobalContextProvider";
+import {getIsAuthenticated, GlobalContextProvide} from "../context/GlobalContextProvider";
 
 // const errorLink = onError(({ graphQLErrors, networkError }) => {
 //     if (graphQLErrors) {
@@ -140,13 +140,18 @@ const client = new Client({
         return token ? { headers: { Authorization: `Bearer ${token}` } } : {};
     }
 });
-function MyApp({ Component, pageProps }: any) {
+function MyApp({
+                   Component,
+                   pageProps,
+                   isAuthenticated,
+                   personInfo
+}: any) {
     return (
         <Provider value={client}>
             <ThemeProvider theme={theme}>
                 <ColorModeProvider value="dark">
                     <CSSReset />
-                    <GlobalContextProvide>
+                    <GlobalContextProvide auth={{ isAuthenticated, personInfo }}>
                         <Flex direction={'row'}>
                             <Navbar />
                             <Component {...pageProps} />
@@ -161,6 +166,16 @@ function MyApp({ Component, pageProps }: any) {
             </ThemeProvider>
         </Provider>
     );
+}
+
+export async function getServerSideProps() {
+    const { isAuthenticated, personInfo} = await getIsAuthenticated();
+    return ({
+        props: {
+            isAuthenticated,
+            personInfo
+        }
+    });
 }
 
 export default MyApp;
