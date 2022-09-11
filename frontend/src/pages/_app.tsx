@@ -168,7 +168,8 @@ function MyApp({
     );
 }
 
-export async function getServerSideProps() {
+MyApp.getServerSideProps = async (ctx: any) => {
+    console.log('ctx', ctx);
     const { isAuthenticated, personInfo} = await getIsAuthenticated();
     return ({
         props: {
