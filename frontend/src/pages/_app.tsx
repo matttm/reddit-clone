@@ -168,9 +168,10 @@ function MyApp({
     );
 }
 
-MyApp.getServerSideProps = async (ctx: any) => {
+export async function getInitialProps(ctx: any) {
     console.log('ctx', ctx);
-    const { isAuthenticated, personInfo} = await getIsAuthenticated();
+    console.log('get initial props is executing');
+    const {isAuthenticated, personInfo} = ctx;//await getIsAuthenticated();
     return ({
         props: {
             isAuthenticated,
