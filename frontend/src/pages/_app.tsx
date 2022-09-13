@@ -45,7 +45,7 @@ function MyApp({
 }
 
 MyApp.getInitialProps = async ({ ctx }: any) => {
-    console.log('headers', ctx.req.headers);
+    console.log('headers', ctx.req);
     console.log('get initial props is executing');
     const { data, error } = await client
         .query(IsAuthenticatedDocument)
