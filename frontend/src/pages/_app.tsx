@@ -1,28 +1,13 @@
-import {
-    ColorModeProvider,
-    CSSReset,
-    Flex,
-    ThemeProvider
-} from '@chakra-ui/core';
+import {ColorModeProvider, CSSReset, Flex, ThemeProvider} from '@chakra-ui/core';
 import theme from '../theme';
-import {
-    cacheExchange,
-    Client,
-    dedupExchange,
-    fetchExchange,
-    makeOperation,
-    Provider,
-    Exchange
-} from 'urql';
+import {Client, Provider} from 'urql';
 import React from 'react';
-import { getToken } from '../services/authentication.service';
-import { authExchange } from '@urql/exchange-auth';
+import {getToken} from '../services/authentication.service';
 import '../styles/stylings.css';
-import { Navbar } from '../components/navigation/Navbar';
-import { Container } from '../components/utilities/Container';
-import {getIsAuthenticated, GlobalContextProvide} from "../context/GlobalContextProvider";
-import {awaitExpression} from "@babel/types";
-import {IsAuthenticatedDocument, useIsAuthenticatedQuery} from "../generated/graphql";
+import {Navbar} from '../components/navigation/Navbar';
+import {Container} from '../components/utilities/Container';
+import {GlobalContextProvide} from "../context/GlobalContextProvider";
+import {IsAuthenticatedDocument} from "../generated/graphql";
 
 const client = new Client({
     url: 'http://localhost:8080/query',
@@ -59,8 +44,8 @@ function MyApp({
     );
 }
 
-MyApp.getInitialProps = async (ctx: any) => {
-    console.log('ctx', ctx);
+MyApp.getInitialProps = async ({ ctx }: any) => {
+    console.log('headers', ctx.req.headers);
     console.log('get initial props is executing');
     const { data, error } = await client
         .query(IsAuthenticatedDocument)
