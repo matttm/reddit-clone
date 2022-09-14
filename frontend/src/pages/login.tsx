@@ -27,20 +27,31 @@ export const Login: React.FC<loginProps> = ({}) => {
                     ...passwordValidation
                 })}
                 onSubmit={async (values, { setErrors }) => {
-                    const res = await login(values);
-                    if (!res?.data) {
-                        const m = {};
-                        // @ts-ignore
-                        m['username'] = 'Invalid username or password';
-                        // @ts-ignore
-                        m['password'] = 'Invalid username or password';
-                        setErrors(m);
-                    }
-                    const data = res.data?.login;
-                    const token = data?.token;
-                    const person = data?.person;
-                    setToken(token);
-                    setAuthInfo(person?.id, person?.username);
+                    const res = await fetch('/graphql', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                username: values.username,
+                                password: values.password
+                            })
+                        });
+                    console.log('res', res)
+                    // if (!res?.data) {
+                    //     const m = {};
+                    //     // @ts-ignore
+                    //     m['username'] = 'Invalid username or password';
+                    //     // @ts-ignore
+                    //     m['password'] = 'Invalid username or password';
+                    //     setErrors(m);
+                    // }
+                    // const data = res.data?.login;
+                    // const token = data?.token;
+                    // const person = data?.person;
+                    // setToken(token);
+                    // setAuthInfo(person?.id, person?.username);
                     router.push('/');
                     return res;
                 }}>
