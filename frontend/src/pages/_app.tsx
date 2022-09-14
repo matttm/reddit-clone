@@ -8,6 +8,8 @@ import {Navbar} from '../components/navigation/Navbar';
 import {Container} from '../components/utilities/Container';
 import {GlobalContextProvide} from "../context/GlobalContextProvider";
 import {IsAuthenticatedDocument} from "../generated/graphql";
+import cookie from "js-cookie";
+import {NextRequest} from "next/server";
 
 const client = new Client({
     url: 'http://localhost:8080/query',
@@ -44,16 +46,18 @@ function MyApp({
     );
 }
 
-MyApp.getInitialProps = async ({ ctx }: any) => {
-    console.log('headers', ctx.req);
-    console.log('get initial props is executing');
+MyApp.getInitialProps = async (req: any) => {
+    // console.log('headers', ctx.req);
+    // console.log('get initial props is executing');
+    const token = 1;
+    console.log('token', req.ctx.req.cookies)
     const { data, error } = await client
         .query(IsAuthenticatedDocument)
         .toPromise();
     const _data = data?.isAuthenticated;
     const isAuthenticated = data?.validationErrors?.errors?.length === 0;
     const personInfo = data?.person;
-    console.log('is auth finished');
+    // console.log('is auth finished');
     console.log(isAuthenticated, personInfo);
     return ({
         props: {

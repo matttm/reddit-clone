@@ -16,11 +16,13 @@
         "@fortawesome/react-fontawesome": "^0.2.0",
         "@urql/exchange-auth": "^1.0.0",
         "@urql/exchange-graphcache": "^3.0.2",
+        "axios": "^0.27.2",
         "emotion-theming": "^10.0.27",
         "formik": "^2.1.5",
         "graphql": "^15.3.0",
         "graphql-tag": "^2.11.0",
         "isomorphic-unfetch": "^3.0.0",
+        "js-cookie": "^3.0.1",
         "next": "^12.3.0",
         "next-apollo": "^5.0.0",
         "next-urql": "^1.1.0",
@@ -35,6 +37,7 @@
         "@graphql-codegen/typescript": "1.17.7",
         "@graphql-codegen/typescript-operations": "1.17.7",
         "@graphql-codegen/typescript-urql": "^2.0.0",
+        "@types/js-cookie": "^3.0.2",
         "@types/node": "^14.0.27",
         "typescript": "^3.9.7"
     }
