@@ -6,7 +6,7 @@ import {getToken} from '../services/authentication.service';
 import '../styles/stylings.css';
 import {Navbar} from '../components/navigation/Navbar';
 import {Container} from '../components/utilities/Container';
-import {GlobalContextProvide} from "../context/GlobalContextProvider";
+import {GlobalContextProvider} from "../context/GlobalContextProvider";
 import {IsAuthenticatedDocument} from "../generated/graphql";
 import cookie from "js-cookie";
 import {NextRequest} from "next/server";
@@ -29,7 +29,7 @@ function MyApp({
             <ThemeProvider theme={theme}>
                 <ColorModeProvider value="dark">
                     <CSSReset />
-                    <GlobalContextProvide auth={{ isAuthenticated, personInfo }}>
+                    <GlobalContextProvider auth={{ isAuthenticated, personInfo }}>
                         <Flex direction={'row'}>
                             <Navbar />
                             <Component {...pageProps} />
@@ -39,7 +39,7 @@ function MyApp({
                                 Matt Maloney : @github/matttm
                             </a>
                         </Container>
-                    </GlobalContextProvide>
+                    </GlobalContextProvider>
                 </ColorModeProvider>
             </ThemeProvider>
         </Provider>

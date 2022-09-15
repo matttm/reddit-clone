@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState,} from "react";
 import { GlobalContext } from "./GlobalContext";
 import {Person, useIsAuthenticatedQuery} from "../generated/graphql";
 
-export const GlobalContextProvide: React.FC<any> = ({
+export const GlobalContextProvider: React.FC<any> = ({
                                                         auth: {
                                                             isAuthenticated,
                                                             personInfo
