@@ -27,7 +27,7 @@ export const Login: React.FC<loginProps> = ({}) => {
                     ...passwordValidation
                 })}
                 onSubmit={async (values, { setErrors }) => {
-                    const res = await fetch('/graphql', {
+                    const res = await fetch('/api/login', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ export const Login: React.FC<loginProps> = ({}) => {
                                 password: values.password
                             })
                         });
-                    console.log('res', res)
+                    // console.log('res', res);
                     // if (!res?.data) {
                     //     const m = {};
                     //     // @ts-ignore
