@@ -51,12 +51,13 @@ MyApp.getInitialProps = async (req: any) => {
     // console.log('get initial props is executing');
     const token = 1;
     console.log('token', req?.ctx?.req?.cookies)
+    console.log('token', req?.ctx?.req?.headers)
     const { data, error } = await client
         .query(IsAuthenticatedDocument)
         .toPromise();
     const _data = data?.isAuthenticated;
-    const isAuthenticated = data?.validationErrors?.errors?.length === 0;
-    const personInfo = data?.person;
+    const isAuthenticated = _data?.validationErrors?.errors?.length === 0;
+    const personInfo = _data?.person;
     // console.log('is auth finished');
     console.log(isAuthenticated, personInfo);
     return ({

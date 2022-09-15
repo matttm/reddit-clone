@@ -10,27 +10,15 @@ export const GlobalContextProvide: React.FC<any> = ({
                                                         children
                                                     }) => {
     const [isLoading, setIsLoading] = useState(true);
+    const [_isAuthenticated, setIsAuthenticated] = useState(false);
     const [person, setPerson] = useState(null as unknown as Person);
-    // useEffect(() => {
-    //     console.log('Loading...');
-    //     setIsLoading(true);
-    //     const [result, reexecuteQuery] = useIsAuthenticatedQuery();
-    //     const data = result.data?.isAuthenticated;
-    //     const isAuthenticated = data?.validationErrors?.errors?.length === 0;
-    //     const personInfo = data?.person;
-    //     // const payload = getAuthentication();
-    //     setPerson(personInfo as Person);
-    //     setAuthenticated(isAuthenticated);
-    //     // setPerson(payload.personInfo as Person);
-    //     // setAuthenticated(payload.isAuthenticated);
-    //     setIsLoading(false);
-    //     console.log('Loading done');
-    // }, []);
+    setIsAuthenticated(isAuthenticated);
+    setPerson(person);
     return (
         <GlobalContext.Provider
             value={{
                 person: person as Person,
-                isAuthenticated: isAuthenticated,
+                isAuthenticated: _isAuthenticated,
                 loading: isLoading,
                 setLoading: setIsLoading,
             }}

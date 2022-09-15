@@ -1,5 +1,6 @@
 import {LoginDocument} from "../../generated/graphql";
 import fetch from 'node-fetch';
+import cookie from "cookie";
 
 export default async function handler(req: any, res: any) {
     const{ username, password } = req.body;
@@ -29,9 +30,15 @@ export default async function handler(req: any, res: any) {
             }
         })
     });
-    const data: any = await payload.json();
+    const { data }: any = await payload.json();
     const token = data?.login?.token;
-
-    console.log(data)
+    res.setHeader('Set-Cookie', cookie.serialize('TOKEN_KEY', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV !== 'development',
+        maxAge: 60 * 60,
+        sameSite: "strict",
+        path: '/'
+    }));
+    console.log(data);
     return res.status(200).json(payload);
 }
