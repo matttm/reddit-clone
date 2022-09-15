@@ -10,6 +10,7 @@ export const AuthNav: React.FC<any> = () => {
     const logout = () => {
         destroyAuthInfo();
     };
+    console.log('from nav', isAuthenticated)
     return isAuthenticated ? (
         <>
             <NavItem navTo={'/'} onClick={() => logout()}>

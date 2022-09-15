@@ -15,7 +15,7 @@ export const GlobalContextProvider: React.FC<any> = ({
     useEffect(() => {
         setIsLoading(true);
         setIsAuthenticated(isAuthenticated);
-        setPerson(person);
+        setPerson(personInfo);
         setIsLoading(false);
     }, []);
     // const person = {}
