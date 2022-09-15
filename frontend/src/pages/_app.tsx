@@ -8,28 +8,29 @@ import {Navbar} from '../components/navigation/Navbar';
 import {Container} from '../components/utilities/Container';
 import {GlobalContextProvider} from "../context/GlobalContextProvider";
 import {IsAuthenticatedDocument} from "../generated/graphql";
+import cookie from "cookie";
+import {NextRequest} from "next/server";
 
 const client = new Client({
     url: 'http://localhost:8080/query',
     fetchOptions: () => {
         const token = getToken();
-        return token ? {headers: {Authorization: `Bearer ${token}`}} : {};
+        return token ? { headers: { Authorization: `Bearer ${token}` } } : {};
     }
 });
-
 function MyApp({
                    Component,
                    pageProps,
-                   auth,
-               }: any) {
+    auth
+}: any) {
     return (
         <Provider value={client}>
             <ThemeProvider theme={theme}>
                 <ColorModeProvider value="dark">
-                    <CSSReset/>
-                    <GlobalContextProvider auth={...auth}>
+                    <CSSReset />
+                    <GlobalContextProvider auth={{...auth}}>
                         <Flex direction={'row'}>
-                            <Navbar/>
+                            <Navbar />
                             <Component {...pageProps} />
                         </Flex>
                         <Container height="100vh">
@@ -48,14 +49,11 @@ MyApp.getInitialProps = async (req: any) => {
     // console.log('headers', ctx.req);
     // console.log('get initial props is executing');
     const cookies = req?.ctx?.req?.cookies;
-    if (!cookies) {
-        return { auth: {} };
-    }
     const token = cookies['TOKEN_KEY'];
 
     console.log('in init props', token);
     // console.log('token', req?.ctx?.req?.headers)
-    const {data, error} = await client
+    const { data, error } = await client
         .query(IsAuthenticatedDocument, {}, {
             fetchOptions: {
                 headers: {
@@ -65,7 +63,7 @@ MyApp.getInitialProps = async (req: any) => {
         })
         .toPromise();
     const _data = data?.isAuthenticated;
-    const isAuthenticated = _data?.person !== null;
+    const isAuthenticated = _data?.validationErrors?.errors?.length === 0;
     const personInfo = _data?.person;
     // console.log('is auth finished');
     console.log(isAuthenticated, personInfo);
