@@ -2,7 +2,6 @@ import React from 'react';
 import { usePostQuery } from '../../generated/graphql';
 import { Flex, FormHelperText, Text } from '@chakra-ui/core';
 import { useRouter } from 'next/router';
-import { CommentNode } from 'node-html-parser';
 import CommentBox from '../../components/posts/CommentBox';
 import ActionBar from '../../components/actions/ActionBar';
 

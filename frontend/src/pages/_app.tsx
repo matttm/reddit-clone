@@ -49,11 +49,17 @@ function MyApp({
 MyApp.getInitialProps = async (req: any) => {
     // console.log('headers', ctx.req);
     // console.log('get initial props is executing');
-    const token = 1;
-    console.log('token', req?.ctx?.req?.cookies)
-    console.log('token', req?.ctx?.req?.headers)
+    const cookies = req?.ctx?.req?.cookies;
+    console.log('in init props', cookies);
+    // console.log('token', req?.ctx?.req?.headers)
     const { data, error } = await client
-        .query(IsAuthenticatedDocument)
+        .query(IsAuthenticatedDocument, {}, {
+            fetchOptions: {
+                headers: {
+                    Authorization: cookies['TOKEN_KEY']
+                }
+            }
+        })
         .toPromise();
     const _data = data?.isAuthenticated;
     const isAuthenticated = _data?.validationErrors?.errors?.length === 0;
