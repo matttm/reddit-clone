@@ -8,7 +8,7 @@ import {Navbar} from '../components/navigation/Navbar';
 import {Container} from '../components/utilities/Container';
 import {GlobalContextProvider} from "../context/GlobalContextProvider";
 import {IsAuthenticatedDocument} from "../generated/graphql";
-import cookie from "js-cookie";
+import cookie from "cookie";
 import {NextRequest} from "next/server";
 
 const client = new Client({
@@ -50,13 +50,15 @@ MyApp.getInitialProps = async (req: any) => {
     // console.log('headers', ctx.req);
     // console.log('get initial props is executing');
     const cookies = req?.ctx?.req?.cookies;
-    console.log('in init props', cookies);
+    const token = cookies['TOKEN_KEY'];
+
+    console.log('in init props', token);
     // console.log('token', req?.ctx?.req?.headers)
     const { data, error } = await client
         .query(IsAuthenticatedDocument, {}, {
             fetchOptions: {
                 headers: {
-                    Authorization: cookies['TOKEN_KEY']
+                    Authorization: `Bearer ${token}`
                 }
             }
         })
