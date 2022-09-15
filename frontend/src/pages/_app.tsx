@@ -49,6 +49,9 @@ MyApp.getInitialProps = async (req: any) => {
     // console.log('headers', ctx.req);
     // console.log('get initial props is executing');
     const cookies = req?.ctx?.req?.cookies;
+    if (cookies === undefined) {
+        return {};
+    }
     const token = cookies['TOKEN_KEY'];
 
     console.log('in init props', token);
@@ -63,8 +66,8 @@ MyApp.getInitialProps = async (req: any) => {
         })
         .toPromise();
     const _data = data?.isAuthenticated;
-    const isAuthenticated = _data?.validationErrors?.errors?.length === 0;
     const personInfo = _data?.person;
+    const isAuthenticated = _data?.personInfo !== null;
     // console.log('is auth finished');
     console.log(isAuthenticated, personInfo);
     return ({
