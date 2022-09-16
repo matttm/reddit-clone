@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Form, Formik } from 'formik';
 import Wrapper from '../components/utilities/Wrapper';
 import { VariantsEnum } from '../types';
@@ -12,11 +12,13 @@ import {
 } from '../validation/credentials.validation';
 import { useRouter } from 'next/router';
 import { setAuthInfo, setToken } from '../services/authentication.service';
+import {GlobalContext} from "../context/GlobalContext";
 
 interface loginProps {}
 
 export const Login: React.FC<loginProps> = ({}) => {
     const router = useRouter();
+    const { person, isAuthenticated, setIsAuthenticated, setPerson } = useContext(GlobalContext);
     const [, login] = useLoginMutation();
     return (
         <Wrapper variant={VariantsEnum.regular.description}>
@@ -47,12 +49,17 @@ export const Login: React.FC<loginProps> = ({}) => {
                     //     m['password'] = 'Invalid username or password';
                     //     setErrors(m);
                     // }
-                    // const data = res.data?.login;
+                    // @ts-ignore
+                    // const data = res.res?.login;
                     // const token = data?.token;
                     // const person = data?.person;
+                    // setIsAuthenticated(token !== '');
+                    // setPerson({...person});
                     // setToken(token);
                     // setAuthInfo(person?.id, person?.username);
-                    router.push('/');
+                    //
+                    // TODO: route based on response success
+                    //
                     return res;
                 }}>
                 {({ isSubmitting }) => (

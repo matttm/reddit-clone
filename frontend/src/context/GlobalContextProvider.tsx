@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState,} from "react";
 import { GlobalContext } from "./GlobalContext";
 import {Person, useIsAuthenticatedQuery} from "../generated/graphql";
+import {useRouter} from "next/router";
 
 export const GlobalContextProvider: React.FC<any> = ({
                                                         auth: {
@@ -9,15 +10,20 @@ export const GlobalContextProvider: React.FC<any> = ({
                                                         },
                                                         children
                                                     }) => {
+    const router = useRouter();
     const [isLoading, setIsLoading] = useState(true);
     const [_isAuthenticated, setIsAuthenticated] = useState(false);
     const [person, setPerson] = useState({});
     useEffect(() => {
         setIsLoading(true);
-        setIsAuthenticated(isAuthenticated);
-        setPerson(personInfo);
+        setIsAuthenticated(!!isAuthenticated);
+        setPerson({...personInfo});
         setIsLoading(false);
     }, []);
+    // whenever there is a login or logout, go home
+    useEffect(() => {
+        router.push('/');
+    }, [_isAuthenticated, personInfo]);
     // const person = {}
     return (
         <GlobalContext.Provider
@@ -34,15 +40,3 @@ export const GlobalContextProvider: React.FC<any> = ({
         </GlobalContext.Provider>
     );
 };
-
-// export async function getIsAuthenticated() {
-//     const [result, reexecuteQuery] = useIsAuthenticatedQuery();
-//     const data = result.data?.isAuthenticated;
-//     const isAuthenticated = data?.validationErrors?.errors?.length === 0;
-//     const personInfo = data?.person;
-//     console.log(`User is ${isAuthenticated ? '' : 'not '}authenticated`);
-//     return {
-//         isAuthenticated,
-//         personInfo
-//     };
-// }

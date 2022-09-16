@@ -8,8 +8,6 @@ import {Navbar} from '../components/navigation/Navbar';
 import {Container} from '../components/utilities/Container';
 import {GlobalContextProvider} from "../context/GlobalContextProvider";
 import {IsAuthenticatedDocument} from "../generated/graphql";
-import cookie from "cookie";
-import {NextRequest} from "next/server";
 
 const client = new Client({
     url: 'http://localhost:8080/query',
@@ -60,22 +58,24 @@ MyApp.getInitialProps = async (req: any) => {
         .query(IsAuthenticatedDocument, {}, {
             fetchOptions: {
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: token ? `Bearer ${token}` : ''
                 }
             }
         })
         .toPromise();
     const _data = data?.isAuthenticated;
     const personInfo = _data?.person;
-    const isAuthenticated = _data?.personInfo !== null;
-    // console.log('is auth finished');
-    console.log(isAuthenticated, personInfo);
+    const isAuthenticated = personInfo !== undefined && personInfo !== null;
+    console.log('is auth finished');
+    console.log(_data);
+    // console.log(isAuthenticated, personInfo);
     return ({
         auth: {
             isAuthenticated,
             personInfo
         }
     });
+    // return {};
 }
 
 export default MyApp;
