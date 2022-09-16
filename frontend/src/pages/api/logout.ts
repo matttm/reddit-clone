@@ -1,0 +1,19 @@
+import {LoginDocument, MutationLoginArgs} from "../../generated/graphql";
+import fetch from 'node-fetch';
+import cookie from "cookie";
+
+export default async function handler(req: any, res: any) {
+    try {
+        res.setHeader('Set-Cookie', cookie.serialize('TOKEN_KEY', '', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV !== 'development',
+            maxAge: 60 * 60,
+            sameSite: "strict",
+            path: '/'
+        }));
+        return res.status(200).json({});
+    } catch (e) {
+        console.log('Error during logout in api', e);
+        return res.status(500).json();
+    }
+}
