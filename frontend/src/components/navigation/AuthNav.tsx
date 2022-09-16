@@ -4,9 +4,10 @@ import {
 } from '../../services/authentication.service';
 import NavItem from './NavItem';
 import {GlobalContext} from "../../context/GlobalContext";
+import {Person} from "../../generated/graphql";
 
 export const AuthNav: React.FC<any> = () => {
-    const { person, isAuthenticated } = useContext(GlobalContext);
+    const { person, isAuthenticated, setIsAuthenticated, setPerson } = useContext(GlobalContext);
     const logout = async () => {
         const res = await fetch('/api/logout', {
             method: 'POST',
@@ -15,9 +16,10 @@ export const AuthNav: React.FC<any> = () => {
                 'Accept': 'application/json',
             }
         });
-        destroyAuthInfo();
+        // destroyAuthInfo();
+        setIsAuthenticated(false);
+        setPerson({} as unknown as Person);
     };
-    console.log('from nav', isAuthenticated)
     return isAuthenticated ? (
         <>
             <NavItem navTo={'/'} onClick={() => logout()}>

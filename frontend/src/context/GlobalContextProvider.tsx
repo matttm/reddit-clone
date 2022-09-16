@@ -11,7 +11,7 @@ export const GlobalContextProvider: React.FC<any> = ({
                                                     }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [_isAuthenticated, setIsAuthenticated] = useState(false);
-    const [person, setPerson] = useState(null as unknown as Person);
+    const [person, setPerson] = useState({});
     useEffect(() => {
         setIsLoading(true);
         setIsAuthenticated(isAuthenticated);
@@ -26,6 +26,8 @@ export const GlobalContextProvider: React.FC<any> = ({
                 isAuthenticated: _isAuthenticated,
                 loading: isLoading,
                 setLoading: setIsLoading,
+                setIsAuthenticated: setIsAuthenticated,
+                setPerson: setPerson
             }}
         >
             {children}
