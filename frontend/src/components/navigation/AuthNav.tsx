@@ -23,6 +23,7 @@ export const AuthNav: React.FC<any> = () => {
         setIsAuthenticated(false);
         setPerson(null as unknown as Person);
         console.log('Logging out', isAuthenticated, person);
+        router.push('/');
     };
     return isAuthenticated ? (
         <>

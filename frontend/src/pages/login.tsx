@@ -60,6 +60,7 @@ export const Login: React.FC<loginProps> = ({}) => {
                     //
                     // TODO: route based on response success
                     //
+                    router.push('/');
                     return res;
                 }}>
                 {({ isSubmitting }) => (
