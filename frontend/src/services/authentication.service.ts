@@ -1,8 +1,11 @@
 const isServer = typeof window === 'undefined';
+import cookie from 'js-cookie';
 
 export function setToken(token: any): void {
     if (isServer) return;
     if (typeof token === 'string') {
+        // cookie
+        // cookie.set('TOKEN_KEY', token);
         localStorage.setItem('TOKEN_KEY', token);
         console.info(`Token ${token} has been saved to localStorage`);
     } else {
@@ -35,4 +38,5 @@ export function destroyAuthInfo() {
     localStorage.removeItem('PERSON_ID');
     localStorage.removeItem('USERNAME');
     localStorage.removeItem('TOKEN_KEY');
+    // cookie.remove('TOKEN_KEY');
 }

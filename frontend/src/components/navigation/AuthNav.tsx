@@ -1,18 +1,30 @@
 import React, {useContext} from 'react';
-import {
-    destroyAuthInfo
-} from '../../services/authentication.service';
 import NavItem from './NavItem';
 import {GlobalContext} from "../../context/GlobalContext";
+import {Person} from "../../generated/graphql";
+import {useRouter} from "next/router";
+import {destroyAuthInfo} from "../../services/authentication.service";
 
-export const AuthNav: React.FC<any> = () => {
-    const { person, isAuthenticated } = useContext(GlobalContext);
-    const logout = () => {
+const AuthNav: React.FC<any> = () => {
+    const router = useRouter();
+    const { person, isAuthenticated, setIsAuthenticated, setPerson } = useContext(GlobalContext);
+    const logout = async () => {
+        const res = await fetch('/api/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }
+        }).catch(console.log);
+        setIsAuthenticated(false);
+        setPerson(null as unknown as Person);
         destroyAuthInfo();
+        console.log('Logging out', isAuthenticated, person);
+        router.push('/');
     };
     return isAuthenticated ? (
         <>
-            <NavItem navTo={'/'} onClick={() => logout()}>
+            <NavItem onClick={() => logout()}>
                 Logout
             </NavItem>
         </>
@@ -23,3 +35,5 @@ export const AuthNav: React.FC<any> = () => {
         </>
     );
 };
+
+export default AuthNav;

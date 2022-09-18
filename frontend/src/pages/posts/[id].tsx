@@ -2,11 +2,10 @@ import React from 'react';
 import { usePostQuery } from '../../generated/graphql';
 import { Flex, FormHelperText, Text } from '@chakra-ui/core';
 import { useRouter } from 'next/router';
-import { CommentNode } from 'node-html-parser';
 import CommentBox from '../../components/posts/CommentBox';
 import ActionBar from '../../components/actions/ActionBar';
 
-export const Id: React.FC<any> = () => {
+const Id: React.FC<any> = () => {
     const router = useRouter();
     const { id } = router.query;
     if (!id) {
@@ -21,7 +20,7 @@ export const Id: React.FC<any> = () => {
     const { person } = post;
     return (
         <Flex direction={'column'} padding={'20px'}>
-            <ActionBar></ActionBar>
+            <ActionBar creatorId={post.id}></ActionBar>
             <Flex direction={'column'} padding={'10px'}>
                 <Text fontSize={'18px'} fontWeight={'bold'}>
                     {post.title}

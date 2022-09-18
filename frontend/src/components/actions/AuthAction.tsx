@@ -5,14 +5,16 @@ import React, {useContext} from 'react';
 import Action from './Action';
 import {GlobalContext} from "../../context/GlobalContext";
 
-const AuthAction: React.FC<any> = ({ children }) => {
-    const { isAuthenticated } = useContext(GlobalContext);
-    const content = !isAuthenticated ? (
+const AuthAction: React.FC<any> = ({ creatorId, children }) => {
+    const {isAuthenticated, person} = useContext(GlobalContext);
+    const content = isAuthenticated && person?.id === creatorId ? (
         <>
-            <FontAwesomeIcon icon={faLock} />
+            {children}
         </>
     ) : (
-        <>{children}</>
+        <>
+            <FontAwesomeIcon icon={faLock}/>
+        </>
     );
     return (
         <>
