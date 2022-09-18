@@ -4,7 +4,7 @@ import cookie from "cookie";
 
 export default async function handler(req: any, res: any) {
     const{ username, password } = req.body;
-    console.log(username, password);
+    // console.log(username, password);
     try {
         const payload = await fetch('http://localhost:8080/query', {
             method: 'POST',
@@ -33,7 +33,7 @@ export default async function handler(req: any, res: any) {
         });
         const {data}: any = await payload.json();
         const token = data?.login?.token;
-        console.log('in api', data);
+        // console.log('in api', data);
         res.setHeader('Set-Cookie', cookie.serialize('TOKEN_KEY', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV !== 'development',
@@ -41,7 +41,7 @@ export default async function handler(req: any, res: any) {
             sameSite: "strict",
             path: '/'
         }));
-        return res.status(200).json(payload);
+        return res.status(200).json(data);
     } catch (e) {
         console.log('Error during login fetch in api', e);
         return res.status(500).json();

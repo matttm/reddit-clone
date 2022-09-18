@@ -52,7 +52,7 @@ MyApp.getInitialProps = async (req: any) => {
     }
     const token = cookies['TOKEN_KEY'];
 
-    console.log('in init props', token);
+    // console.log('in init props', token);
     // console.log('token', req?.ctx?.req?.headers)
     const { data, error } = await client
         .query(IsAuthenticatedDocument, {}, {
@@ -66,8 +66,8 @@ MyApp.getInitialProps = async (req: any) => {
     const _data = data?.isAuthenticated;
     const personInfo = _data?.person;
     const isAuthenticated = personInfo !== undefined && personInfo !== null;
-    console.log('is auth finished');
-    console.log(_data);
+    // console.log('is auth finished');
+    // console.log(_data);
     // console.log(isAuthenticated, personInfo);
     return ({
         auth: {

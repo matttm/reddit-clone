@@ -16,7 +16,7 @@ import {GlobalContext} from "../context/GlobalContext";
 
 interface loginProps {}
 
-export const Login: React.FC<loginProps> = ({}) => {
+const Login: React.FC<loginProps> = ({}) => {
     const router = useRouter();
     const { person, isAuthenticated, setIsAuthenticated, setPerson } = useContext(GlobalContext);
     const [, login] = useLoginMutation();
@@ -50,12 +50,13 @@ export const Login: React.FC<loginProps> = ({}) => {
                     //     setErrors(m);
                     // }
                     // @ts-ignore
-                    const data = res.res?.login;
+                    const data = (await res.json())?.login;
                     const token = data?.token;
                     const person = data?.person;
+                    console.log('login', data)
+                    setToken(token);
                     setIsAuthenticated(token !== '');
                     setPerson(person);
-                    // setToken(token);
                     // setAuthInfo(person?.id, person?.username);
                     //
                     // TODO: route based on response success

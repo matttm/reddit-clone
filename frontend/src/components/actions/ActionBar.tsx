@@ -5,13 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
-const ActionBar = () => {
+const ActionBar: React.FC<any> = ({ creatorId }) => {
     return (
         <Flex direction={'row'} justifyContent={'flex-end'}>
-            <AuthAction>
+            <AuthAction creatorId={creatorId}>
                 <FontAwesomeIcon icon={faPencil}></FontAwesomeIcon>
             </AuthAction>
-            <AuthAction>
+            <AuthAction creatorId={creatorId}>
                 <FontAwesomeIcon icon={faTrashCan}></FontAwesomeIcon>
             </AuthAction>
         </Flex>
