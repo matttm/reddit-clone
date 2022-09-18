@@ -13,17 +13,18 @@ export const GlobalContextProvider: React.FC<any> = ({
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(true);
     const [_isAuthenticated, setIsAuthenticated] = useState(false);
-    const [person, setPerson] = useState({});
+    const [person, setPerson] = useState(null as unknown as Person);
     useEffect(() => {
         setIsLoading(true);
         setIsAuthenticated(!!isAuthenticated);
-        setPerson({...personInfo});
+        setPerson(personInfo);
         setIsLoading(false);
     }, []);
     // whenever there is a login or logout, go home
     useEffect(() => {
-        router.push('/');
-    }, [_isAuthenticated, personInfo]);
+        if (!isLoading)
+            router.push('/');
+    }, [ _isAuthenticated, person]);
     // const person = {}
     return (
         <GlobalContext.Provider

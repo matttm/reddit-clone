@@ -50,11 +50,11 @@ export const Login: React.FC<loginProps> = ({}) => {
                     //     setErrors(m);
                     // }
                     // @ts-ignore
-                    // const data = res.res?.login;
-                    // const token = data?.token;
-                    // const person = data?.person;
-                    // setIsAuthenticated(token !== '');
-                    // setPerson({...person});
+                    const data = res.res?.login;
+                    const token = data?.token;
+                    const person = data?.person;
+                    setIsAuthenticated(token !== '');
+                    setPerson(person);
                     // setToken(token);
                     // setAuthInfo(person?.id, person?.username);
                     //
