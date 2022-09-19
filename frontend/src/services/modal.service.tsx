@@ -1,9 +1,12 @@
 import ReactDOM from "react-dom";
 import React from "react";
-import '../../pages/generic-modal/generic-modal.css';
 import GenericModal from "../components/utilities/generic-modal/generic-modal";
 
 const createModalServiceSingleton = () => {
+    if (typeof window === 'undefined') {
+        console.error('Error: documentt is undefined');
+        return;
+    }
     // container and modals are wrapped in the closure
     const container = document.getElementById('portal-container');
     let modalRef = null;

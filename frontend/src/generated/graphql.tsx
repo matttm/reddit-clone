@@ -162,7 +162,7 @@ export type PostQuery = (
     & Pick<Post, 'id' | 'title' | 'body' | 'views' | 'createdAt'>
     & { person: (
       { __typename?: 'Person' }
-      & Pick<Person, 'username'>
+      & Pick<Person, 'id' | 'username'>
     ) }
   ) }
 );
@@ -271,6 +271,7 @@ export const PostDocument = gql`
     body
     views
     person {
+      id
       username
     }
     createdAt
