@@ -1,19 +1,21 @@
 import ReactDOM from "react-dom";
 import React from "react";
-import '../../pages/GenericModal/generic-modal.css';
-import GenericModal from "../pages/GenericModal/generic-modal";
+import '../../pages/generic-modal/generic-modal.css';
+import GenericModal from "../components/utilities/generic-modal/generic-modal";
 
 const createModalServiceSingleton = () => {
     // container and modals are wrapped in the closure
     const container = document.getElementById('portal-container');
     let modalRef = null;
-    const openModal = (html : React.FC<any) => {
-        modalRef = ReactDOM.render(
-            <GenericModal>
-                {html}
-            </GenericModal>,
-        container
-    );
+    const openModal = (html : React.FC<any>) => {
+        if (!container) {
+            console.error('Error creating modal as container is null');
+            return;
+        }
+        modalRef = ReactDOM.createPortal(
+            <GenericModal></GenericModal>,
+            container
+        )
     };
     const closeModal = () => {
         modalRef = null;

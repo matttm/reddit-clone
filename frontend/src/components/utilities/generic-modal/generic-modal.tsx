@@ -3,7 +3,7 @@
  */
 import React from "react";
 import "./generic-modal.css";
-import {modalService} from "../../services/modal.service";
+import {modalService} from "../../../services/modal.service";
 
 const GenericModal: React.FC<any> = (props) => {
 
