@@ -2,10 +2,10 @@
  * Page that handles User sign in and account creation
  */
 import React from "react";
-import "./GenericModal.css";
-import {modalService} from "../../services/ModalService/ModalService";
+import "./generic-modal.css";
+import {modalService} from "../../services/modal.service";
 
-const GenericModal = (props) => {
+const GenericModal: React.FC<any> = (props) => {
 
     return (
         <div className="modal" onClick={() => modalService.closeModal()}>
