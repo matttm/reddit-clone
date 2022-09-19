@@ -7,7 +7,7 @@ const createModalServiceSingleton = () => {
     // container and modals are wrapped in the closure
     const container = document.getElementById('portal-container');
     let modalRef = null;
-    const openModal = (html : React.FC<any>) => {
+    const openModal = (childComponent : React.FC<any>) => {
         if (!container) {
             console.error('Error creating modal as container is null');
             return;

@@ -4,6 +4,8 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import {modalService} from "../../services/modal.service";
+import DeletePost from "../posts/DeletePost";
 
 const ActionBar: React.FC<any> = ({ creatorId }) => {
     return (
@@ -11,7 +13,7 @@ const ActionBar: React.FC<any> = ({ creatorId }) => {
             <AuthAction creatorId={creatorId}>
                 <FontAwesomeIcon icon={faPencil}></FontAwesomeIcon>
             </AuthAction>
-            <AuthAction creatorId={creatorId}>
+            <AuthAction action={() => modalService.openModal(DeletePost)} creatorId={creatorId}>
                 <FontAwesomeIcon icon={faTrashCan}></FontAwesomeIcon>
             </AuthAction>
         </Flex>

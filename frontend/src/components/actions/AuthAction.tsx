@@ -4,8 +4,9 @@ import { faLock } from '@fortawesome/free-solid-svg-icons';
 import React, {useContext} from 'react';
 import Action from './Action';
 import {GlobalContext} from "../../context/GlobalContext";
+import {act} from "react-dom/test-utils";
 
-const AuthAction: React.FC<any> = ({ creatorId, children }) => {
+const AuthAction: React.FC<any> = ({ creatorId, action, children }) => {
     const {isAuthenticated, person} = useContext(GlobalContext);
     const content = isAuthenticated && person?.id === creatorId ? (
         <>
@@ -18,7 +19,7 @@ const AuthAction: React.FC<any> = ({ creatorId, children }) => {
     );
     return (
         <>
-            <Action>{content}</Action>
+            <Action action={action}>{content}</Action>
         </>
     );
 };
