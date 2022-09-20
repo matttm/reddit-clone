@@ -13,7 +13,10 @@ const ActionBar: React.FC<any> = ({ creatorId }) => {
             <AuthAction creatorId={creatorId}>
                 <FontAwesomeIcon icon={faPencil}></FontAwesomeIcon>
             </AuthAction>
-            <AuthAction action={() => modalService.openModal(DeletePost)} creatorId={creatorId}>
+            <AuthAction action={() => {
+                if (!modalService) return;
+                modalService.openModal(DeletePost);
+            }} creatorId={creatorId}>
                 <FontAwesomeIcon icon={faTrashCan}></FontAwesomeIcon>
             </AuthAction>
         </Flex>

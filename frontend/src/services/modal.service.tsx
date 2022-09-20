@@ -6,6 +6,7 @@ const createModalServiceSingleton = () => {
     if (typeof window === 'undefined') {
         console.error('Error: document is undefined');
         return;
+        // return { openModal: false, closeModal: true }
     }
     // container and modals are wrapped in the closure
     const container = document.getElementById('portal-container');
@@ -16,7 +17,9 @@ const createModalServiceSingleton = () => {
             return;
         }
         modalRef = ReactDOM.createPortal(
-            <GenericModal></GenericModal>,
+            <GenericModal>
+                {childComponent}
+            </GenericModal>,
             container
         )
     };
