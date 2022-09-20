@@ -2,12 +2,17 @@ import ReactDOM from "react-dom";
 import React from "react";
 import GenericModal from "../components/utilities/generic-modal/generic-modal";
 
-const createModalServiceSingleton = () => {
-    if (typeof window === 'undefined') {
-        console.error('Error: document is undefined');
-        return;
-        // return { openModal: false, closeModal: true }
-    }
+export interface ModalService {
+    openModal: (c: React.FC<any>) => void;
+    closeModal: () => void;
+}
+
+const createModalServiceSingleton: () => Readonly<ModalService> = () => {
+    // if (typeof window === 'undefined') {
+    //     console.error('Error: document is undefined');
+    //     return;
+    //     // return { openModal: false, closeModal: true }
+    // }
     // container and modals are wrapped in the closure
     const container = document.getElementById('portal-container');
     let modalRef = null;
@@ -36,4 +41,4 @@ const createModalServiceSingleton = () => {
     });
 }
 
-export const modalService = createModalServiceSingleton();
+export const modalService: Readonly<ModalService> = createModalServiceSingleton();
