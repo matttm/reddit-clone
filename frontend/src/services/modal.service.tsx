@@ -7,7 +7,7 @@ export interface ModalService {
     closeModal: () => void;
 }
 
-const createModalServiceSingleton: () => Readonly<ModalService> = () => {
+export const createModalServiceSingleton: () => Readonly<ModalService> = () => {
     // if (typeof window === 'undefined') {
     //     console.error('Error: document is undefined');
     //     return;
@@ -41,4 +41,4 @@ const createModalServiceSingleton: () => Readonly<ModalService> = () => {
     });
 }
 
-export const modalService: Readonly<ModalService> = createModalServiceSingleton();
+// export const modalService: Readonly<ModalService> = createModalServiceSingleton();

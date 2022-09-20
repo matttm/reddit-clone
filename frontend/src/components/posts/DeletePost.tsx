@@ -1,7 +1,7 @@
 import React from "react";
 
 const DeletePost: React.FC<any> = ({ postId, children }) => {
-    const [, deletePost] = useDeletePost();
+    // const [, deletePost] = useDeletePost();
     return (
         <>
             <p>

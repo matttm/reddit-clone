@@ -22,25 +22,27 @@ function MyApp({
     auth
 }: any) {
     return (
-        <Provider value={client}>
-            <ThemeProvider theme={theme}>
-                <ColorModeProvider value="dark">
-                    <CSSReset />
-                    <GlobalContextProvider auth={{...auth}}>
-                        <div id={'portal-container'}></div>
-                        <Flex direction={'row'}>
-                            <Navbar />
-                            <Component {...pageProps} />
-                        </Flex>
-                        <Container height="100vh">
-                            <a href={'https://github.com/matttm'}>
-                                Matt Maloney : @github/matttm
-                            </a>
-                        </Container>
-                    </GlobalContextProvider>
-                </ColorModeProvider>
-            </ThemeProvider>
-        </Provider>
+        <>
+        <div id={'portal-container'}></div>
+            <Provider value={client}>
+                <ThemeProvider theme={theme}>
+                    <ColorModeProvider value="dark">
+                        <CSSReset />
+                        <GlobalContextProvider auth={{...auth}}>
+                            <Flex direction={'row'}>
+                                <Navbar />
+                                <Component {...pageProps} />
+                            </Flex>
+                            <Container height="100vh">
+                                <a href={'https://github.com/matttm'}>
+                                    Matt Maloney : @github/matttm
+                                </a>
+                            </Container>
+                        </GlobalContextProvider>
+                    </ColorModeProvider>
+                </ThemeProvider>
+            </Provider>
+        </>
     );
 }
 

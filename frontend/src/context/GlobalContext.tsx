@@ -1,5 +1,6 @@
 import React from "react";
 import {Person} from "../generated/graphql";
+import {ModalService} from "../services/modal.service";
 
 interface IGlobalContextProps {
     person: Person | null,
@@ -8,6 +9,7 @@ interface IGlobalContextProps {
     setLoading: (loading: boolean) => void;
     setIsAuthenticated: (isAuth: boolean) => void;
     setPerson: (p: Person) => void;
+    modalService: Readonly<ModalService> | null;
 }
 
 export const GlobalContext = React.createContext<IGlobalContextProps>({
@@ -17,4 +19,5 @@ export const GlobalContext = React.createContext<IGlobalContextProps>({
     setLoading: () => {},
     setIsAuthenticated: () => {},
     setPerson: () => {},
+    modalService: null,
 });
