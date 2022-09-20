@@ -1,15 +1,18 @@
 /**
  * Page that handles User sign in and account creation
  */
-import React from "react";
-import {modalService} from "../../../services/modal.service";
+import React, {useContext} from "react";
+import {GlobalContext} from "../../../context/GlobalContext";
 
-const GenericModal: React.FC<any> = (props) => {
-
+const GenericModal: React.FC<any> = ({ children }) => {
+    console.log('children', children);
+    const { modalService } = useContext(GlobalContext);
     return (
-        <div className="modal" onClick={() => modalService.closeModal()}>
+        <div className="modal" onClick={() => {
+            if (modalService) modalService?.closeModal()
+        }}>
             <div className="modal-content">
-                {props.children}
+                {children}
             </div>
         </div>
     );

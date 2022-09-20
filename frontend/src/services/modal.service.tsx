@@ -16,14 +16,15 @@ export const createModalServiceSingleton: () => Readonly<ModalService> = () => {
     // container and modals are wrapped in the closure
     const container = document.getElementById('portal-container');
     let modalRef = null;
-    const openModal = (childComponent : React.FC<any>) => {
+    const openModal = (ChildComponent : React.FC<any>) => {
+        console.log('container', container);
         if (!container) {
             console.error('Error creating modal as container is null');
             return;
         }
-        modalRef = ReactDOM.createPortal(
+        modalRef = ReactDOM.render(
             <GenericModal>
-                {childComponent}
+                <ChildComponent></ChildComponent>
             </GenericModal>,
             container
         )
