@@ -4,7 +4,7 @@ import GenericModal from "../components/utilities/generic-modal/generic-modal";
 
 const createModalServiceSingleton = () => {
     if (typeof window === 'undefined') {
-        console.error('Error: documentt is undefined');
+        console.error('Error: document is undefined');
         return;
     }
     // container and modals are wrapped in the closure
