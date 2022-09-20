@@ -14,7 +14,11 @@ const ActionBar: React.FC<any> = ({ creatorId }) => {
                 <FontAwesomeIcon icon={faPencil}></FontAwesomeIcon>
             </AuthAction>
             <AuthAction action={() => {
-                if (!modalService) return;
+                if (!modalService) {
+                    console.log('Service is undefined');
+                    return;
+                }
+                console.log('Service is defined', modalService);
                 modalService.openModal(DeletePost);
             }} creatorId={creatorId}>
                 <FontAwesomeIcon icon={faTrashCan}></FontAwesomeIcon>
