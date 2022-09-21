@@ -19,8 +19,10 @@ const ActionBar: React.FC<any> = ({ creatorId }) => {
                 //     console.log('Service is undefined');
                 //     return;
                 // }
-                console.log('Service is defined', modalService);
-                modalService?.openModal(DeletePost);
+                // console.log('Service is defined', modalService);
+                modalService?.openModal(
+                    <DeletePost />
+                );
             }} creatorId={creatorId}>
                 <FontAwesomeIcon icon={faTrashCan}></FontAwesomeIcon>
             </AuthAction>

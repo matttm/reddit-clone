@@ -3,7 +3,7 @@ import React from "react";
 import GenericModal from "../components/utilities/generic-modal/generic-modal";
 
 export interface ModalService {
-    openModal: (c: React.FC<any>) => void;
+    openModal: (c: React.ReactElement) => void;
     closeModal: () => void;
 }
 
@@ -16,7 +16,7 @@ export const createModalServiceSingleton: () => Readonly<ModalService> = () => {
     // container and modals are wrapped in the closure
     const container = document.getElementById('portal-container');
     let modalRef = null;
-    const openModal = (ChildComponent : React.FC<any>) => {
+    const openModal = (html: React.ReactElement) => {
         console.log('container', container);
         if (!container) {
             console.error('Error creating modal as container is null');
@@ -24,7 +24,7 @@ export const createModalServiceSingleton: () => Readonly<ModalService> = () => {
         }
         modalRef = ReactDOM.render(
             <GenericModal>
-                <ChildComponent></ChildComponent>
+                {html}
             </GenericModal>,
             container
         )

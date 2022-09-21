@@ -25,10 +25,10 @@ function MyApp({
 }: any) {
     return (
         <>
-        <div id={'portal-container'}></div>
             <Provider value={client}>
                 <ThemeProvider theme={theme}>
                     <ColorModeProvider value="dark">
+                        <div id={'portal-container'}></div>
                         <CSSReset />
                         <GlobalContextProvider auth={{...auth}}>
                             <Flex direction={'row'}>
