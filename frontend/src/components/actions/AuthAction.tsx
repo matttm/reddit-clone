@@ -11,16 +11,18 @@ const AuthAction: React.FC<any> = ({ creatorId, action, children }) => {
     console.log('id', person?.id, creatorId)
     const content = isAuthenticated && person?.id === creatorId ? (
         <>
-            {children}
+            <Action action={action}>{children}</Action>
         </>
     ) : (
         <>
-            <FontAwesomeIcon icon={faLock}/>
+            <Action>
+                <FontAwesomeIcon icon={faLock}/>
+            </Action>
         </>
     );
     return (
         <>
-            <Action action={action}>{content}</Action>
+            {content}
         </>
     );
 };
