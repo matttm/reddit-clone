@@ -1,7 +1,8 @@
 import React from "react";
+import {useDeletePostMutation} from "../../generated/graphql";
 
 const DeletePost: React.FC<any> = ({ postId, children }) => {
-    // const [, deletePost] = useDeletePost();
+    const [, deletePost] = useDeletePostMutation();
     return (
         <>
             <p>
