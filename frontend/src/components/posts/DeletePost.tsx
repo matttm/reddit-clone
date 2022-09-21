@@ -10,26 +10,29 @@ const DeletePost: React.FC<any> = ({ postId, children }) => {
     const router = useRouter();
     const [, deletePost] = useDeletePostMutation();
     return (
-        <Wrapper variant={VariantsEnum.regular.description}>
-            <Formik
-                initialValues={{ postId: 1 }}
-                onSubmit={async (values) => {
-                    router.push('/posts');
-                    return null;
-                }}>
-                {({ isSubmitting }) => (
-                    <Form>
-                        <Button
-                            marginTop={8}
-                            type="submit"
-                            isLoading={isSubmitting}
-                            variantColor="green">
-                            Login
-                        </Button>
-                    </Form>
-                )}
-            </Formik>
-        </Wrapper>
+        <>
+            <Wrapper variant={VariantsEnum.regular.description}>
+                <Formik
+                    initialValues={{ postId }}
+                    onSubmit={async (values) => {
+                        // router.push('/posts');
+                        return values;
+                    }}>
+                    {({ isSubmitting }) => (
+                        <Flex direction={'row'}>
+                            <Text>Are you sure you want to delete this post?</Text>
+                            <Button
+                                marginTop={8}
+                                type="submit"
+                                isLoading={isSubmitting}
+                                variantColor="green">
+                                Confirm
+                            </Button>
+                        </Flex>
+                    )}
+                </Formik>
+            </Wrapper>
+        </>
     );
 }
 
