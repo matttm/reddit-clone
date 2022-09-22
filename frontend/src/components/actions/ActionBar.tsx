@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import DeletePost from "../posts/DeletePost";
 import {GlobalContext} from "../../context/GlobalContext";
+import DeletePostWithConfirmation from "../posts/DeletePostWithConfirmation";
 
 const ActionBar: React.FC<any> = ({ creatorId }) => {
     const { modalService } = useContext(GlobalContext);
@@ -21,7 +22,7 @@ const ActionBar: React.FC<any> = ({ creatorId }) => {
                 // }
                 // console.log('Service is defined', modalService);
                 modalService?.openModal(
-                    <DeletePost />
+                    <DeletePostWithConfirmation />
                 );
             }} creatorId={creatorId}>
                 <FontAwesomeIcon icon={faTrashCan}></FontAwesomeIcon>
