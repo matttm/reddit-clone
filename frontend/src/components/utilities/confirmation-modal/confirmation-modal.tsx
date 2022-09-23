@@ -28,7 +28,7 @@ export function withConfirmationModal(Component: React.FC, useMutationFn: () => 
                             <Form>
                                 <Flex direction={'column'}>
                                     <Component />
-                                    <Flex direction={'row'}>
+                                    <Flex direction={'row'} justifyContent={'space-around'}>
                                         <Button
                                             marginTop={8}
                                             type="submit"
