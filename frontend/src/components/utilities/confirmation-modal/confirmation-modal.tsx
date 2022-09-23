@@ -1,6 +1,6 @@
 import {GlobalContext} from "../../../context/GlobalContext";
 import Wrapper from "../Wrapper";
-import {Formik} from "formik";
+import {Form, Formik} from "formik";
 import {useRouter} from "next/router";
 import {Button, Flex} from "@chakra-ui/core";
 import {useContext} from "react";
@@ -19,30 +19,33 @@ export function withConfirmationModal(Component: React.FC, useMutationFn: () => 
                     <Formik
                         initialValues={{ postId }}
                         onSubmit={async (values) => {
+                            console.log('button clickked')
                             const res = await executeMutation(postId);
                             router.push('/posts');
                             return values;
                         }}>
                         {({ isSubmitting }) => (
-                            <Flex direction={'column'}>
-                                <Component />
-                                <Flex direction={'row'}>
-                                    <Button
-                                        marginTop={8}
-                                        type="submit"
-                                        isLoading={isSubmitting}
-                                        variantColor="green">
-                                        Confirm
-                                    </Button>
-                                    <Button
-                                        marginTop={8}
-                                        isLoading={isSubmitting}
-                                        onClick={() => modalService?.closeModal()}
-                                        variantColor="gray">
-                                        Close
-                                    </Button>
+                            <Form>
+                                <Flex direction={'column'}>
+                                    <Component />
+                                    <Flex direction={'row'}>
+                                        <Button
+                                            marginTop={8}
+                                            type="submit"
+                                            isLoading={isSubmitting}
+                                            variantColor="green">
+                                            Confirm
+                                        </Button>
+                                        <Button
+                                            marginTop={8}
+                                            isLoading={isSubmitting}
+                                            onClick={() => modalService?.closeModal()}
+                                            variantColor="gray">
+                                            Close
+                                        </Button>
+                                    </Flex>
                                 </Flex>
-                            </Flex>
+                            </Form>
                         )}
                     </Formik>
                 </Wrapper>

@@ -2,7 +2,6 @@ import {ColorModeProvider, CSSReset, Flex, ThemeProvider} from '@chakra-ui/core'
 import theme from '../theme';
 import {Client, Provider} from 'urql';
 import React from 'react';
-import {getToken} from '../services/authentication.service';
 import {Navbar} from '../components/navigation/Navbar';
 import {Container} from '../components/utilities/Container';
 import {GlobalContextProvider} from "../context/GlobalContextProvider";
@@ -10,14 +9,8 @@ import {IsAuthenticatedDocument} from "../generated/graphql";
 
 import '../styles/stylings.css';
 import '../components/utilities/generic-modal/generic-modal.css';
+import {client} from "../client/client";
 
-const client = new Client({
-    url: 'http://localhost:8080/query',
-    fetchOptions: () => {
-        const token = getToken();
-        return token ? { headers: { Authorization: `Bearer ${token}` } } : {};
-    }
-});
 function MyApp({
                    Component,
                    pageProps,
