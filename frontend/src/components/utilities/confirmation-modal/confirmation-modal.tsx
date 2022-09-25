@@ -8,11 +8,11 @@ import {VariantsEnum} from "../../../types";
 import {Exact, useDeletePostMutation} from "../../../generated/graphql";
 import {UseMutationResponse} from "urql";
 
-export function withConfirmationModal(Component: React.FC, useMutationFn: () => UseMutationResponse<any, Exact<any>>): React.FC<any> {
-    return ({ postId, children }) => {
+export function withConfirmationModal(Component: React.FC, useMutationFn: () => UseMutationResponse<any, any>): React.FC<any> {
+    return (props) => {
         const { modalService } = useContext(GlobalContext);
         const router = useRouter();
-        console.log('button clickked', postId)
+        console.log('button clickked', props)
         const [, executeMutation] = useMutationFn();
         return (
             <>
@@ -20,8 +20,8 @@ export function withConfirmationModal(Component: React.FC, useMutationFn: () => 
                     <Formik
                         initialValues={{}}
                         onSubmit={async (values) => {
-                            console.log('button clickked', postId)
-                            const res = await executeMutation(postId);
+                            console.log('button clickked', props.postId)
+                            const res = await executeMutation(+props.postId);
                             router.push('/posts');
                             return values;
                         }}>
