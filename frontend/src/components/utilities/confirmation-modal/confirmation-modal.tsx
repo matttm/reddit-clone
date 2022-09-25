@@ -8,7 +8,7 @@ import {VariantsEnum} from "../../../types";
 import {Exact, useDeletePostMutation} from "../../../generated/graphql";
 import {UseMutationResponse} from "urql";
 
-export function withConfirmationModal(Component: React.FC, useMutationFn: () => UseMutationResponse<any, any>): React.FC<any> {
+export function withConfirmationModal(Component: React.FC, useMutationFn: () => UseMutationResponse<any, Exact<any>>): React.FC<any> {
     return (props) => {
         const { modalService } = useContext(GlobalContext);
         const router = useRouter();
@@ -21,8 +21,8 @@ export function withConfirmationModal(Component: React.FC, useMutationFn: () => 
                         initialValues={{}}
                         onSubmit={async (values) => {
                             console.log('button clickked', props.postId)
-                            const res = await executeMutation(+props.postId);
-                            router.push('/posts');
+                            const res = await executeMutation({ id: props.postId });
+                            router.push('/');
                             return values;
                         }}>
                         {({ isSubmitting }) => (
