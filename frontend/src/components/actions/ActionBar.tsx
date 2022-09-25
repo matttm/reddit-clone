@@ -8,8 +8,9 @@ import DeletePost from "../posts/DeletePost";
 import {GlobalContext} from "../../context/GlobalContext";
 import DeletePostWithConfirmation from "../posts/DeletePostWithConfirmation";
 
-const ActionBar: React.FC<any> = ({ creatorId }) => {
+const ActionBar: React.FC<any> = ({ creatorId, postId }) => {
     const { modalService } = useContext(GlobalContext);
+    console.log('action b postid', postId)
     return (
         <Flex direction={'row'} justifyContent={'flex-end'}>
             <AuthAction creatorId={creatorId}>
@@ -22,7 +23,7 @@ const ActionBar: React.FC<any> = ({ creatorId }) => {
                 // }
                 // console.log('Service is defined', modalService);
                 modalService?.openModal(
-                    <DeletePostWithConfirmation />
+                    <DeletePostWithConfirmation postId={postId} />
                 );
             }} creatorId={creatorId}>
                 <FontAwesomeIcon icon={faTrashCan}></FontAwesomeIcon>

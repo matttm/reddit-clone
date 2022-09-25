@@ -21,7 +21,7 @@ const Id: React.FC<any> = () => {
     console.log(post);
     return (
         <Flex direction={'column'} padding={'20px'}>
-            <ActionBar creatorId={post?.person?.id}></ActionBar>
+            <ActionBar creatorId={post?.person?.id} postId={post.id}></ActionBar>
             <Flex direction={'column'} padding={'10px'}>
                 <Text fontSize={'18px'} fontWeight={'bold'}>
                     {post.title}

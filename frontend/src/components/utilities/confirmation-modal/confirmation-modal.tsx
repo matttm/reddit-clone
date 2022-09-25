@@ -12,14 +12,15 @@ export function withConfirmationModal(Component: React.FC, useMutationFn: () => 
     return ({ postId, children }) => {
         const { modalService } = useContext(GlobalContext);
         const router = useRouter();
+        console.log('button clickked', postId)
         const [, executeMutation] = useMutationFn();
         return (
             <>
                 <Wrapper variant={VariantsEnum.regular.description}>
                     <Formik
-                        initialValues={{ postId }}
+                        initialValues={{}}
                         onSubmit={async (values) => {
-                            console.log('button clickked')
+                            console.log('button clickked', postId)
                             const res = await executeMutation(postId);
                             router.push('/posts');
                             return values;
