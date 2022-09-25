@@ -17,7 +17,6 @@ interface registerProps {}
 export const Register: React.FC<registerProps> = ({}) => {
     const router = useRouter();
     const [, register] = useRegisterMutation();
-    console.log(useRegisterMutation());
     return (
         <Wrapper variant={VariantsEnum.regular.description}>
             <Formik

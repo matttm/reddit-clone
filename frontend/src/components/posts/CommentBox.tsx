@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { InputField } from '../utilities/InpurField';
 import { InputTypeEnum } from '../../types';
 import { Button, Flex, Text } from '@chakra-ui/core';
 import { Formik } from 'formik';
-import { isAuthenticated } from '../../services/authentication.service';
+import {GlobalContext} from "../../context/GlobalContext";
 
 const CommentBox: React.FC<any> = () => {
-    if (!isAuthenticated()) {
+    const { isAuthenticated } = useContext(GlobalContext);
+    if (!isAuthenticated) {
         return (
             <Flex
                 direction={'column'}

@@ -9,7 +9,6 @@ export default async function handler(req: any, res: any) {
             sameSite: "strict",
             path: '/'
         }));
-        // console.log('Removing cookie');
         return res.status(200).json({});
     } catch (e) {
         console.log('Error during logout in api', e);

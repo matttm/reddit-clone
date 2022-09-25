@@ -1,6 +1,6 @@
 import {ColorModeProvider, CSSReset, Flex, ThemeProvider} from '@chakra-ui/core';
 import theme from '../theme';
-import {Client, Provider} from 'urql';
+import {Provider} from 'urql';
 import React from 'react';
 import {Navbar} from '../components/navigation/Navbar';
 import {Container} from '../components/utilities/Container';
@@ -42,16 +42,11 @@ function MyApp({
 }
 
 MyApp.getInitialProps = async (req: any) => {
-    // console.log('headers', ctx.req);
-    // console.log('get initial props is executing');
     const cookies = req?.ctx?.req?.cookies;
     if (cookies === undefined) {
         return {};
     }
     const token = cookies['TOKEN_KEY'];
-
-    // console.log('in init props', token);
-    // console.log('token', req?.ctx?.req?.headers)
     const { data, error } = await client
         .query(IsAuthenticatedDocument, {}, {
             fetchOptions: {
@@ -64,9 +59,6 @@ MyApp.getInitialProps = async (req: any) => {
     const _data = data?.isAuthenticated;
     const personInfo = _data?.person;
     const isAuthenticated = personInfo !== undefined && personInfo !== null;
-    // console.log('is auth finished');
-    // console.log(_data);
-    // console.log(isAuthenticated, personInfo);
     return ({
         auth: {
             isAuthenticated,

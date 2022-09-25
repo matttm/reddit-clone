@@ -8,16 +8,10 @@ export interface ModalService {
 }
 
 export const createModalServiceSingleton: () => Readonly<ModalService> = () => {
-    // if (typeof window === 'undefined') {
-    //     console.error('Error: document is undefined');
-    //     return;
-    //     // return { openModal: false, closeModal: true }
-    // }
     // container and modals are wrapped in the closure
     const container = document.getElementById('portal-container');
     let modalRef = null;
     const openModal = (html: React.ReactElement) => {
-        console.log('container', container);
         if (!container) {
             console.error('Error creating modal as container is null');
             return;
@@ -41,5 +35,3 @@ export const createModalServiceSingleton: () => Readonly<ModalService> = () => {
         closeModal
     });
 }
-
-// export const modalService: Readonly<ModalService> = createModalServiceSingleton();

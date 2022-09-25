@@ -40,7 +40,6 @@ const Login: React.FC<loginProps> = ({}) => {
                                 password: values.password
                             })
                         });
-                    // console.log('res', res);
                     // if (!res?.data) {
                     //     const m = {};
                     //     // @ts-ignore
@@ -57,10 +56,6 @@ const Login: React.FC<loginProps> = ({}) => {
                     setToken(token);
                     setIsAuthenticated(token !== '');
                     setPerson(person);
-                    // setAuthInfo(person?.id, person?.username);
-                    //
-                    // TODO: route based on response success
-                    //
                     router.push('/');
                     return res;
                 }}>

@@ -4,7 +4,6 @@ import React, {useContext} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import DeletePost from "../posts/DeletePost";
 import {GlobalContext} from "../../context/GlobalContext";
 import DeletePostWithConfirmation from "../posts/DeletePostWithConfirmation";
 
@@ -17,11 +16,6 @@ const ActionBar: React.FC<any> = ({ creatorId, postId }) => {
                 <FontAwesomeIcon icon={faPencil}></FontAwesomeIcon>
             </AuthAction>
             <AuthAction action={() => {
-                // if (!modalService) {
-                //     console.log('Service is undefined');
-                //     return;
-                // }
-                // console.log('Service is defined', modalService);
                 modalService?.openModal(
                     <DeletePostWithConfirmation postId={postId} />
                 );
