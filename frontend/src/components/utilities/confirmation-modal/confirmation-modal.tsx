@@ -1,7 +1,7 @@
 import {GlobalContext} from "../../../context/GlobalContext";
 import Wrapper from "../Wrapper";
 import {Form, Formik} from "formik";
-import {useRouter} from "next/router";
+import Router from "next/router";
 import {Button, Flex} from "@chakra-ui/core";
 import {useContext} from "react";
 import {VariantsEnum} from "../../../types";
@@ -11,7 +11,6 @@ import {UseMutationResponse} from "urql";
 export function withConfirmationModal(Component: React.FC, useMutationFn: () => UseMutationResponse<any, Exact<any>>): React.FC<any> {
     return (props) => {
         const { modalService } = useContext(GlobalContext);
-        const router = useRouter();
         const [, executeMutation] = useMutationFn();
         return (
             <>
@@ -19,8 +18,9 @@ export function withConfirmationModal(Component: React.FC, useMutationFn: () => 
                     <Formik
                         initialValues={{}}
                         onSubmit={async (values) => {
-                            const res = await executeMutation({ id: props.postId });
-                            router.push('/');
+                            // const res = await executeMutation({ id: props.postId });
+                            modalService?.closeModal();
+                            Router.push('/');
                             return values;
                         }}>
                         {({ isSubmitting }) => (
