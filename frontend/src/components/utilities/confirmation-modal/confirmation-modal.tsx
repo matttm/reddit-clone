@@ -19,6 +19,7 @@ export function withConfirmationModal(Component: React.FC, useMutationFn: () => 
                         initialValues={{}}
                         onSubmit={async (values) => {
                             // const res = await executeMutation({ id: props.postId });
+                            console.log('mofSer', modalService)
                             modalService?.closeModal();
                             Router.push('/');
                             return values;
