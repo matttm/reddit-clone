@@ -21,9 +21,9 @@ function MyApp({
             <Provider value={client}>
                 <ThemeProvider theme={theme}>
                     <ColorModeProvider value="dark">
-                        <div id={'portal-container'}></div>
                         <CSSReset />
                         <GlobalContextProvider auth={{...auth}}>
+                            <div id={'portal-container'}></div>
                             <Flex direction={'row'}>
                                 <Navbar />
                                 <Component {...pageProps} />

@@ -7,11 +7,10 @@ import {useContext} from "react";
 import {VariantsEnum} from "../../../types";
 import {Exact} from "../../../generated/graphql";
 import {UseMutationResponse} from "urql";
-import {createModalServiceSingleton} from "../../../services/modal.service";
 
 export function withConfirmationModal(Component: React.FC, useMutationFn: () => UseMutationResponse<any, Exact<any>>): React.FC<any> {
     return (props) => {
-        const modalService = createModalServiceSingleton();
+        const { modalService } = useContext(GlobalContext);
         const [, executeMutation] = useMutationFn();
         return (
             <>

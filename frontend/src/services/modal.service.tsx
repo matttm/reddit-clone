@@ -9,36 +9,29 @@ export interface ModalService {
 }
 
 export const createModalServiceSingleton: () => Readonly<ModalService> = () => {
-    const openModal = _openModal;
-    const closeModal = _closeModal;
-    return Object.freeze({
-        openModal,
-        closeModal
-    });
-}
-
-
-const _openModal = (html: React.ReactElement) => {
     const container = document.getElementById('portal-container');
     if (!container) {
         console.error('Error creating modal as container is null');
-        return;
+        return {} as Readonly<ModalService>;
     }
     const node = ReactDOMClient.createRoot(container);
-    let modalRef = null;
-    node.render(
-        <GenericModal>
-            {html}
-        </GenericModal>
-    );
-};
-
-const _closeModal = () => {
-    const container = document.getElementById('portal-container');
-    if (!container) {
-        console.error('Error creating modal as container is null');
-        return;
-    }
-    ReactDOM.unmountComponentAtNode(container)
-    console.log('Unmounting component');
-};
+    const _openModal = (html: React.ReactElement) => {
+        node.render(
+            <GenericModal>
+                {html}
+            </GenericModal>
+        );
+    };
+    const _closeModal = () => {
+        if (!node) {
+            console.error('Error creating modal as container is null');
+            return;
+        }
+        node.unmount();
+        console.log('Unmounting component');
+    };
+    return Object.freeze({
+        openModal: _openModal,
+        closeModal: _closeModal
+    });
+}

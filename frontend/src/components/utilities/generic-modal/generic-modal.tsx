@@ -5,10 +5,9 @@ import React, {useContext} from "react";
 import {GlobalContext} from "../../../context/GlobalContext";
 import {ThemeProvider} from "@chakra-ui/core";
 import {Provider, useClient} from "urql";
-import {createModalServiceSingleton} from "../../../services/modal.service";
 
 const GenericModal: React.FC<any> = ({ children }) => {
-    const modalService = createModalServiceSingleton();
+    const { modalService } = useContext(GlobalContext);
     const client = useClient();
     return (
         <Provider value={client}>
