@@ -15,10 +15,8 @@ export const GlobalContextProvider: React.FC<any> = ({
     const [isLoading, setIsLoading] = useState(true);
     const [_isAuthenticated, setIsAuthenticated] = useState(false);
     const [person, setPerson] = useState(null as unknown as Person);
-    const [_modalService, setModalService] = useState(null as unknown as ModalService);
     useEffect(() => {
         setIsLoading(true);
-        setModalService(createModalServiceSingleton());
         setIsAuthenticated(!!isAuthenticated);
         setPerson(personInfo);
         setIsLoading(false);
@@ -31,8 +29,7 @@ export const GlobalContextProvider: React.FC<any> = ({
                 loading: isLoading,
                 setLoading: setIsLoading,
                 setIsAuthenticated: setIsAuthenticated,
-                setPerson: setPerson,
-                modalService: _modalService
+                setPerson: setPerson
             }}
         >
             {children}

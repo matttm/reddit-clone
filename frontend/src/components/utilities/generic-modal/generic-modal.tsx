@@ -5,22 +5,30 @@ import React, {useContext} from "react";
 import {GlobalContext} from "../../../context/GlobalContext";
 import {ThemeProvider} from "@chakra-ui/core";
 import {Provider, useClient} from "urql";
+import {ModalContext} from "../../../context/ModalContext";
+import {getModalSelection} from "../../../services/modal.service";
 
 const GenericModal: React.FC<any> = ({ children }) => {
-    const { modalService } = useContext(GlobalContext);
-    const client = useClient();
-    return (
-        <Provider value={client}>
-            <ThemeProvider>
+    const { isModalOpen, setIsModalOpen, modalComponent, setModalComponent, modalProps, setModalProps } = useContext(ModalContext);
+    const content = isModalOpen
+        ? (
+            <>
                 <div className="modal" onClick={() => {
-                    if (modalService) modalService?.closeModal()
+                    setIsModalOpen(false);
+                    setModalComponent('none');
+                    setModalProps(null);
                 }}>
                     <div className="modal-content">
-                        {children}
+                        {getModalSelection(modalComponent, modalProps)}
                     </div>
                 </div>
-            </ThemeProvider>
-        </Provider>
+            </>
+        )
+        : null;
+    return (
+        <>
+            {content}
+        </>
     );
 }
 
