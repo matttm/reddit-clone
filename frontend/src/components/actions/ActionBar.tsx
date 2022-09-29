@@ -1,15 +1,14 @@
-import { Flex } from '@chakra-ui/core';
+import {Flex} from '@chakra-ui/core';
 import AuthAction from './AuthAction';
 import React, {useContext} from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-import { faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import {GlobalContext} from "../../context/GlobalContext";
-import DeletePostWithConfirmation from "../posts/DeletePostWithConfirmation";
+import {faPencil, faTrashCan} from '@fortawesome/free-solid-svg-icons';
 import {ModalContext} from "../../context/ModalContext";
+import {MODAL_COMPONENTS} from "../../constants/model-components.constant";
 
 const ActionBar: React.FC<any> = ({ creatorId, postId }) => {
-    const { setIsModalOpen, setModalComponent, setModalProps } = useContext(ModalContext);
+    const { setModal } = useContext(ModalContext);
     console.log('action b postid', postId)
     return (
         <Flex direction={'row'} justifyContent={'flex-end'}>
@@ -17,9 +16,7 @@ const ActionBar: React.FC<any> = ({ creatorId, postId }) => {
                 <FontAwesomeIcon icon={faPencil}></FontAwesomeIcon>
             </AuthAction>
             <AuthAction action={() => {
-                setIsModalOpen(true);
-                setModalComponent('delete');
-                setModalProps({ postId  });
+                setModal(true, MODAL_COMPONENTS.DeleteComponent, { postId  });
             }} creatorId={creatorId}>
                 <FontAwesomeIcon icon={faTrashCan}></FontAwesomeIcon>
             </AuthAction>

@@ -7,10 +7,11 @@ import {useContext} from "react";
 import {VariantsEnum} from "../../../types";
 import {Exact} from "../../../generated/graphql";
 import {UseMutationResponse} from "urql";
+import {ModalContext} from "../../../context/ModalContext";
 
 export function withConfirmationModal(Component: React.FC, useMutationFn: () => UseMutationResponse<any, Exact<any>>): React.FC<any> {
     return (props) => {
-        const { modalService } = useContext(GlobalContext);
+        const { setModal } = useContext(ModalContext);
         const [, executeMutation] = useMutationFn();
         return (
             <>
@@ -18,9 +19,6 @@ export function withConfirmationModal(Component: React.FC, useMutationFn: () => 
                     <Formik
                         initialValues={{}}
                         onSubmit={async (values) => {
-                            // const res = await executeMutation({ id: props.postId });
-                            console.log('mofSer', modalService)
-                            modalService?.closeModal();
                             Router.push('/');
                             return values;
                         }}>
@@ -39,7 +37,7 @@ export function withConfirmationModal(Component: React.FC, useMutationFn: () => 
                                         <Button
                                             marginTop={8}
                                             isLoading={isSubmitting}
-                                            onClick={() => modalService?.closeModal()}
+                                            onClick={() => setModal(false)}
                                             variantColor="gray">
                                             Close
                                         </Button>

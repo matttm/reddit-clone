@@ -1,25 +1,25 @@
-import React, {useContext, useEffect, useState,} from "react";
-import { GlobalContext } from "./GlobalContext";
-import {Person, useIsAuthenticatedQuery} from "../generated/graphql";
-import {useRouter} from "next/router";
-import {createModalServiceSingleton, ModalService} from "../services/modal.service";
+import React, {useEffect, useState,} from "react";
 import {ModalContext} from "./ModalContext";
+import {MODAL_COMPONENTS} from "../constants/model-components.constant";
 
 export const ModalContextProvider: React.FC<any> = ({ children }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalComponent, setModalComponent] = useState('none');
     const [modalProps, setModalProps] = useState(null);
+    const setModal = (isOpen: boolean, modalComponent: string = MODAL_COMPONENTS.None, modalProps: any = null) => {
+        setIsModalOpen(isOpen);
+        setModalComponent(modalComponent);
+        setModalProps(modalProps);
+    }
     useEffect(() => {
     }, []);
     return (
         <ModalContext.Provider
             value={{
                 isModalOpen,
-                setIsModalOpen,
                 modalComponent,
-                setModalComponent,
                 modalProps,
-                setModalProps
+                setModal
             }}
         >
             {children}
