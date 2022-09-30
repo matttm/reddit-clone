@@ -14,7 +14,7 @@ const ActionBar: React.FC<any> = ({ creatorId, postId }) => {
     return (
         <Flex direction={'row'} justifyContent={'flex-end'}>
             <AuthAction action={() => {
-                router.push(`/createPost?id=${postId}`);
+                router.push(`/editPost?id=${postId}`);
             }} creatorId={creatorId}>
                 <FontAwesomeIcon icon={faPencil}></FontAwesomeIcon>
             </AuthAction>

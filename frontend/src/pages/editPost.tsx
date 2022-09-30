@@ -9,17 +9,34 @@ import * as Yup from 'yup';
 import { useRouter } from 'next/router';
 import {bind} from "@wry/context";
 import PostForm from "../components/posts/PostForm";
+import {useUpdatePostMutation} from "../generated/graphql";
 
 export const CreatePost: React.FC<any> = ({}) => {
     const router = useRouter();
-    const [, post] = useCreatePostMutation();
+    const [, update] = useUpdatePostMutation();
+    let initialTitle = '';
+    let initialBody = '';
+    // if an id is present, we're going to edit
+    const id = router.query.id;
+    if (typeof id !== 'string') {
+        return <p>Error</p>;
+    }
+    const [result, reexecuteQuery] = usePostQuery({ variables: { id: +id } });
+    const data = result.data?.post;
+    const title = data?.title;
+    const body = data?.body;
+    // assert valid data, not an error
+    if (title && body) {
+        initialTitle = data?.title;
+        initialBody = data?.body;
+    }
     return (
         <Wrapper variant={VariantsEnum.regular.description}>
             <Formik
-                initialValues={{ title: '', body: '' }}
+                initialValues={{ id: +id, title: initialTitle, body: initialBody }}
                 validationSchema={Yup.object().shape({})}
                 onSubmit={async (values, { setErrors }) => {
-                    const res = await post(values);
+                    const res = await update(values);
                     if (res.error) {
                         console.error(`Error: ${res.error}`);
                         const m = {};
@@ -31,7 +48,7 @@ export const CreatePost: React.FC<any> = ({}) => {
                 {({ isSubmitting }) => (
                     <PostForm
                         isSubmitting={isSubmitting}
-                        buttonText={'Create'}
+                        buttonText={'Update'}
                     />
                 )}
             </Formik>
