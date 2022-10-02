@@ -6,13 +6,16 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPencil, faTrashCan} from '@fortawesome/free-solid-svg-icons';
 import {ModalContext} from "../../context/ModalContext";
 import {MODAL_COMPONENTS} from "../../constants/model-components.constant";
+import {useRouter} from "next/router";
 
 const ActionBar: React.FC<any> = ({ creatorId, postId }) => {
+    const router = useRouter();
     const { setModal } = useContext(ModalContext);
-    console.log('action b postid', postId)
     return (
         <Flex direction={'row'} justifyContent={'flex-end'}>
-            <AuthAction creatorId={creatorId}>
+            <AuthAction action={() => {
+                router.push(`/editPost?id=${postId}`);
+            }} creatorId={creatorId}>
                 <FontAwesomeIcon icon={faPencil}></FontAwesomeIcon>
             </AuthAction>
             <AuthAction action={() => {
