@@ -19,7 +19,6 @@ export const Register: React.FC<registerProps> = ({}) => {
     const router = useRouter();
     const [, register] = useRegisterMutation();
     return (
-        <Wrapper variant={VariantsEnum.regular.description}>
             <Formik
                 initialValues={{ username: '', password: '' }}
                 validationSchema={Yup.object().shape({
@@ -41,7 +40,6 @@ export const Register: React.FC<registerProps> = ({}) => {
                     <UserForm isSubmitting={isSubmitting} buttonText={'Register'} />
                 )}
             </Formik>
-        </Wrapper>
     );
 };
 

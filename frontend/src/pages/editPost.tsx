@@ -17,7 +17,7 @@ export const CreatePost: React.FC<any> = ({}) => {
     if (typeof id !== 'string') {
         return <p>Error</p>;
     }
-    const [result, reexecuteQuery] = usePostQuery({ variables: { id: +id } });
+    const [result, reexecuteQuery] = usePostQuery({variables: {id: +id}});
     const data = result.data?.post;
     const title = data?.title;
     const body = data?.body;
@@ -27,28 +27,26 @@ export const CreatePost: React.FC<any> = ({}) => {
         initialBody = data?.body;
     }
     return (
-        <Wrapper variant={VariantsEnum.regular.description}>
-            <Formik
-                initialValues={{ id: +id, title: initialTitle, body: initialBody }}
-                validationSchema={Yup.object().shape({})}
-                onSubmit={async (values, { setErrors }) => {
-                    const res = await update(values);
-                    if (res.error) {
-                        console.error(`Error: ${res.error}`);
-                        const m = {};
-                        setErrors(m);
-                    }
-                    router.push('/');
-                    return res;
-                }}>
-                {({ isSubmitting }) => (
-                    <PostForm
-                        isSubmitting={isSubmitting}
-                        buttonText={'Update'}
-                    />
-                )}
-            </Formik>
-        </Wrapper>
+        <Formik
+            initialValues={{id: +id, title: initialTitle, body: initialBody}}
+            validationSchema={Yup.object().shape({})}
+            onSubmit={async (values, {setErrors}) => {
+                const res = await update(values);
+                if (res.error) {
+                    console.error(`Error: ${res.error}`);
+                    const m = {};
+                    setErrors(m);
+                }
+                router.push('/');
+                return res;
+            }}>
+            {({isSubmitting}) => (
+                <PostForm
+                    isSubmitting={isSubmitting}
+                    buttonText={'Update'}
+                />
+            )}
+        </Formik>
     );
 };
 

@@ -11,28 +11,26 @@ export const CreatePost: React.FC<any> = ({}) => {
     const router = useRouter();
     const [, post] = useCreatePostMutation();
     return (
-        <Wrapper variant={VariantsEnum.regular.description}>
-            <Formik
-                initialValues={{ title: '', body: '' }}
-                validationSchema={Yup.object().shape({})}
-                onSubmit={async (values, { setErrors }) => {
-                    const res = await post(values);
-                    if (res.error) {
-                        console.error(`Error: ${res.error}`);
-                        const m = {};
-                        setErrors(m);
-                    }
-                    router.push('/');
-                    return res;
-                }}>
-                {({ isSubmitting }) => (
-                    <PostForm
-                        isSubmitting={isSubmitting}
-                        buttonText={'Create'}
-                    />
-                )}
-            </Formik>
-        </Wrapper>
+        <Formik
+            initialValues={{title: '', body: ''}}
+            validationSchema={Yup.object().shape({})}
+            onSubmit={async (values, {setErrors}) => {
+                const res = await post(values);
+                if (res.error) {
+                    console.error(`Error: ${res.error}`);
+                    const m = {};
+                    setErrors(m);
+                }
+                router.push('/');
+                return res;
+            }}>
+            {({isSubmitting}) => (
+                <PostForm
+                    isSubmitting={isSubmitting}
+                    buttonText={'Create'}
+                />
+            )}
+        </Formik>
     );
 };
 
