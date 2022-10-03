@@ -13,24 +13,27 @@ import {client} from "../client/client";
 import GenericModal from "../components/utilities/generic-modal/generic-modal";
 import {ModalContext} from "../context/ModalContext";
 import {ModalContextProvider} from "../context/ModalContextProvider";
+import Wrapper from "../components/utilities/Wrapper";
 
 function MyApp({
                    Component,
                    pageProps,
-    auth
-}: any) {
+                   auth
+               }: any) {
     return (
         <>
             <Provider value={client}>
                 <ThemeProvider theme={theme}>
                     <ColorModeProvider value="dark">
-                        <CSSReset />
+                        <CSSReset/>
                         <GlobalContextProvider auth={{...auth}}>
                             <ModalContextProvider>
-                                <GenericModal />
+                                <GenericModal/>
                                 <Flex direction={'row'}>
-                                    <Navbar />
-                                    <Component {...pageProps} />
+                                    <Navbar/>
+                                    <Wrapper>
+                                        <Component {...pageProps} />
+                                    </Wrapper>
                                 </Flex>
                                 <Container height="100vh">
                                     <a href={'https://github.com/matttm'}>
@@ -52,7 +55,7 @@ MyApp.getInitialProps = async (req: any) => {
         return {};
     }
     const token = cookies['TOKEN_KEY'];
-    const { data, error } = await client
+    const {data, error} = await client
         .query(IsAuthenticatedDocument, {}, {
             fetchOptions: {
                 headers: {

@@ -7,7 +7,7 @@ import {useContext} from "react";
 import {Exact} from "../../../generated/graphql";
 import {UseMutationResponse} from "urql";
 import {ModalContext} from "../../../context/ModalContext";
-import {VariantsEnum} from "../../../types";
+import {VariantsEnum} from "../../../constants/variant.constant";
 
 export function withConfirmationModal(Component: React.FC, useMutationFn: () => UseMutationResponse<any, Exact<any>>): React.FC<any> {
     return (props) => {
@@ -18,13 +18,14 @@ export function withConfirmationModal(Component: React.FC, useMutationFn: () => 
             <>
                 <Wrapper variant={VariantsEnum.regular.description}>
                     <Flex direction={'column'}>
-                        <Component />
+                        <Flex justifyContent={'center'}>
+                            <Component />
+                        </Flex>
                         <Flex direction={'row'} justifyContent={'space-around'}>
                             <Button
                                 marginTop={8}
                                 onClick={async (values) => {
                                     setLoading(true);
-                                    console.log('props', modalProps)
                                     await executeMutation({ id: modalProps.postId });
                                     setModal(false);
                                     setLoading(false);

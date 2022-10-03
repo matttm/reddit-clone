@@ -18,7 +18,6 @@ const Id: React.FC<any> = () => {
     if (!data) return <p>Data is corrupt</p>;
     const { post } = data;
     const { person } = post;
-    console.log(post);
     return (
         <Flex direction={'column'} padding={'20px'}>
             <ActionBar creatorId={post?.person?.id} postId={post.id}></ActionBar>

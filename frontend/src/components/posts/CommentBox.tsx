@@ -1,9 +1,9 @@
 import React, {useContext} from 'react';
 import { InputField } from '../utilities/InpurField';
-import { InputTypeEnum } from '../../types';
 import { Button, Flex, Text } from '@chakra-ui/core';
 import { Formik } from 'formik';
 import {GlobalContext} from "../../context/GlobalContext";
+import {InputTypeEnum} from "../../constants/input-type.constant";
 
 const CommentBox: React.FC<any> = () => {
     const { isAuthenticated } = useContext(GlobalContext);

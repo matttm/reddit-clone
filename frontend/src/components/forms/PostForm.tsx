@@ -1,8 +1,8 @@
 import React from "react";
 import {Form} from "formik";
 import {InputField} from "../utilities/InpurField";
-import {InputTypeEnum} from "../../types";
 import {Button} from "@chakra-ui/core";
+import {InputTypeEnum} from "../../constants/input-type.constant";
 
 const PostForm: React.FC<any>= ({ buttonText, isSubmitting }) => {
     return (

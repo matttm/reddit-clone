@@ -1,7 +1,6 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
 import Wrapper from '../components/utilities/Wrapper';
-import { VariantsEnum } from '../types';
 import { InputField } from '../components/utilities/InpurField';
 import { Button } from '@chakra-ui/core';
 import * as Yup from 'yup';
@@ -11,6 +10,8 @@ import {
 } from '../validation/credentials.validation';
 import { Router, useRouter } from 'next/router';
 import { useRegisterMutation } from '../generated/graphql';
+import UserForm from "../components/forms/UserForm";
+import {VariantsEnum} from "../constants/variant.constant";
 
 interface registerProps {}
 
@@ -18,7 +19,6 @@ export const Register: React.FC<registerProps> = ({}) => {
     const router = useRouter();
     const [, register] = useRegisterMutation();
     return (
-        <Wrapper variant={VariantsEnum.regular.description}>
             <Formik
                 initialValues={{ username: '', password: '' }}
                 validationSchema={Yup.object().shape({
@@ -37,28 +37,9 @@ export const Register: React.FC<registerProps> = ({}) => {
                     return res;
                 }}>
                 {({ isSubmitting }) => (
-                    <Form>
-                        <InputField
-                            name="username"
-                            placeholder="username"
-                            label="Username"
-                        />
-                        <InputField
-                            name="password"
-                            placeholder="password"
-                            label="Password"
-                        />
-                        <Button
-                            marginTop={8}
-                            type="submit"
-                            isLoading={isSubmitting}
-                            variantColor="green">
-                            Register
-                        </Button>
-                    </Form>
+                    <UserForm isSubmitting={isSubmitting} buttonText={'Register'} />
                 )}
             </Formik>
-        </Wrapper>
     );
 };
 
