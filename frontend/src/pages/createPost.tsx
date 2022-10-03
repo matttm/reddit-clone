@@ -1,13 +1,10 @@
 import React from 'react';
-import { Form, Formik } from 'formik';
+import {Formik} from 'formik';
 import Wrapper from '../components/utilities/Wrapper';
-import { InputTypeEnum, VariantsEnum } from '../types';
-import { InputField } from '../components/utilities/InpurField';
-import { Button } from '@chakra-ui/core';
-import {useCreatePostMutation, usePostQuery} from '../generated/graphql';
+import {VariantsEnum} from '../types';
+import {useCreatePostMutation} from '../generated/graphql';
 import * as Yup from 'yup';
-import { useRouter } from 'next/router';
-import {bind} from "@wry/context";
+import {useRouter} from 'next/router';
 import PostForm from "../components/posts/PostForm";
 
 export const CreatePost: React.FC<any> = ({}) => {
