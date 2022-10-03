@@ -11,6 +11,7 @@ import {
 } from '../validation/credentials.validation';
 import { Router, useRouter } from 'next/router';
 import { useRegisterMutation } from '../generated/graphql';
+import UserForm from "../components/forms/UserForm";
 
 interface registerProps {}
 
@@ -37,25 +38,7 @@ export const Register: React.FC<registerProps> = ({}) => {
                     return res;
                 }}>
                 {({ isSubmitting }) => (
-                    <Form>
-                        <InputField
-                            name="username"
-                            placeholder="username"
-                            label="Username"
-                        />
-                        <InputField
-                            name="password"
-                            placeholder="password"
-                            label="Password"
-                        />
-                        <Button
-                            marginTop={8}
-                            type="submit"
-                            isLoading={isSubmitting}
-                            variantColor="green">
-                            Register
-                        </Button>
-                    </Form>
+                    <UserForm isSubmitting={isSubmitting} buttonText={'Register'} />
                 )}
             </Formik>
         </Wrapper>

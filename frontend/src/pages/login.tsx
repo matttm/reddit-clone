@@ -1,18 +1,14 @@
 import React, {useContext} from 'react';
-import { Form, Formik } from 'formik';
+import {Formik} from 'formik';
 import Wrapper from '../components/utilities/Wrapper';
-import { VariantsEnum } from '../types';
-import { InputField } from '../components/utilities/InpurField';
-import { Button } from '@chakra-ui/core';
-import { useLoginMutation } from '../generated/graphql';
+import {VariantsEnum} from '../types';
+import {useLoginMutation} from '../generated/graphql';
 import * as Yup from 'yup';
-import {
-    passwordValidation,
-    usernameValidation
-} from '../validation/credentials.validation';
-import { useRouter } from 'next/router';
-import { setAuthInfo, setToken } from '../services/authentication.service';
+import {passwordValidation, usernameValidation} from '../validation/credentials.validation';
+import {useRouter} from 'next/router';
+import {setToken} from '../services/authentication.service';
 import {GlobalContext} from "../context/GlobalContext";
+import UserForm from "../components/forms/UserForm";
 
 interface loginProps {}
 
@@ -60,25 +56,7 @@ const Login: React.FC<loginProps> = ({}) => {
                     return res;
                 }}>
                 {({ isSubmitting }) => (
-                    <Form>
-                        <InputField
-                            name="username"
-                            placeholder="username"
-                            label="Username"
-                        />
-                        <InputField
-                            name="password"
-                            placeholder="password"
-                            label="Password"
-                        />
-                        <Button
-                            marginTop={8}
-                            type="submit"
-                            isLoading={isSubmitting}
-                            variantColor="green">
-                            Login
-                        </Button>
-                    </Form>
+                    <UserForm isSubmitting={isSubmitting} buttonText={'Login'}/>
                 )}
             </Formik>
         </Wrapper>
