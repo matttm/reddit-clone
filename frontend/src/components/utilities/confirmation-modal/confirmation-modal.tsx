@@ -18,13 +18,14 @@ export function withConfirmationModal(Component: React.FC, useMutationFn: () => 
             <>
                 <Wrapper variant={VariantsEnum.regular.description}>
                     <Flex direction={'column'}>
-                        <Component />
+                        <Flex justifyContent={'center'}>
+                            <Component />
+                        </Flex>
                         <Flex direction={'row'} justifyContent={'space-around'}>
                             <Button
                                 marginTop={8}
                                 onClick={async (values) => {
                                     setLoading(true);
-                                    console.log('props', modalProps)
                                     await executeMutation({ id: modalProps.postId });
                                     setModal(false);
                                     setLoading(false);

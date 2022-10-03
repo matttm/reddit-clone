@@ -5,7 +5,7 @@ import {VariantsEnum} from '../types';
 import {useCreatePostMutation} from '../generated/graphql';
 import * as Yup from 'yup';
 import {useRouter} from 'next/router';
-import PostForm from "../components/posts/PostForm";
+import PostForm from "../components/forms/PostForm";
 
 export const CreatePost: React.FC<any> = ({}) => {
     const router = useRouter();
