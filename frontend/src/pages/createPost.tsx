@@ -1,11 +1,11 @@
 import React from 'react';
 import {Formik} from 'formik';
 import Wrapper from '../components/utilities/Wrapper';
-import {VariantsEnum} from '../types';
 import {useCreatePostMutation} from '../generated/graphql';
 import * as Yup from 'yup';
 import {useRouter} from 'next/router';
 import PostForm from "../components/forms/PostForm";
+import {VariantsEnum} from "../constants/variant.constant";
 
 export const CreatePost: React.FC<any> = ({}) => {
     const router = useRouter();

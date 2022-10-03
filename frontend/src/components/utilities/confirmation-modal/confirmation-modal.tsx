@@ -7,7 +7,7 @@ import {useContext} from "react";
 import {Exact} from "../../../generated/graphql";
 import {UseMutationResponse} from "urql";
 import {ModalContext} from "../../../context/ModalContext";
-import {VariantsEnum} from "../../../types";
+import {VariantsEnum} from "../../../constants/variant.constant";
 
 export function withConfirmationModal(Component: React.FC, useMutationFn: () => UseMutationResponse<any, Exact<any>>): React.FC<any> {
     return (props) => {

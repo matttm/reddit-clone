@@ -1,7 +1,6 @@
 import React, {useContext} from 'react';
 import {Formik} from 'formik';
 import Wrapper from '../components/utilities/Wrapper';
-import {VariantsEnum} from '../types';
 import {useLoginMutation} from '../generated/graphql';
 import * as Yup from 'yup';
 import {passwordValidation, usernameValidation} from '../validation/credentials.validation';
@@ -9,6 +8,7 @@ import {useRouter} from 'next/router';
 import {setToken} from '../services/authentication.service';
 import {GlobalContext} from "../context/GlobalContext";
 import UserForm from "../components/forms/UserForm";
+import {VariantsEnum} from "../constants/variant.constant";
 
 interface loginProps {
 }

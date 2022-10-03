@@ -1,7 +1,6 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
 import Wrapper from '../components/utilities/Wrapper';
-import { VariantsEnum } from '../types';
 import { InputField } from '../components/utilities/InpurField';
 import { Button } from '@chakra-ui/core';
 import * as Yup from 'yup';
@@ -12,6 +11,7 @@ import {
 import { Router, useRouter } from 'next/router';
 import { useRegisterMutation } from '../generated/graphql';
 import UserForm from "../components/forms/UserForm";
+import {VariantsEnum} from "../constants/variant.constant";
 
 interface registerProps {}
 
