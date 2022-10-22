@@ -2,7 +2,6 @@ import React, {useContext, useEffect, useState,} from "react";
 import { GlobalContext } from "./GlobalContext";
 import {Person, useIsAuthenticatedQuery} from "../generated/graphql";
 import {useRouter} from "next/router";
-import {createModalServiceSingleton, ModalService} from "../services/modal.service";
 
 export const GlobalContextProvider: React.FC<any> = ({
                                                         auth: {
