@@ -1,6 +1,11 @@
 import React from "react";
 import {Flex, Text} from "@chakra-ui/core";
 
+/**
+ * The content of modal when deleting post
+ *
+ * @constructor
+ */
 const DeletePost: React.FC<any> = ({ }) => {
     return (
         <Flex textAlign={'center'}>

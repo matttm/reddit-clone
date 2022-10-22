@@ -16,6 +16,15 @@ type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
     inputTypeString?: string;
 };
 
+/**
+ * Generic input field
+ *
+ * @param label
+ * @param inputTypeString
+ * @param _
+ * @param props
+ * @constructor
+ */
 export const InputField: React.FC<InputFieldProps> = ({
     label,
     inputTypeString,

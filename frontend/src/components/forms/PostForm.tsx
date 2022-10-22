@@ -4,6 +4,13 @@ import {InputField} from "../utilities/InpurField";
 import {Button} from "@chakra-ui/core";
 import {InputTypeEnum} from "../../constants/input-type.constant";
 
+/**
+ * A general form for a post
+ *
+ * @param buttonText
+ * @param isSubmitting
+ * @constructor
+ */
 const PostForm: React.FC<any>= ({ buttonText, isSubmitting }) => {
     return (
         <>
