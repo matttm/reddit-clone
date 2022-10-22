@@ -1,6 +1,15 @@
 import React from 'react';
 import { Flex, Text } from '@chakra-ui/core';
 
+/**
+ * A standardized post item
+ *
+ * @param id a post id
+ * @param title the post title
+ * @param createdAt when post was made
+ * @param person post author
+ * @constructor
+ */
 const Post: React.FC<any> = ({ id, title, createdAt, person }) => {
     return (
         <Flex bg={'#252531'} padding={'10px'} direction={'column'}>

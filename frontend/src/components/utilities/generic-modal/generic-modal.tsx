@@ -5,6 +5,12 @@ import React, {useContext} from "react";
 import {ModalContext} from "../../../context/ModalContext";
 import {getModalSelection} from "../../../services/modal.service";
 
+/**
+ * A generic modal
+ *
+ * @param children
+ * @constructor
+ */
 const GenericModal: React.FC<any> = ({ children }) => {
     const { isModalOpen, setModal, modalComponent, modalProps } = useContext(ModalContext);
     const content = isModalOpen

@@ -5,6 +5,12 @@ import { Container } from '../utilities/Container';
 import NavItem from './NavItem';
 import Logo from './Logo';
 
+/**
+ * The main nav bar, housing essential links
+ *
+ * @param props
+ * @constructor
+ */
 export const Navbar: React.FC<any> = props => {
     return (
         <Container w="15%">

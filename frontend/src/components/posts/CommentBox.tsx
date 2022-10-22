@@ -5,6 +5,11 @@ import { Formik } from 'formik';
 import {GlobalContext} from "../../context/GlobalContext";
 import {InputTypeEnum} from "../../constants/input-type.constant";
 
+/**
+ * A text field and comment button for a user to comment on a post
+ *
+ * @constructor
+ */
 const CommentBox: React.FC<any> = () => {
     const { isAuthenticated } = useContext(GlobalContext);
     if (!isAuthenticated) {

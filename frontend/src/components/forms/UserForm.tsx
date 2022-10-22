@@ -3,7 +3,13 @@ import {Form} from "formik";
 import {InputField} from "../utilities/InpurField";
 import {Button} from "@chakra-ui/core";
 
-
+/**
+ * A general form for a user (login and register)
+ *
+ * @param isSubmitting
+ * @param buttonText
+ * @constructor
+ */
 const UserForm: React.FC<any> = ({ isSubmitting, buttonText }) => {
     return (
         <Form>

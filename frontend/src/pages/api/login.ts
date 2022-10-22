@@ -1,7 +1,12 @@
-import {LoginDocument, MutationLoginArgs} from "../../generated/graphql";
 import fetch from 'node-fetch';
 import cookie from "cookie";
 
+/**
+ * Handler for logging in
+ *
+ * @param req
+ * @param res
+ */
 export default async function handler(req: any, res: any) {
     const{ username, password } = req.body;
     try {

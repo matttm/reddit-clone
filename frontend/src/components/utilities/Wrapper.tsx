@@ -6,6 +6,13 @@ interface wrapperProps {
     variant?: 'small' | 'regular';
 }
 
+/**
+ * A wrapper for a consistent look
+ *
+ * @param children
+ * @param variant
+ * @constructor
+ */
 export const Wrapper: React.FC<wrapperProps> = ({
     children,
     variant = VariantsEnum.small.description

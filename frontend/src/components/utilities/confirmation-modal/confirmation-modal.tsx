@@ -9,6 +9,12 @@ import {UseMutationResponse} from "urql";
 import {ModalContext} from "../../../context/ModalContext";
 import {VariantsEnum} from "../../../constants/variant.constant";
 
+/**
+ * A higher order component that encapsulates an existing component in a modal
+ *
+ * @param Component component to be put in a modal
+ * @param useMutationFn the mutation for submission
+ */
 export function withConfirmationModal(Component: React.FC, useMutationFn: () => UseMutationResponse<any, Exact<any>>): React.FC<any> {
     return (props) => {
         const { setLoading, loading } = useContext(GlobalContext);

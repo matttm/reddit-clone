@@ -5,6 +5,12 @@ import {Person} from "../../generated/graphql";
 import {useRouter} from "next/router";
 import {destroyAuthInfo} from "../../services/authentication.service";
 
+/**
+ * A section of the navbar that displays a Login link when
+ * not logged in, and a Logout link otherwise
+ *
+ * @constructor
+ */
 const AuthNav: React.FC<any> = () => {
     const router = useRouter();
     const { person, isAuthenticated, setIsAuthenticated, setPerson } = useContext(GlobalContext);

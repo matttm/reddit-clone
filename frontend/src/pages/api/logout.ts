@@ -1,5 +1,11 @@
 import cookie from "cookie";
 
+/**
+ * Handler for logout
+ *
+ * @param req
+ * @param res
+ */
 export default async function handler(req: any, res: any) {
     try {
         res.setHeader('Set-Cookie', cookie.serialize('TOKEN_KEY', '', {
