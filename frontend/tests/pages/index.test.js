@@ -1,4 +1,4 @@
-import Home from "../src/pages/index";
+import Home from "../../src/pages";
 import "@testing-library/jest-dom";
 import { fireEvent, render, screen } from "@testing-library/react";
 
