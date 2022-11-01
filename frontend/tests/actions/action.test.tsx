@@ -13,7 +13,7 @@ describe("Action", () => {
         // check if all components are rendered
         expect(screen.queryByText("Children")).toBeInTheDocument();
     });
-    it("execute csllback on click", () => {
+    it("execute callback on click", () => {
         const fn = jest.fn();
         const wrapper = render(
             <Action action={fn}>
