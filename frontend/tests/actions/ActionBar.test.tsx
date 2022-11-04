@@ -4,15 +4,7 @@ import "@testing-library/jest-dom";
 import {Simulate} from "react-dom/test-utils";
 import {GlobalContext} from "../../src/context/GlobalContext";
 import AuthAction from "../../src/components/actions/AuthAction";
-
-const MockGlobalContext = {
-    person: null,
-    isAuthenticated: false,
-    loading: true,
-    setLoading: () => {},
-    setIsAuthenticated: () => {},
-    setPerson: () => {}
-};
+import {MockGlobalContext} from "../mocks/GlobalContext.mock";
 
 describe("ActionBar", () => {
     it("render display lock if unauthorized", () => {
@@ -22,5 +14,13 @@ describe("ActionBar", () => {
             </GlobalContext.Provider>
         );
         expect(screen.getByTitle("lock-icon")).toBeInTheDocument();
+    });
+    it("render not display lock if authorized", () => {
+        render(
+            <GlobalContext.Provider value={{ ...MockGlobalContext, isAuthenticated: true }}>
+                <AuthAction></AuthAction>
+            </GlobalContext.Provider>
+        );
+        expect(() => screen.getByTitle("lock-icon")).toThrow();
     });
 });
