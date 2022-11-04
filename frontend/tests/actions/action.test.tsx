@@ -1,4 +1,4 @@
-import {render, screen} from "@testing-library/react";
+import {fireEvent, render, screen} from "@testing-library/react";
 import Action from "../../src/components/actions/Action";
 import "@testing-library/jest-dom";
 import {Simulate} from "react-dom/test-utils";
@@ -20,7 +20,7 @@ describe("Action", () => {
                 Children
             </Action>
         );
-        Simulate.click(wrapper.container.getElementsByTagName(Action.name)[0]);
+        fireEvent.click(screen.getByText("Children"));
         // check if all components are rendered
         expect(fn).toHaveBeenCalled();
     });
