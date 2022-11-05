@@ -6,7 +6,7 @@ import {GlobalContext} from "../../src/context/GlobalContext";
 import AuthAction from "../../src/components/actions/AuthAction";
 import {MockGlobalContext} from "../mocks/GlobalContext.mock";
 
-describe("ActionBar", () => {
+describe("AuthAction", () => {
     it("render display lock if unauthorized", () => {
         render(
             <GlobalContext.Provider value={{ ...MockGlobalContext, isAuthenticated: false }}>
