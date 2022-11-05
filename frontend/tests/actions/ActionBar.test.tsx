@@ -10,7 +10,6 @@ import {ModalContextProvider} from "../../src/context/ModalContextProvider";
 
 describe("ActionBar", () => {
     it("render display two locks if unauthorized", () => {
-        const getById = queryByAttribute.bind(null, 'id');
         const setModal = jest.fn();
         const dom = render(
             <GlobalContext.Provider value={{ ...MockGlobalContext, isAuthenticated: false }}>
@@ -19,8 +18,12 @@ describe("ActionBar", () => {
                 </ModalContextProvider>
             </GlobalContext.Provider>
         );
-        expect(getById(dom.container, 'edit-action')).toBeInTheDocument();
-        expect(getById(dom.container, 'delete-action')).toBeInTheDocument();
+        const trash = dom.container.querySelector('#delete-action');
+        const edit = dom.container.querySelector('#edit-action');
+        expect(trash).toBeTruthy();
+        expect(edit).toBeTruthy();
+        expect(trash).toBeInTheDocument();
+        expect(edit).toBeInTheDocument();
         expect(screen.getAllByTitle("lock-icon").length).toBe(2);
     });
 });
