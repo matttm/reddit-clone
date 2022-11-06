@@ -1,15 +1,15 @@
 import {fireEvent, queryByAttribute, render, screen} from "@testing-library/react";
-import Action from "../../src/components/actions/Action";
+import Action from "../../../src/components/actions/Action";
 import "@testing-library/jest-dom";
 import {Simulate} from "react-dom/test-utils";
-import {GlobalContext} from "../../src/context/GlobalContext";
-import AuthAction from "../../src/components/actions/AuthAction";
-import {MockGlobalContext} from "../mocks/GlobalContext.mock";
-import ActionBar from "../../src/components/actions/ActionBar";
-import {ModalContextProvider} from "../../src/context/ModalContextProvider";
+import {GlobalContext} from "../../../src/context/GlobalContext";
+import AuthAction from "../../../src/components/actions/AuthAction";
+import {MockGlobalContext} from "../../mocks/GlobalContext.mock";
+import ActionBar from "../../../src/components/actions/ActionBar";
+import {ModalContextProvider} from "../../../src/context/ModalContextProvider";
 import {afterEach} from "@jest/globals";
-import {ModalContext} from "../../src/context/ModalContext";
-import {MockModalContext} from "../mocks/ModalContext.mock";
+import {ModalContext} from "../../../src/context/ModalContext";
+import {MockModalContext} from "../../mocks/ModalContext.mock";
 
 const routerMock = {
     route: '/',
