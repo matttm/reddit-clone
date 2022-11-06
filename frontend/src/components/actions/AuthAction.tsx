@@ -23,7 +23,7 @@ const AuthAction: React.FC<any> = ({ creatorId, action, children }) => {
     ) : (
         <>
             <Action>
-                <FontAwesomeIcon icon={faLock}/>
+                <FontAwesomeIcon title='lock-icon' icon={faLock}/>
             </Action>
         </>
     );

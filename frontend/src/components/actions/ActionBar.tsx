@@ -20,16 +20,20 @@ const ActionBar: React.FC<any> = ({ creatorId, postId }) => {
     const { setModal } = useContext(ModalContext);
     return (
         <Flex direction={'row'} justifyContent={'flex-end'}>
-            <AuthAction action={() => {
-                router.push(`/editPost?id=${postId}`);
-            }} creatorId={creatorId}>
-                <FontAwesomeIcon icon={faPencil}></FontAwesomeIcon>
-            </AuthAction>
-            <AuthAction action={() => {
-                setModal(true, MODAL_COMPONENTS.DeleteComponent, { postId  });
-            }} creatorId={creatorId}>
-                <FontAwesomeIcon icon={faTrashCan}></FontAwesomeIcon>
-            </AuthAction>
+            <div id={'edit-action'}>
+                <AuthAction action={() => {
+                    router.push(`/editPost?id=${postId}`);
+                }} creatorId={creatorId}>
+                    <FontAwesomeIcon id={'edit-icon'} icon={faPencil}></FontAwesomeIcon>
+                </AuthAction>
+            </div>
+            <div id={'delete-action'} >
+                <AuthAction action={() => {
+                    setModal(true, MODAL_COMPONENTS.DeleteComponent, { postId  });
+                }} creatorId={creatorId}>
+                    <FontAwesomeIcon id={'delete-icon'} icon={faTrashCan}></FontAwesomeIcon>
+                </AuthAction>
+            </div>
         </Flex>
     );
 };
