@@ -8,34 +8,36 @@ import {MockGlobalContext} from "../mocks/GlobalContext.mock";
 import ActionBar from "../../src/components/actions/ActionBar";
 import {ModalContextProvider} from "../../src/context/ModalContextProvider";
 import {afterEach} from "@jest/globals";
+import {ModalContext} from "../../src/context/ModalContext";
+import {MockModalContext} from "../mocks/ModalContext.mock";
 
-// const routerMock = {
-//     route: '/',
-//     pathname: '',
-//     query: '',
-//     asPath: '',
-//     push: jest.fn(() => {
-//         console.log('pushing mock')
-//     }),
-//     events: {
-//         on: jest.fn(),
-//         off: jest.fn()
-//     },
-//     beforePopState: jest.fn(() => null),
-//     prefetch: jest.fn(() => null)
-// };
-//
-// jest.mock('next/router', () => ({
-//     useRouter() {
-//         console.log('using mock')
-//         return routerMock;
-//     },
-// }));
+const routerMock = {
+    route: '/',
+    pathname: '',
+    query: '',
+    asPath: '',
+    push: jest.fn(() => {
+        console.log('pushing mock')
+    }),
+    events: {
+        on: jest.fn(),
+        off: jest.fn()
+    },
+    beforePopState: jest.fn(() => null),
+    prefetch: jest.fn(() => null)
+};
+
+jest.mock('next/router', () => ({
+    useRouter() {
+        console.log('using mock')
+        return routerMock;
+    },
+}));
 describe("ActionBar", () => {
     describe('when unauthorized', () => {
-        // afterEach(() => {
-        //     jest.restoreAllMocks();
-        // })
+        afterEach(() => {
+            jest.restoreAllMocks();
+        })
         it("render display two locks", () => {
             const setModal = jest.fn();
             const dom = render(
@@ -58,14 +60,14 @@ describe("ActionBar", () => {
         const setModal = jest.fn(() => console.log('click'));
         const html = (
             <GlobalContext.Provider value={{ ...MockGlobalContext, isAuthenticated: true }}>
-                <ModalContextProvider value={{ setModal }}>
+                <ModalContext.Provider value={{ ...MockModalContext, setModal }}>
                     <ActionBar />
-                </ModalContextProvider>
+                </ModalContext.Provider>
             </GlobalContext.Provider>
         );
-        // afterEach(() => {
-        //     jest.restoreAllMocks();
-        // })
+        afterEach(() => {
+            jest.restoreAllMocks();
+        })
         it("render display icons", () => {
             const dom = render(html);
             let trash = dom.container.querySelector('#delete-action');
@@ -84,20 +86,20 @@ describe("ActionBar", () => {
         });
         it("call setModal on delete click", () => {
             const dom = render(html);
-            const trash = dom.container.querySelector('#delete-action');
+            const trash = dom.container.querySelector('#delete-icon');
             expect(trash).toBeTruthy();
             expect(trash).toBeInTheDocument();
             fireEvent.click(trash as Element);
-            console.log('dom', dom.debug())
+            console.log('trash', trash, 'dom', dom.debug())
             expect(setModal).toHaveBeenCalled();
         });
-        // it("call route on edit click", () => {
-        //     const dom = render(html);
-        //     const edit = dom.container.querySelector('#edit-icon');
-        //     expect(edit).toBeTruthy();
-        //     expect(edit).toBeInTheDocument();
-        //     fireEvent.click(edit as Element);
-        //     expect(routerMock.push).toHaveBeenCalled();
-        // });
+        it("call route on edit click", () => {
+            const dom = render(html);
+            const edit = dom.container.querySelector('#edit-icon');
+            expect(edit).toBeTruthy();
+            expect(edit).toBeInTheDocument();
+            fireEvent.click(edit as Element);
+            expect(routerMock.push).toHaveBeenCalled();
+        });
     })
 });
