@@ -14,6 +14,7 @@ const NavItem: React.FC<any> = props => {
     const active = router.pathname === navTo;
     return (
         <Box
+            className={'navitem-container'}
             border={active ? '1px' : 0}
             borderBottomColor={'white'}
             padding={'2px'}>
