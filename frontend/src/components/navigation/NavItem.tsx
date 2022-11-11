@@ -17,7 +17,7 @@ const NavItem: React.FC<any> = props => {
             border={active ? '1px' : 0}
             borderBottomColor={'white'}
             padding={'2px'}>
-            <Link href={navTo} color={'white'} onClick={onClick}>
+            <Link className={'navitem-link'} href={navTo} color={'white'} onClick={onClick}>
                 {props.children}
             </Link>
         </Box>

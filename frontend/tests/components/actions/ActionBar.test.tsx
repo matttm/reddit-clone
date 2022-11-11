@@ -10,29 +10,15 @@ import {ModalContextProvider} from "../../../src/context/ModalContextProvider";
 import {afterEach} from "@jest/globals";
 import {ModalContext} from "../../../src/context/ModalContext";
 import {MockModalContext} from "../../mocks/ModalContext.mock";
+import {RouterMock} from "../../mocks/Router.mock";
 
-const routerMock = {
-    route: '/',
-    pathname: '',
-    query: '',
-    asPath: '',
-    push: jest.fn(() => {
-        console.log('pushing mock')
-    }),
-    events: {
-        on: jest.fn(),
-        off: jest.fn()
-    },
-    beforePopState: jest.fn(() => null),
-    prefetch: jest.fn(() => null)
-};
-
+const routerMock = {...RouterMock };
 jest.mock('next/router', () => ({
     useRouter() {
-        console.log('using mock')
         return routerMock;
     },
 }));
+
 describe("ActionBar", () => {
     describe('when unauthorized', () => {
         afterEach(() => {
