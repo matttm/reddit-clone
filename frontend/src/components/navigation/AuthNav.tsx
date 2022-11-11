@@ -29,14 +29,14 @@ const AuthNav: React.FC<any> = () => {
     };
     return isAuthenticated ? (
         <>
-            <NavItem onClick={() => logout()}>
+            <NavItem id={'logout-nav-item'} onClick={() => logout()}>
                 Logout
             </NavItem>
         </>
     ) : (
         <>
-            <NavItem navTo={'/login'}>Login</NavItem>
-            <NavItem navTo={'/register'}>Register</NavItem>
+            <NavItem id={'login-nav-item'} navTo={'/login'}>Login</NavItem>
+            <NavItem id={'register-nav-item'} navTo={'/register'}>Register</NavItem>
         </>
     );
 };
