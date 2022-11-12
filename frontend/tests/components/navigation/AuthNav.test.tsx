@@ -8,6 +8,7 @@ import {GlobalContext} from "../../../src/context/GlobalContext";
 import {MockGlobalContext} from "../../mocks/GlobalContext.mock";
 import AuthAction from "../../../src/components/actions/AuthAction";
 import AuthNav from "../../../src/components/navigation/AuthNav";
+import {getByText} from "@testing-library/dom";
 
 const routerMock = { ...RouterMock };
 jest.mock('next/router', () => ({
@@ -21,16 +22,20 @@ describe("AuthNav", () => {
         jest.resetModules();
     });
     describe('when logged in', () => {
-        it('should display logout only', () => {
+        it('should display logout only and route on click', () => {
             const dom = render(
                 <GlobalContext.Provider value={{ ...MockGlobalContext, isAuthenticated: true }}>
                     <AuthNav />
                 </GlobalContext.Provider>
             );
             const container = dom.container;
-            expect(container.querySelector('#logout-nav-item')).toBeTruthy();
-            expect(container.querySelector('#login-nav-item')).toBeFalsy();
-            expect(container.querySelector('#register-nav-item')).toBeFalsy();
+            dom.debug()
+            expect(() => getByText(container, 'Logout')).not.toThrow();
+            expect(() => getByText(container, 'Login')).toThrow();
+            expect(() => getByText(container, 'Register')).toThrow();
+            fireEvent.click(getByText(container, 'Logout'));
+            expect(routerMock.push).toHaveBeenCalledWith('/');
+
         });
 
     })
