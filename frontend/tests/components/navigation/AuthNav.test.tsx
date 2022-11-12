@@ -18,13 +18,20 @@ jest.mock('next/router', () => ({
 }));
 
 describe("AuthNav", () => {
-    afterEach(() => {
-        jest.resetModules();
-    });
     describe('when logged in', () => {
+        afterEach(() => {
+            jest.restoreAllMocks();
+        });
         it('should display logout only and route on click', () => {
+            const contextMock = { ...MockGlobalContext, isAuthenticated: true };
+            // @ts-ignore
+            global.fetch = jest.fn(() =>
+                Promise.resolve({
+                    json: () => Promise.resolve({ rates: { CAD: 1.42 } }),
+                })
+            );
             const dom = render(
-                <GlobalContext.Provider value={{ ...MockGlobalContext, isAuthenticated: true }}>
+                <GlobalContext.Provider value={contextMock}>
                     <AuthNav />
                 </GlobalContext.Provider>
             );
@@ -35,7 +42,15 @@ describe("AuthNav", () => {
             expect(() => getByText(container, 'Register')).toThrow();
             fireEvent.click(getByText(container, 'Logout'));
             expect(routerMock.push).toHaveBeenCalledWith('/');
-
+            expect(contextMock.setPerson).toHaveBeenCalled();
+            expect(contextMock.setIsAuthenticated).toHaveBeenCalled();
+            expect(global.fetch).toHaveBeenCalledWith('/api/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }
+            });
         });
 
     })
