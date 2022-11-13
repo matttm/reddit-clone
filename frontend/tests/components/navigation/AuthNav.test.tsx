@@ -1,14 +1,13 @@
 import "@testing-library/jest-dom";
-import {fireEvent, render, screen} from "@testing-library/react";
-import NavItem from "../../../src/components/navigation/NavItem";
+import {fireEvent, render} from "@testing-library/react";
 import {RouterMock} from "../../mocks/Router.mock";
 import {afterEach} from "@jest/globals";
 import React from "react";
 import {GlobalContext} from "../../../src/context/GlobalContext";
 import {MockGlobalContext} from "../../mocks/GlobalContext.mock";
-import AuthAction from "../../../src/components/actions/AuthAction";
 import AuthNav from "../../../src/components/navigation/AuthNav";
 import {getByText} from "@testing-library/dom";
+import {useRouter} from "next/router";
 
 const routerMock = { ...RouterMock };
 jest.mock('next/router', () => ({
@@ -20,14 +19,16 @@ jest.mock('next/router', () => ({
 describe("AuthNav", () => {
     describe('when logged in', () => {
         afterEach(() => {
+            jest.resetAllMocks();
             jest.restoreAllMocks();
         });
         it('should display logout only and route on click', () => {
             const contextMock = { ...MockGlobalContext, isAuthenticated: true };
+            // jest.mock('../../../src/context/GlobalContext', () => contextMock);
             // @ts-ignore
             global.fetch = jest.fn(() =>
                 Promise.resolve({
-                    json: () => Promise.resolve({ rates: { CAD: 1.42 } }),
+                    json: () => Promise.resolve({}),
                 })
             );
             const dom = render(
@@ -35,13 +36,13 @@ describe("AuthNav", () => {
                     <AuthNav />
                 </GlobalContext.Provider>
             );
+            const router = useRouter();
             const container = dom.container;
-            dom.debug()
             expect(() => getByText(container, 'Logout')).not.toThrow();
             expect(() => getByText(container, 'Login')).toThrow();
             expect(() => getByText(container, 'Register')).toThrow();
             fireEvent.click(getByText(container, 'Logout'));
-            expect(routerMock.push).toHaveBeenCalledWith('/');
+            expect(router.push).toHaveBeenCalledWith('/');
             expect(contextMock.setPerson).toHaveBeenCalled();
             expect(contextMock.setIsAuthenticated).toHaveBeenCalled();
             expect(global.fetch).toHaveBeenCalledWith('/api/logout', {
@@ -52,6 +53,5 @@ describe("AuthNav", () => {
                 }
             });
         });
-
-    })
+    });
 });

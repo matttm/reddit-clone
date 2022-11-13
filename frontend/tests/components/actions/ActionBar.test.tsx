@@ -1,9 +1,6 @@
-import {fireEvent, queryByAttribute, render, screen} from "@testing-library/react";
-import Action from "../../../src/components/actions/Action";
+import {fireEvent, render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
-import {Simulate} from "react-dom/test-utils";
 import {GlobalContext} from "../../../src/context/GlobalContext";
-import AuthAction from "../../../src/components/actions/AuthAction";
 import {MockGlobalContext} from "../../mocks/GlobalContext.mock";
 import ActionBar from "../../../src/components/actions/ActionBar";
 import {ModalContextProvider} from "../../../src/context/ModalContextProvider";
@@ -76,7 +73,6 @@ describe("ActionBar", () => {
             expect(trash).toBeTruthy();
             expect(trash).toBeInTheDocument();
             fireEvent.click(trash as Element);
-            console.log('trash', trash, 'dom', dom.debug())
             expect(setModal).toHaveBeenCalled();
         });
         it("call route on edit click", () => {
