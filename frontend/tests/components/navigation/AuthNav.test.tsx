@@ -16,14 +16,10 @@ jest.mock('next/router', () => ({
 }));
 describe("AuthNav", () => {
     describe('when logged in', () => {
-
         beforeEach(() => {
-            jest.useFakeTimers();
+            jest.restoreAllMocks();
         });
-        afterEach(() => {
-            jest.useRealTimers();
-        });
-        it('should display logout only and route on click', async () => {
+        it('should display logout only, and set auth and route on click', async () => {
             const contextMock = { ...MockGlobalContext, isAuthenticated: true };
             // @ts-ignore
             global.fetch = jest.fn(() =>
@@ -53,6 +49,23 @@ describe("AuthNav", () => {
                 expect(contextMock.setIsAuthenticated).toHaveBeenCalled();
                 expect(routerMock.push).toHaveBeenCalledWith('/');
             });
+        });
+    });
+    describe('when logged out', () => {
+        beforeEach(() => {
+            jest.restoreAllMocks();
+        });
+        it('should display logout only, and set auth and route on click', () => {
+            const contextMock = { ...MockGlobalContext, isAuthenticated: false };
+            const dom = render(
+                <GlobalContext.Provider value={contextMock}>
+                    <AuthNav />
+                </GlobalContext.Provider>
+            );
+            const container = dom.container;
+            expect(() => getByText(container, 'Logout')).toThrow();
+            expect(() => getByText(container, 'Login')).not.toThrow();
+            expect(() => getByText(container, 'Register')).not.toThrow();
         });
     });
 });
