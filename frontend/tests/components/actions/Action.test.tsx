@@ -1,5 +1,5 @@
 import {fireEvent, render, screen} from "@testing-library/react";
-import Action from "../../src/components/actions/Action";
+import Action from "../../../src/components/actions/Action";
 import "@testing-library/jest-dom";
 import {Simulate} from "react-dom/test-utils";
 

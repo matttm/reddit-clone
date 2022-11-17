@@ -1,38 +1,21 @@
-import {fireEvent, queryByAttribute, render, screen} from "@testing-library/react";
-import Action from "../../src/components/actions/Action";
+import {fireEvent, render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
-import {Simulate} from "react-dom/test-utils";
-import {GlobalContext} from "../../src/context/GlobalContext";
-import AuthAction from "../../src/components/actions/AuthAction";
-import {MockGlobalContext} from "../mocks/GlobalContext.mock";
-import ActionBar from "../../src/components/actions/ActionBar";
-import {ModalContextProvider} from "../../src/context/ModalContextProvider";
+import {GlobalContext} from "../../../src/context/GlobalContext";
+import {MockGlobalContext} from "../../mocks/GlobalContext.mock";
+import ActionBar from "../../../src/components/actions/ActionBar";
+import {ModalContextProvider} from "../../../src/context/ModalContextProvider";
 import {afterEach} from "@jest/globals";
-import {ModalContext} from "../../src/context/ModalContext";
-import {MockModalContext} from "../mocks/ModalContext.mock";
+import {ModalContext} from "../../../src/context/ModalContext";
+import {MockModalContext} from "../../mocks/ModalContext.mock";
+import {RouterMock} from "../../mocks/Router.mock";
 
-const routerMock = {
-    route: '/',
-    pathname: '',
-    query: '',
-    asPath: '',
-    push: jest.fn(() => {
-        console.log('pushing mock')
-    }),
-    events: {
-        on: jest.fn(),
-        off: jest.fn()
-    },
-    beforePopState: jest.fn(() => null),
-    prefetch: jest.fn(() => null)
-};
-
+const routerMock = {...RouterMock };
 jest.mock('next/router', () => ({
     useRouter() {
-        console.log('using mock')
         return routerMock;
     },
 }));
+
 describe("ActionBar", () => {
     describe('when unauthorized', () => {
         afterEach(() => {
@@ -90,7 +73,6 @@ describe("ActionBar", () => {
             expect(trash).toBeTruthy();
             expect(trash).toBeInTheDocument();
             fireEvent.click(trash as Element);
-            console.log('trash', trash, 'dom', dom.debug())
             expect(setModal).toHaveBeenCalled();
         });
         it("call route on edit click", () => {
