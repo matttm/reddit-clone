@@ -30,7 +30,7 @@ describe("Post", () => {
         expect(() => getByText(container, `Created by ${person.username} at ${date}`)).not.toThrow();
         expect(() => getByText(container, title)).not.toThrow();
     });
-    it('should display id, title, date, author', async () => {
+    it('should have hred to post details', async () => {
         const dom = render(
             <Post id={id} title={title} createdAt={date} person={person} />
         );
