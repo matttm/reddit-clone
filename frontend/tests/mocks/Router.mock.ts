@@ -4,9 +4,7 @@ export const RouterMock = {
     pathname: '',
     query: '',
     asPath: '',
-    push: jest.fn((e) => {
-        console.log('pushing mock', e)
-    }),
+    push: jest.fn((e) => {}),
     events: {
         on: jest.fn(),
         off: jest.fn()
