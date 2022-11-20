@@ -21,7 +21,6 @@ describe("CommentBox", () => {
         );
         it('should have an input field', () => {
             const dom = render(html);
-            dom.debug()
             expect(dom.container.querySelector('textarea')).toBeInTheDocument();
             expect(() => dom.getByText('Comment')).not.toThrow();
             expect(() => dom.getByText('You must have an account to comment.')).toThrow();
@@ -37,7 +36,6 @@ describe("CommentBox", () => {
         );
         it('should not have an input field', () => {
             const dom = render(html);
-            dom.debug()
             expect(dom.container.querySelector('textarea')).not.toBeInTheDocument();
             expect(() => dom.getByText('Comment')).toThrow();
             expect(() => dom.getByText('You must have an account to comment.')).not.toThrow();
