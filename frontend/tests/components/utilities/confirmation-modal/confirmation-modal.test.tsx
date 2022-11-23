@@ -4,23 +4,29 @@ import {getByText} from "@testing-library/dom";
 import {render} from "@testing-library/react";
 import {GlobalContext} from "../../../../src/context/GlobalContext";
 import {ModalContext} from "../../../../src/context/ModalContext";
-import {Text} from "@chakra-ui/core";
+import {Text, ThemeProvider} from "@chakra-ui/core";
 import {withConfirmationModal} from "../../../../src/components/utilities/confirmation-modal/confirmation-modal";
 import {MockGlobalContext} from "../../../mocks/GlobalContext.mock";
 import {MockModalContext} from "../../../mocks/ModalContext.mock";
 
 describe("ConfirmationModal", () => {
-    const dummyContent = () => <Text>DUmmy</Text>;
-    const fake = jest.fn();
-    const dummyComponent = withConfirmationModal(dummyContent, fake);
+    const dummyContent = () => <Text>Dummy</Text>;
+    const mutationFake = jest.fn();
+    const useMutationFake = jest.fn(() => [
+        null,
+        mutationFake
+    ]) as any;
+    const DummyComponent = withConfirmationModal(dummyContent, useMutationFake);
     it('should', () => {
         const html = (
-            <GlobalContext.Provider value={{...MockGlobalContext}} >
-                <ModalContext.Provider value={{...MockModalContext}} >
-
-                </ModalContext.Provider>
-            </GlobalContext.Provider>
+            <ThemeProvider>
+                <GlobalContext.Provider value={{...MockGlobalContext}} >
+                    <ModalContext.Provider value={{...MockModalContext}} >
+                        <DummyComponent></DummyComponent>
+                    </ModalContext.Provider>
+                </GlobalContext.Provider>
+            </ThemeProvider>
         )
-        expect(() => render(html).getByText('The Clone')).not.toThrow();
+        expect(() => render(html).getByText('Dummy')).not.toThrow();
     })
 });
