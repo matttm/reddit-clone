@@ -12,12 +12,6 @@ import {beforeEach} from "@jest/globals";
 import {awaitExpression} from "@babel/types";
 import {RouterMock} from "../../../mocks/Router.mock";
 
-const routerMock = { ...RouterMock };
-jest.mock('next/router', () => ({
-    Router: {
-        ...routerMock
-    },
-}));
 describe("ConfirmationModal", () => {
     const dummyContent = () => <Text>Dummy</Text>;
     const mutationFake = jest.fn(() => Promise.resolve());
