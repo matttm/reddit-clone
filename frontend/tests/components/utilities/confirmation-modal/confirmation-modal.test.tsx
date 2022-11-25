@@ -13,7 +13,7 @@ import {awaitExpression} from "@babel/types";
 
 describe("ConfirmationModal", () => {
     const dummyContent = () => <Text>Dummy</Text>;
-    const mutationFake = jest.fn();
+    const mutationFake = jest.fn(() => Promise.resolve());
     const useMutationFake = jest.fn(() => [
         null,
         mutationFake
@@ -41,6 +41,7 @@ describe("ConfirmationModal", () => {
     });
     it('should call mutation on click', async () => {
         expect(() => dom.getByText('Dummy')).not.toThrow();
+        expect(() => dom.getByText('Confirm')).not.toThrow();
         fireEvent.click(dom.getByText('Confirm'));
         await waitFor(() => {
             expect(mutationFake).toHaveBeenCalled();

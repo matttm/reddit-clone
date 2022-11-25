@@ -3,7 +3,7 @@
 export const MockGlobalContext = {
     person: null,
     isAuthenticated: false,
-    loading: true,
+    loading: false,
     setLoading: jest.fn(),
     setIsAuthenticated: jest.fn(),
     setPerson: jest.fn()

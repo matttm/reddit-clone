@@ -31,6 +31,7 @@ export function withConfirmationModal(Component: React.FC, useMutationFn: () => 
                             <Button
                                 marginTop={8}
                                 onClick={async (values) => {
+                                    console.log('gettin clicked')
                                     setLoading(true);
                                     await executeMutation({ id: modalProps.postId });
                                     setModal(false);
