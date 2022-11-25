@@ -48,7 +48,7 @@ export function withConfirmationModal(Component: React.FC, useMutationFn: () => 
                                 onClick={() => setModal(false)}
                                 isDisabled={loading}
                                 variantColor="gray">
-                                Close
+                                Cancel
                             </Button>
                         </Flex>
                     </Flex>

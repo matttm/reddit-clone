@@ -10,7 +10,14 @@ import {MockGlobalContext} from "../../../mocks/GlobalContext.mock";
 import {MockModalContext} from "../../../mocks/ModalContext.mock";
 import {beforeEach} from "@jest/globals";
 import {awaitExpression} from "@babel/types";
+import {RouterMock} from "../../../mocks/Router.mock";
 
+const routerMock = { ...RouterMock };
+jest.mock('next/router', () => ({
+    Router: {
+        ...routerMock
+    },
+}));
 describe("ConfirmationModal", () => {
     const dummyContent = () => <Text>Dummy</Text>;
     const mutationFake = jest.fn(() => Promise.resolve());
@@ -45,6 +52,16 @@ describe("ConfirmationModal", () => {
         fireEvent.click(dom.getByText('Confirm'));
         await waitFor(() => {
             expect(mutationFake).toHaveBeenCalled();
+            expect(MockGlobalContext.setLoading).toHaveBeenCalledTimes(2);
+            expect(MockModalContext.setModal).toHaveBeenCalled();
+        });
+    });
+    it('should close modal on cancel click', async () => {
+        expect(() => dom.getByText('Dummy')).not.toThrow();
+        expect(() => dom.getByText('Cancel')).not.toThrow();
+        fireEvent.click(dom.getByText('Cancel'));
+        await waitFor(() => {
+            expect(MockModalContext.setModal).toHaveBeenCalled();
         });
     });
 });
