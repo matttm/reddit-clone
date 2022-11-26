@@ -10,7 +10,7 @@ jobs:
     # Necessary to generate the coverage report.
     # Make sure to add 'json-summary' to the coverageReporters in jest options
     - name: Tests
-      run: npm run test-ci
+      run: npm --prefix frontend run test-ci
     [...]
     - name: Generating coverage badges
       uses: jpb06/jest-badges-action@latest
