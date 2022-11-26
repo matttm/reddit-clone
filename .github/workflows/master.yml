@@ -13,9 +13,7 @@ jobs:
       run: npm --prefix frontend run test-ci
     - name: Generating coverage badges
       uses: jpb06/jest-badges-action@latest
-      on:
-        - push:
-          branches:
-            - master
-            - peprod
-            - staging
+      branches:
+        - master
+        - peprod
+        - staging
