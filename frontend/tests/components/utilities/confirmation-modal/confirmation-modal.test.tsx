@@ -1,6 +1,5 @@
-
 import "@testing-library/jest-dom";
-import {getByText, waitFor} from "@testing-library/dom";
+import {waitFor} from "@testing-library/dom";
 import {fireEvent, render, RenderResult} from "@testing-library/react";
 import {GlobalContext} from "../../../../src/context/GlobalContext";
 import {ModalContext} from "../../../../src/context/ModalContext";
@@ -9,8 +8,6 @@ import {withConfirmationModal} from "../../../../src/components/utilities/confir
 import {MockGlobalContext} from "../../../mocks/GlobalContext.mock";
 import {MockModalContext} from "../../../mocks/ModalContext.mock";
 import {beforeEach} from "@jest/globals";
-import {awaitExpression} from "@babel/types";
-import {RouterMock} from "../../../mocks/Router.mock";
 
 describe("ConfirmationModal", () => {
     const dummyContent = () => <Text>Dummy</Text>;
