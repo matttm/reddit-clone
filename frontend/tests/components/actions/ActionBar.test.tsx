@@ -40,7 +40,7 @@ describe("ActionBar", () => {
         });
     });
     describe('when authorized', () => {
-        const setModal = jest.fn(() => console.log('click'));
+        const setModal = jest.fn();
         const html = (
             <GlobalContext.Provider value={{ ...MockGlobalContext, isAuthenticated: true }}>
                 <ModalContext.Provider value={{ ...MockModalContext, setModal }}>

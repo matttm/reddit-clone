@@ -48,7 +48,6 @@ const Login: React.FC<loginProps> = ({}) => {
                 const data = (await res.json())?.login;
                 const token = data?.token;
                 const person = data?.person;
-                console.log('login', data)
                 setToken(token);
                 setIsAuthenticated(token !== '');
                 setPerson(person);

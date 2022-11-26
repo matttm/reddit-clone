@@ -4,5 +4,5 @@ export const MockModalContext = {
     isModalOpen: false,
     modalComponent: 'none',
     modalProps: {},
-    setModal: () => null
+    setModal: jest.fn()
 };
