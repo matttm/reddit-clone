@@ -26,14 +26,17 @@ describe("Register", () => {
         expect(screen.getByText("Register")).toBeInTheDocument();
         expect(graphql.useRegisterMutation).toHaveBeenCalled();
     });
-    it('should execute mutation on valid input', () => {
+    it('should execute mutation on valid input', async () => {
         const dom = render(html);
-        fireEvent.change(dom.getByLabelText('Username'), { target: { value: 'matttm' } } );
-        fireEvent.change(dom.getByLabelText('Password'), { target: { value: 'password' } } );
+        // @ts-ignore
+        fireEvent.change(dom.container.querySelector('#username'), { target: { value: 'matttm' } } );
+        // @ts-ignore
+        fireEvent.change(dom.container.querySelector('#password'), { target: { value: 'password' } } );
         fireEvent.click(dom.getByText('Register'));
-        waitFor(() => {
+        await waitFor(() => {
             // @ts-ignore
             // TODO fix false positive
+            dom.debug();
             expect(graphql.execute).not.toHaveBeenCalled();
         })
     })
