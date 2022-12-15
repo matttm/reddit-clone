@@ -14,7 +14,7 @@ jest.mock('next/router', () => ({
         return routerMock;
     },
 }));
-const execute = jest.fn(() => Promise.resolve({}));
+const execute = jest.fn(() => Promise.resolve({ data: { register: {} }}));
 jest.mock('../../src/generated/graphql', () => {
     return {
         useRegisterMutation: jest.fn(() => [null, execute])
@@ -37,20 +37,21 @@ describe("Register", () => {
         expect(graphql.useRegisterMutation).toHaveBeenCalled();
     });
     it('should execute mutation on valid input', async () => {
-        const dom = render(html);
+        let dom = render(html);
 
-        await waitFor(() => {
-            // @ts-ignore
-            fireEvent.change(dom.container.querySelector('#username'), {target: {value: 'matttm'}});
-            // @ts-ignore
-            fireEvent.change(dom.container.querySelector('#password'), {target: {value: 'password'}});
+        // test throws 'act' error if I don't await it,
+        // even though it does not return a promise
+        await act(() => {
+            fireEvent.change(dom.getByLabelText('Username'), { target: { value: 'matttm' } } );
+            fireEvent.change(dom.getByLabelText('Password'), { target: { value: 'password' } } );
         });
-        await waitFor(() => {
+        await act(() => {
             fireEvent.click(dom.getByText('Register'));
         });
+
         await waitFor(() => {
-            expect(execute).not.toHaveBeenCalled();
-            expect(routerMock.push).not.toHaveBeenCalled();
+            expect(execute).toHaveBeenCalled();
+            expect(routerMock.push).toHaveBeenCalled();
         });
     })
 });
