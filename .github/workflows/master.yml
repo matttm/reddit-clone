@@ -1,12 +1,11 @@
 name: CI pipeline
 on:
-  push:
+  pull_request:
     branches:
       - master
-      - peprod
-      - staging
 jobs:
-  coverage:
+  build:
+    name: Build and test
     runs-on: ubuntu-latest
     steps:
     # Necessary to push the generated badges to the repo
@@ -16,10 +15,27 @@ jobs:
     - name: Install
       run: npm --prefix frontend ci
       
+    - name: Build
+      run: npm run build --if-present
+      
     - name: Tests
       run: npm --prefix frontend run test:cov
       
-    - name: Generating coverage badges
-      uses: jpb06/jest-badges-action@latest
-      with:
-        coverage-summary-path: ./frontend/coverage/coverage-summary.json
+#   coverage:
+#     name: Generate coverage report
+#     runs-on: ubuntu-latest
+#     steps:
+#     # Necessary to push the generated badges to the repo
+#     - name: Check out repository code
+#       uses: actions/checkout@v3
+      
+#     - name: Install
+#       run: npm --prefix frontend ci
+      
+#     - name: Tests
+#       run: npm --prefix frontend run test:cov
+      
+#     - name: Generating coverage badges
+#       uses: jpb06/jest-badges-action@latest
+#       with:
+#         coverage-summary-path: ./frontend/coverage/coverage-summary.json
