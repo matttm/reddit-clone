@@ -2,11 +2,11 @@ import Home from "../../src/pages";
 import "@testing-library/jest-dom";
 import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
 import Register from "../../src/pages/register";
-import {ThemeProvider} from "@chakra-ui/core";
 import * as graphql from '../../src/generated/graphql';
 import {wait} from "next/dist/build/output/log";
 import {RouterMock} from "../mocks/Router.mock";
 import {beforeEach} from "@jest/globals";
+import {ChakraProvider, ThemeProvider} from "@chakra-ui/react";
 
 const routerMock = { ...RouterMock };
 jest.mock('next/router', () => ({
@@ -23,9 +23,9 @@ jest.mock('../../src/generated/graphql', () => {
 
 describe("Register", () => {
     const html = (
-        <ThemeProvider>
+        <ChakraProvider>
             <Register />
-        </ThemeProvider>
+        </ChakraProvider>
     );
     beforeEach(() => {
         jest.restoreAllMocks();

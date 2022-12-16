@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import { InputField } from '../utilities/InpurField';
-import { Button, Flex, Text } from '@chakra-ui/core';
+import { Button, Flex, Text } from '@chakra-ui/react';
 import { Formik } from 'formik';
 import {GlobalContext} from "../../context/GlobalContext";
 import {InputTypeEnum} from "../../constants/input-type.constant";
@@ -38,7 +38,7 @@ const CommentBox: React.FC<any> = () => {
                         label={'Post a comment'}
                         placeholder="..."
                         inputTypeString={InputTypeEnum.TEXTAREA}></InputField>
-                    <Button marginTop={8} type="submit" variantColor="green">
+                    <Button marginTop={8} type="submit">
                         Comment
                     </Button>
                 </form>

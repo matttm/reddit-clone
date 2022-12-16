@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Link } from '@chakra-ui/core';
+import { Box, Link } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
 /**

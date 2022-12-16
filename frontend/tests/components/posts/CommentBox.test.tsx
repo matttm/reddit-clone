@@ -5,7 +5,7 @@ import {GlobalContext} from "../../../src/context/GlobalContext";
 import {MockGlobalContext} from "../../mocks/GlobalContext.mock";
 import CommentBox from "../../../src/components/posts/CommentBox";
 import {render} from "@testing-library/react";
-import {ThemeProvider} from "@chakra-ui/core";
+import {ThemeProvider} from '@chakra-ui/react';
 
 describe("CommentBox", () => {
     beforeEach(() => {

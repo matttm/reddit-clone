@@ -1,4 +1,4 @@
-import {ColorModeProvider, CSSReset, Flex, ThemeProvider} from '@chakra-ui/core';
+import {ChakraProvider, ColorModeProvider, CSSReset, Flex, ThemeProvider} from '@chakra-ui/react';
 import theme from '../theme';
 import {Provider} from 'urql';
 import React from 'react';
@@ -23,7 +23,7 @@ function MyApp({
     return (
         <>
             <Provider value={client}>
-                <ThemeProvider theme={theme}>
+                <ChakraProvider theme={theme}>
                     <ColorModeProvider value="dark">
                         <CSSReset/>
                         <GlobalContextProvider auth={{...auth}}>
@@ -43,7 +43,7 @@ function MyApp({
                             </ModalContextProvider>
                         </GlobalContextProvider>
                     </ColorModeProvider>
-                </ThemeProvider>
+                </ChakraProvider>
             </Provider>
         </>
     );

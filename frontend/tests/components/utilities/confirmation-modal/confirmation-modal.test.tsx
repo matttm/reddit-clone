@@ -3,7 +3,7 @@ import {waitFor} from "@testing-library/dom";
 import {fireEvent, render, RenderResult} from "@testing-library/react";
 import {GlobalContext} from "../../../../src/context/GlobalContext";
 import {ModalContext} from "../../../../src/context/ModalContext";
-import {Text, ThemeProvider} from "@chakra-ui/core";
+import {Text, ThemeProvider} from '@chakra-ui/react';
 import {withConfirmationModal} from "../../../../src/components/utilities/confirmation-modal/confirmation-modal";
 import {MockGlobalContext} from "../../../mocks/GlobalContext.mock";
 import {MockModalContext} from "../../../mocks/ModalContext.mock";

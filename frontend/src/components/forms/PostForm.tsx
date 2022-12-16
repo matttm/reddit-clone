@@ -1,7 +1,7 @@
 import React from "react";
 import {Form} from "formik";
 import {InputField} from "../utilities/InpurField";
-import {Button} from "@chakra-ui/core";
+import {Button} from '@chakra-ui/react';
 import {InputTypeEnum} from "../../constants/input-type.constant";
 
 /**
@@ -31,7 +31,7 @@ const PostForm: React.FC<any>= ({ buttonText, isSubmitting }) => {
                     marginTop={8}
                     type="submit"
                     isLoading={isSubmitting}
-                    variantColor="green">
+                >
                     {buttonText}
                 </Button>
             </Form>

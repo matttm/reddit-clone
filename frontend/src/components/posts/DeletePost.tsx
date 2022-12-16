@@ -1,5 +1,5 @@
 import React from "react";
-import {Flex, Text} from "@chakra-ui/core";
+import {Flex, Text} from '@chakra-ui/react';
 
 /**
  * The content of modal when deleting post
