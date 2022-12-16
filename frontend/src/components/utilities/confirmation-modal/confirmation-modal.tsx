@@ -2,7 +2,7 @@ import {GlobalContext} from "../../../context/GlobalContext";
 import Wrapper from "../Wrapper";
 import {Form, Formik} from "formik";
 import Router from "next/router";
-import {Button, Flex} from "@chakra-ui/core";
+import {Button, Flex} from '@chakra-ui/react';
 import {useContext} from "react";
 import {Exact} from "../../../generated/graphql";
 import {UseMutationResponse} from "urql";
@@ -40,14 +40,14 @@ export function withConfirmationModal(Component: React.FC, useMutationFn: () => 
                                     return values;
                                 }}
                                 isDisabled={loading}
-                                variantColor="green">
+                            >
                                 Confirm
                             </Button>
                             <Button
                                 marginTop={8}
                                 onClick={() => setModal(false)}
                                 isDisabled={loading}
-                                variantColor="gray">
+                            >
                                 Cancel
                             </Button>
                         </Flex>

@@ -1,4 +1,4 @@
-import {Flex} from '@chakra-ui/core';
+import {Flex} from '@chakra-ui/react';
 import AuthAction from './AuthAction';
 import React, {useContext} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';

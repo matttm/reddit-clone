@@ -1,7 +1,7 @@
 import React from 'react';
 import { useGetPostsQuery } from '../../generated/graphql';
 import Post from '../../components/posts/Post';
-import { List, ListItem } from '@chakra-ui/core';
+import { List, ListItem } from '@chakra-ui/react';
 
 export const Index: React.FC<any> = () => {
     const [result, reexecuteQuery] = useGetPostsQuery();

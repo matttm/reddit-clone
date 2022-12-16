@@ -3,7 +3,7 @@ import {waitFor} from "@testing-library/dom";
 import {fireEvent, render, RenderResult} from "@testing-library/react";
 import {GlobalContext} from "../../../../src/context/GlobalContext";
 import {ModalContext} from "../../../../src/context/ModalContext";
-import {Text, ThemeProvider} from "@chakra-ui/core";
+import {ChakraProvider, Text, ThemeProvider} from '@chakra-ui/react';
 import {withConfirmationModal} from "../../../../src/components/utilities/confirmation-modal/confirmation-modal";
 import {MockGlobalContext} from "../../../mocks/GlobalContext.mock";
 import {MockModalContext} from "../../../mocks/ModalContext.mock";
@@ -18,13 +18,13 @@ describe("ConfirmationModal", () => {
     ]) as any;
     const DummyComponent = withConfirmationModal(dummyContent, useMutationFake);
     const html = (
-        <ThemeProvider>
+        <ChakraProvider>
             <GlobalContext.Provider value={{...MockGlobalContext}}>
                 <ModalContext.Provider value={{...MockModalContext}}>
                     <DummyComponent></DummyComponent>
                 </ModalContext.Provider>
             </GlobalContext.Provider>
-        </ThemeProvider>
+        </ChakraProvider>
     );
     let dom: RenderResult<typeof import("@testing-library/dom/types/queries"), HTMLElement, HTMLElement>;
     beforeEach(() => {

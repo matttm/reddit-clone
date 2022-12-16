@@ -1,7 +1,7 @@
 import React from "react";
 import {Form} from "formik";
 import {InputField} from "../utilities/InpurField";
-import {Button} from "@chakra-ui/core";
+import {Button} from '@chakra-ui/react';
 
 /**
  * A general form for a user (login and register)
@@ -27,7 +27,6 @@ const UserForm: React.FC<any> = ({ isSubmitting, buttonText }) => {
                 marginTop={8}
                 type="submit"
                 isLoading={isSubmitting}
-                variantColor="green"
             >
                 {buttonText}
             </Button>

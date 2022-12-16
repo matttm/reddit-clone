@@ -5,7 +5,7 @@ import {GlobalContext} from "../../../src/context/GlobalContext";
 import {MockGlobalContext} from "../../mocks/GlobalContext.mock";
 import CommentBox from "../../../src/components/posts/CommentBox";
 import {render} from "@testing-library/react";
-import {ThemeProvider} from "@chakra-ui/core";
+import {ChakraProvider, ThemeProvider} from '@chakra-ui/react';
 
 describe("CommentBox", () => {
     beforeEach(() => {
@@ -13,11 +13,11 @@ describe("CommentBox", () => {
     });
     describe('when logged in', () => {
         const html = (
-            <ThemeProvider>
+            <ChakraProvider>
                 <GlobalContext.Provider value={{...MockGlobalContext, isAuthenticated: true }}>
                     <CommentBox />
                 </GlobalContext.Provider>
-            </ThemeProvider>
+            </ChakraProvider>
         );
         it('should have an input field', () => {
             const dom = render(html);
@@ -28,11 +28,11 @@ describe("CommentBox", () => {
     });
     describe('when not logged in', () => {
         const html = (
-            <ThemeProvider>
+            <ChakraProvider>
                 <GlobalContext.Provider value={{...MockGlobalContext, isAuthenticated: false }}>
                     <CommentBox />
                 </GlobalContext.Provider>
-            </ThemeProvider>
+            </ChakraProvider>
         );
         it('should not have an input field', () => {
             const dom = render(html);

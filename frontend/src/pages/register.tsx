@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Formik } from 'formik';
 import Wrapper from '../components/utilities/Wrapper';
 import { InputField } from '../components/utilities/InpurField';
-import { Button } from '@chakra-ui/core';
+import { Button } from '@chakra-ui/react';
 import * as Yup from 'yup';
 import {
     passwordValidation,

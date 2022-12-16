@@ -6,8 +6,8 @@ import {
     Input,
     FormErrorMessage,
     Textarea,
-    InputProps
-} from '@chakra-ui/core';
+    InputProps, ComponentWithAs
+} from '@chakra-ui/react';
 import {InputTypeEnum} from "../../constants/input-type.constant";
 
 type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
@@ -31,7 +31,7 @@ export const InputField: React.FC<InputFieldProps> = ({
     size: _,
     ...props
 }) => {
-    let InputType: React.FC<InputProps>;
+    let InputType: ComponentWithAs<any>;
     switch (inputTypeString) {
         case InputTypeEnum.INPUT:
             InputType = Input;
