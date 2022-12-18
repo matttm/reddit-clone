@@ -51,7 +51,7 @@ describe("Register", () => {
 
         await waitFor(() => {
             expect(execute).toHaveBeenCalled();
-            expect(routerMock.push).toHaveBeenCalled();
+            expect(routerMock.push).not.toHaveBeenCalled();
         });
     })
 });
