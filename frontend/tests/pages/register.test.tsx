@@ -17,7 +17,7 @@ jest.mock('next/router', () => ({
 const execute = jest.fn(() => Promise.resolve({ data: { register: {} }}));
 jest.mock('../../src/generated/graphql', () => {
     return {
-        useloginMutation: jest.fn(() => [null, execute])
+        useRegisterMutation: jest.fn(() => [null, execute])
     }
 });
 
@@ -34,7 +34,7 @@ describe("Register", () => {
         render(html);
         // check if all components are rendered
         expect(screen.getByText("Register")).toBeInTheDocument();
-        expect(graphql.useLoginMutation).toHaveBeenCalled();
+        expect(graphql.useRegisterMutation).toHaveBeenCalled();
     });
     describe('when valid input', () => {
         it('should execute mutation on valid input', async () => {
