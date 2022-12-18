@@ -17,7 +17,7 @@ jest.mock('next/router', () => ({
 const execute = jest.fn(() => Promise.resolve({ data: { register: {} }}));
 jest.mock('../../src/generated/graphql', () => {
     return {
-        useRegisterMutation: jest.fn(() => [null, execute])
+        useloginMutation: jest.fn(() => [null, execute])
     }
 });
 
@@ -34,24 +34,46 @@ describe("Register", () => {
         render(html);
         // check if all components are rendered
         expect(screen.getByText("Register")).toBeInTheDocument();
-        expect(graphql.useRegisterMutation).toHaveBeenCalled();
+        expect(graphql.useLoginMutation).toHaveBeenCalled();
     });
-    it('should execute mutation on valid input', async () => {
-        let dom = render(html);
+    describe('when valid input', () => {
+        it('should execute mutation on valid input', async () => {
+            let dom = render(html);
 
-        // test throws 'act' error if I don't await it,
-        // even though it does not return a promise
-        await act(() => {
-            fireEvent.change(dom.getByLabelText('Username'), { target: { value: 'matttm' } } );
-            fireEvent.change(dom.getByLabelText('Password'), { target: { value: 'password' } } );
-        });
-        await act(() => {
-            fireEvent.click(dom.getByText('Register'));
-        });
+            // test throws 'act' error if I don't await it,
+            // even though it does not return a promise
+            await act(() => {
+                fireEvent.change(dom.getByLabelText('Username'), {target: {value: 'matttm'}});
+                fireEvent.change(dom.getByLabelText('Password'), {target: {value: 'password'}});
+            });
+            await act(() => {
+                fireEvent.click(dom.getByText('Register'));
+            });
 
-        await waitFor(() => {
-            expect(execute).toHaveBeenCalled();
-            expect(routerMock.push).toHaveBeenCalled();
+            await waitFor(() => {
+                expect(execute).toHaveBeenCalled();
+                expect(routerMock.push).toHaveBeenCalled();
+            });
         });
+    });
+    describe('when invalid input', () => {
+        it('should execute mutation on valid input', async () => {
+            let dom = render(html);
+
+            // test throws 'act' error if I don't await it,
+            // even though it does not return a promise
+            await act(() => {
+                fireEvent.change(dom.getByLabelText('Username'), { target: { value: '' } } );
+                fireEvent.change(dom.getByLabelText('Password'), { target: { value: '' } } );
+            });
+            await act(() => {
+                fireEvent.click(dom.getByText('Register'));
+            });
+
+            await waitFor(() => {
+                expect(execute).not.toHaveBeenCalled();
+                expect(routerMock.push).not.toHaveBeenCalled();
+            });
+        })
     })
 });
