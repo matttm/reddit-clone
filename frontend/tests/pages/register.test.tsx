@@ -37,6 +37,9 @@ describe("Register", () => {
         expect(graphql.useRegisterMutation).toHaveBeenCalled();
     });
     describe('when valid input', () => {
+        beforeEach(() => {
+            jest.restoreAllMocks();
+        })
         it('should execute mutation on valid input', async () => {
             let dom = render(html);
 
@@ -57,9 +60,14 @@ describe("Register", () => {
         });
     });
     describe('when invalid input', () => {
+        beforeEach(() => {
+            jest.restoreAllMocks();
+        })
         it('should execute mutation on valid input', async () => {
             let dom = render(html);
 
+            // double-check everything is being reset
+            expect(execute).not.toHaveBeenCalled();
             // test throws 'act' error if I don't await it,
             // even though it does not return a promise
             await act(() => {
