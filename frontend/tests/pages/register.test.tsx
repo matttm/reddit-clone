@@ -28,7 +28,7 @@ describe("Register", () => {
         </ChakraProvider>
     );
     beforeEach(() => {
-        jest.restoreAllMocks();
+        jest.clearAllMocks();
     })
     it("render Home text", () => {
         render(html);
@@ -38,7 +38,7 @@ describe("Register", () => {
     });
     describe('when valid input', () => {
         beforeEach(() => {
-            jest.restoreAllMocks();
+            jest.clearAllMocks();
         })
         it('should execute mutation on valid input', async () => {
             let dom = render(html);
@@ -61,7 +61,7 @@ describe("Register", () => {
     });
     describe('when invalid input', () => {
         beforeEach(() => {
-            jest.restoreAllMocks();
+            jest.clearAllMocks();
         })
         it('should execute mutation on valid input', async () => {
             let dom = render(html);
