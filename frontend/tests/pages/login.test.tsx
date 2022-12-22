@@ -15,12 +15,6 @@ jest.mock('next/router', () => ({
         return routerMock;
     },
 }));
-const execute = jest.fn(() => Promise.resolve({ data: { login: {} }}));
-jest.mock('../../src/generated/graphql', () => {
-    return {
-        useLoginMutation: jest.fn(() => [null, execute])
-    }
-});
 
 describe("Login", () => {
     const html = (
@@ -29,15 +23,17 @@ describe("Login", () => {
         </ChakraProvider>
     );
     beforeEach(() => {
-        jest.restoreAllMocks();
+        jest.clearAllMocks();
     })
     it("render Home text", () => {
         render(html);
         // check if all components are rendered
         expect(screen.getByText("Login")).toBeInTheDocument();
-        expect(graphql.useLoginMutation).toHaveBeenCalled();
     });
     describe('when valid input', () => {
+        beforeEach(() => {
+            jest.clearAllMocks();
+        })
         it('should execute mutation on valid input', async () => {
             let dom = render(html);
 
@@ -52,12 +48,14 @@ describe("Login", () => {
             });
 
             await waitFor(() => {
-                expect(execute).toHaveBeenCalled();
                 expect(routerMock.push).toHaveBeenCalled();
             });
         });
     });
     describe('when invalid input', () => {
+        beforeEach(() => {
+            jest.clearAllMocks();
+        })
         it('should execute mutation on valid input', async () => {
             let dom = render(html);
 
@@ -72,7 +70,6 @@ describe("Login", () => {
             });
 
             await waitFor(() => {
-                expect(execute).not.toHaveBeenCalled();
                 expect(routerMock.push).not.toHaveBeenCalled();
             });
         })
