@@ -13,9 +13,10 @@ jest.mock('next/router', () => ({
         return routerMock;
     },
 }));
-const fetchSpy = jest.spyOn(global, 'fetch').mockReturnValue(Promise.resolve({
+
+global.fetch = jest.fn(() => Promise.resolve({
     json: () => Promise.resolve({ login: {} })
-}) as Promise<Response>)
+}) as Promise<Response>);
 
 describe("Login", () => {
     const html = (
@@ -51,6 +52,9 @@ describe("Login", () => {
             });
 
             await waitFor(() => {
+                expect(global.fetch).toHaveBeenCalled();
+                expect(MockGlobalContext.setIsAuthenticated).toHaveBeenCalled();
+                expect(MockGlobalContext.setPerson).toHaveBeenCalled();
                 expect(routerMock.push).toHaveBeenCalled();
             });
         });
@@ -73,6 +77,9 @@ describe("Login", () => {
             });
 
             await waitFor(() => {
+                expect(global.fetch).not.toHaveBeenCalled();
+                expect(MockGlobalContext.setIsAuthenticated).not.toHaveBeenCalled();
+                expect(MockGlobalContext.setPerson).not.toHaveBeenCalled();
                 expect(routerMock.push).not.toHaveBeenCalled();
             });
         })
