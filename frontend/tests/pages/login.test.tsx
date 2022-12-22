@@ -1,13 +1,11 @@
-import Home from "../../src/pages";
 import "@testing-library/jest-dom";
 import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
-import Register from "../../src/pages/register";
-import * as graphql from '../../src/generated/graphql';
-import {wait} from "next/dist/build/output/log";
 import {RouterMock} from "../mocks/Router.mock";
 import {beforeEach} from "@jest/globals";
-import {ChakraProvider, ThemeProvider} from "@chakra-ui/react";
+import {ChakraProvider} from "@chakra-ui/react";
 import Login from "../../src/pages/login";
+import {GlobalContext} from "../../src/context/GlobalContext";
+import {MockGlobalContext} from "../mocks/GlobalContext.mock";
 
 const routerMock = { ...RouterMock };
 jest.mock('next/router', () => ({
@@ -15,12 +13,17 @@ jest.mock('next/router', () => ({
         return routerMock;
     },
 }));
+const fetchSpy = jest.spyOn(global, 'fetch').mockReturnValue(Promise.resolve({
+    json: () => Promise.resolve({ login: {} })
+}) as Promise<Response>)
 
 describe("Login", () => {
     const html = (
-        <ChakraProvider>
-            <Login />
-        </ChakraProvider>
+        <GlobalContext.Provider value={MockGlobalContext}>
+            <ChakraProvider>
+                <Login />
+            </ChakraProvider>
+        </GlobalContext.Provider>
     );
     beforeEach(() => {
         jest.clearAllMocks();
