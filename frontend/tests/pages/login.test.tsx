@@ -1,12 +1,11 @@
-import Home from "../../src/pages";
 import "@testing-library/jest-dom";
 import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
-import Register from "../../src/pages/register";
-import * as graphql from '../../src/generated/graphql';
-import {wait} from "next/dist/build/output/log";
 import {RouterMock} from "../mocks/Router.mock";
 import {beforeEach} from "@jest/globals";
-import {ChakraProvider, ThemeProvider} from "@chakra-ui/react";
+import {ChakraProvider} from "@chakra-ui/react";
+import Login from "../../src/pages/login";
+import {GlobalContext} from "../../src/context/GlobalContext";
+import {MockGlobalContext} from "../mocks/GlobalContext.mock";
 
 const routerMock = { ...RouterMock };
 jest.mock('next/router', () => ({
@@ -14,18 +13,18 @@ jest.mock('next/router', () => ({
         return routerMock;
     },
 }));
-const execute = jest.fn(() => Promise.resolve({ data: { register: {} }}));
-jest.mock('../../src/generated/graphql', () => {
-    return {
-        useRegisterMutation: jest.fn(() => [null, execute])
-    }
-});
 
-describe("Register", () => {
+global.fetch = jest.fn(() => Promise.resolve({
+    json: () => Promise.resolve({ login: {} })
+}) as Promise<Response>);
+
+describe("Login", () => {
     const html = (
-        <ChakraProvider>
-            <Register />
-        </ChakraProvider>
+        <GlobalContext.Provider value={MockGlobalContext}>
+            <ChakraProvider>
+                <Login />
+            </ChakraProvider>
+        </GlobalContext.Provider>
     );
     beforeEach(() => {
         jest.clearAllMocks();
@@ -33,8 +32,7 @@ describe("Register", () => {
     it("render Home text", () => {
         render(html);
         // check if all components are rendered
-        expect(screen.getByText("Register")).toBeInTheDocument();
-        expect(graphql.useRegisterMutation).toHaveBeenCalled();
+        expect(screen.getByText("Login")).toBeInTheDocument();
     });
     describe('when valid input', () => {
         beforeEach(() => {
@@ -50,11 +48,13 @@ describe("Register", () => {
                 fireEvent.change(dom.getByLabelText('Password'), {target: {value: 'password'}});
             });
             await act(() => {
-                fireEvent.click(dom.getByText('Register'));
+                fireEvent.click(dom.getByText('Login'));
             });
 
             await waitFor(() => {
-                expect(execute).toHaveBeenCalled();
+                expect(global.fetch).toHaveBeenCalled();
+                expect(MockGlobalContext.setIsAuthenticated).toHaveBeenCalled();
+                expect(MockGlobalContext.setPerson).toHaveBeenCalled();
                 expect(routerMock.push).toHaveBeenCalled();
             });
         });
@@ -66,8 +66,6 @@ describe("Register", () => {
         it('should execute mutation on valid input', async () => {
             let dom = render(html);
 
-            // double-check everything is being reset
-            expect(execute).not.toHaveBeenCalled();
             // test throws 'act' error if I don't await it,
             // even though it does not return a promise
             await act(() => {
@@ -75,11 +73,13 @@ describe("Register", () => {
                 fireEvent.change(dom.getByLabelText('Password'), { target: { value: '' } } );
             });
             await act(() => {
-                fireEvent.click(dom.getByText('Register'));
+                fireEvent.click(dom.getByText('Login'));
             });
 
             await waitFor(() => {
-                expect(execute).not.toHaveBeenCalled();
+                expect(global.fetch).not.toHaveBeenCalled();
+                expect(MockGlobalContext.setIsAuthenticated).not.toHaveBeenCalled();
+                expect(MockGlobalContext.setPerson).not.toHaveBeenCalled();
                 expect(routerMock.push).not.toHaveBeenCalled();
             });
         })
