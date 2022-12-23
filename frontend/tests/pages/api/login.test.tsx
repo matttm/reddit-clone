@@ -2,8 +2,11 @@ import {beforeEach} from "@jest/globals";
 import {MockResponse} from "../../mocks/Response.mock";
 import handler from "../../../src/pages/api/login";
 
-const fetch = jest.fn();
-global.fetch = fetch;
+var fetch = jest.fn();
+jest.mock('node-fetch', () => ({
+    _esModule: true,
+    default: fetch
+}))
 describe('api/login', () => {
     beforeEach(() => {
         jest.clearAllMocks();
