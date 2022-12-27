@@ -1,10 +1,13 @@
 
-export const MockResponse = {
-    _status: 0,
-    status: (s: number) => {
-        // @ts-ignore
-        this._status = s;
-        return this;
-    },
-    json: () => this
+export const MockResponse = function() {
+    const self =  ({
+        _status: 0,
+        status: (s: number) => {
+            self._status = s;
+            return self;
+        },
+        json: () => self
+    });
+    return self;
 }
+

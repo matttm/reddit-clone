@@ -1,12 +1,13 @@
+
+var fetch = jest.fn();
+jest.mock('node-fetch', () => ({
+    __esModule: true,
+    default: () => fetch
+}));
 import {beforeEach} from "@jest/globals";
 import {MockResponse} from "../../mocks/Response.mock";
 import handler from "../../../src/pages/api/login";
 
-var fetch = jest.fn();
-jest.mock('node-fetch', () => ({
-    _esModule: true,
-    default: fetch
-}))
 describe('api/login', () => {
     beforeEach(() => {
         jest.clearAllMocks();
@@ -16,7 +17,7 @@ describe('api/login', () => {
         const password = 'password';
         fetch.mockReturnValue(Promise.resolve());
         const req = { body: { username, password } };
-        const res = await handler(req, Object.create(MockResponse));
+        const res = await handler(req, MockResponse());
         expect(fetch).toHaveBeenCalledWith('http://localhost:8080/query', {
             method: 'POST',
             headers: {
