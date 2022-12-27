@@ -6,7 +6,8 @@ export const MockResponse = function() {
             self._status = s;
             return self;
         },
-        json: () => self
+        json: () => self,
+        setHeader: jest.fn()
     });
     return self;
 }
