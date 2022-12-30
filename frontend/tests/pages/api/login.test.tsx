@@ -50,7 +50,7 @@ describe('api/login', () => {
         expect(res).toBeTruthy();
         expect(res._status).toBe(200);
     });
-    it('should make a fetch, set cookie, return result', async () => {
+    it('should throw', async () => {
         (fetch as any).mockReturnValue(Promise.reject());
         const _res = MockResponse();
         const res = await handler(req, _res).catch((r) => {
