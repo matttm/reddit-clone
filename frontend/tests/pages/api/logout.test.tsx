@@ -17,7 +17,7 @@ describe('api/logout', () => {
         expect(res).toBeTruthy();
         expect(res._status).toBe(200);
     });
-    it('should make a fetch, set cookie, return result', async () => {
+    it('should throw', async () => {
         const _res = MockResponse();
         const res = await handler(req, _res).catch((r) => {
             expect(r._status).toBe(500);
